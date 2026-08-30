@@ -945,6 +945,36 @@ IMPORTANT RULES:
     };
   }, []);
 
+  // ===== WebView repaint nudge (defensive) =====
+  // Some in-app browsers (WhatsApp/Instagram/Telegram/etc. embedded WebViews)
+  // fail to repaint a composited layer — like the hero or a card — after it
+  // scrolls off screen and back on. The DOM and canvas underneath are fine;
+  // the GPU layer just doesn't redraw itself. A one-frame visibility toggle
+  // when the element re-enters view forces the browser to recompute that
+  // layer, which fixes it. The flash is a single frame and not visible.
+  useEffect(() => {
+    const targets = document.querySelectorAll('.hero, .card, .journey-card');
+    if (!targets.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            el.style.visibility = 'hidden';
+            requestAnimationFrame(() => {
+              el.style.visibility = '';
+            });
+          }
+        });
+      },
+      { threshold: 0.01 }
+    );
+
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   function goToProject(id) {
     const el = document.getElementById(id);
     if (!el) return;
