@@ -361,6 +361,13 @@ export default function App() {
   const [showDiagramGallery, setShowDiagramGallery] = useState(false);
   const [diagramItems, setDiagramItems] = useState([]);
 
+  // ===== Hero heading typewriter effect =====
+  const HERO_LINE1 = 'Malik Ahmad builds';
+  const HERO_LINE2_PLAIN = 'things that ';
+  const HERO_LINE2_GRAD = 'work end-to-end.';
+  const HERO_TYPE_TOTAL = HERO_LINE1.length + HERO_LINE2_PLAIN.length + HERO_LINE2_GRAD.length;
+  const [typedCount, setTypedCount] = useState(0);
+
   // Apply theme SYNC before paint (fixes hero/sections showing wrong theme colors)
   useLayoutEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -371,6 +378,33 @@ export default function App() {
   function toggleTheme() {
     setTheme(theme === 'light' ? 'dark' : 'light');
   }
+
+  // Types out the hero heading on load, like it's being handwritten.
+  // Respects prefers-reduced-motion (shows full text instantly for those users).
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      setTypedCount(HERO_TYPE_TOTAL);
+      return;
+    }
+
+    let i = 0;
+    let typingInterval = null;
+    const TYPE_SPEED_MS = 38;
+
+    const startDelay = setTimeout(() => {
+      typingInterval = setInterval(() => {
+        i += 1;
+        setTypedCount(i);
+        if (i >= HERO_TYPE_TOTAL) clearInterval(typingInterval);
+      }, TYPE_SPEED_MS);
+    }, 250); // brief pause before typing starts, feels more natural
+
+    return () => {
+      clearTimeout(startDelay);
+      if (typingInterval) clearInterval(typingInterval);
+    };
+  }, []);
 
   // ===== OPEN LIGHTBOX =====
   function openLightbox(src, title, downloadUrl) {
@@ -1048,7 +1082,15 @@ IMPORTANT RULES:
         <canvas ref={heroCanvasRef} id="heroCanvas"></canvas>
         <div className="hero-copy">
           <div className="eyebrow">Open to full-stack &amp; support roles · Pune</div>
-          <h1>Malik Ahmad builds<br />things that <span className="grad">work end-to-end.</span></h1>
+          <h1>
+            {HERO_LINE1.slice(0, typedCount)}
+            <br />
+            {HERO_LINE2_PLAIN.slice(0, Math.max(0, typedCount - HERO_LINE1.length))}
+            <span className="grad">
+              {HERO_LINE2_GRAD.slice(0, Math.max(0, typedCount - HERO_LINE1.length - HERO_LINE2_PLAIN.length))}
+            </span>
+            {typedCount < HERO_TYPE_TOTAL && <span className="typing-cursor" aria-hidden="true">|</span>}
+          </h1>
           <p>Full-stack developer — Java, React &amp; Node.js — with an MCA fresh out of AICAIT Pune (CGPA 9.00). I ship complete systems: auth, dashboards, real-time features, deployed and documented.</p>
           <div className="hero-cta">
             <button className="btn btn-primary" onClick={() => document.getElementById('work').scrollIntoView({ behavior: 'smooth' })}>View Projects</button>
