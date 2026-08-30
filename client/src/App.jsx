@@ -820,14 +820,9 @@ IMPORTANT RULES:
   }, []);
 
   // ===== Card ambient 3D shapes (lazy — fixes mobile WebGL context limit) =====
-  // Mobile browsers only allow ~8 live WebGL contexts. This app has 13 canvases
-  // (hero + 4 project cards + 4 sports cards + 4 trip cards). Creating all of them
-  // eagerly silently fails past the limit — cards just stay blank, no error shown.
-  // Fix: only create a WebGL context for a card canvas while it's actually on
-  // screen, and dispose it the moment it scrolls away, so we never hold more
-  // than a handful of contexts at once.
+  // 🔥 FIXED: Hero canvas ko observe nahi karta - sirf card canvases ko
   useEffect(() => {
-    const active = new Map(); // canvas -> { renderer, stop }
+    const active = new Map();
 
     function initCanvas(canvas) {
       if (!canvas || active.has(canvas)) return;
@@ -889,6 +884,7 @@ IMPORTANT RULES:
       { rootMargin: '150px', threshold: 0.01 }
     );
 
+    // ✅ FIX: ONLY card canvases - hero canvas NOT included!
     const canvases = Object.values(cardCanvasRefs.current).filter(Boolean);
     canvases.forEach((canvas) => observer.observe(canvas));
 
