@@ -150,7 +150,7 @@ nav {
 }
 
 /* ============================================================
-   HERO SECTION - COMPLETE FIXED
+   HERO SECTION
    ============================================================ */
 .hero {
   position: relative;
@@ -161,84 +161,8 @@ nav {
   gap: 50px;
   flex-wrap: wrap;
   overflow: hidden;
-  background: var(--bg) !important;
+  background: var(--bg);
   transition: background 0.3s ease;
-}
-
-/* Light Theme Hero */
-[data-theme="light"] .hero {
-  background: #fefeff !important;
-}
-
-[data-theme="light"] .hero h1 {
-  color: #1c1c1e !important;
-}
-
-[data-theme="light"] .hero p {
-  color: #6e6e73 !important;
-}
-
-[data-theme="light"] .hero h1 .grad {
-  background: linear-gradient(100deg, #007aff, #5e5ce6 70%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-}
-
-[data-theme="light"] .eyebrow {
-  background: rgba(0, 122, 255, 0.1) !important;
-  color: #007aff !important;
-}
-
-[data-theme="light"] .btn-ghost {
-  background: rgba(118, 118, 128, 0.14) !important;
-  color: #1c1c1e !important;
-}
-
-[data-theme="light"] .btn-ghost:hover {
-  background: rgba(118, 118, 128, 0.22) !important;
-}
-
-[data-theme="light"] #heroCanvas {
-  opacity: 0.6 !important;
-}
-
-/* Dark Theme Hero */
-[data-theme="dark"] .hero {
-  background: #000000 !important;
-}
-
-[data-theme="dark"] .hero h1 {
-  color: #f2f2f7 !important;
-}
-
-[data-theme="dark"] .hero p {
-  color: #98989e !important;
-}
-
-[data-theme="dark"] .hero h1 .grad {
-  background: linear-gradient(100deg, #4da3ff, #8b8bf7) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-}
-
-[data-theme="dark"] .eyebrow {
-  background: rgba(0, 122, 255, 0.15) !important;
-  color: #4da3ff !important;
-}
-
-[data-theme="dark"] .btn-ghost {
-  background: rgba(255, 255, 255, 0.06) !important;
-  color: #f2f2f7 !important;
-}
-
-[data-theme="dark"] .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.12) !important;
-}
-
-[data-theme="dark"] #heroCanvas {
-  opacity: 0.8 !important;
 }
 
 /* Hero Common */
@@ -250,6 +174,8 @@ nav {
   z-index: 1 !important;
   pointer-events: none !important;
   display: block !important;
+  visibility: visible !important;
+  opacity: 0.7 !important;
 }
 
 .hero-copy {
@@ -273,6 +199,7 @@ nav {
   border-radius: 999px;
   background: rgba(0, 122, 255, 0.1);
   margin-bottom: 22px;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .eyebrow::before {
@@ -348,7 +275,7 @@ nav {
   font-size: 0.94rem;
   cursor: pointer;
   border: none;
-  transition: transform .15s;
+  transition: transform .15s, background 0.3s ease, color 0.3s ease;
 }
 
 .btn-primary {
@@ -364,6 +291,10 @@ nav {
 .btn-ghost {
   background: rgba(118, 118, 128, 0.14);
   color: var(--text);
+}
+
+.btn-ghost:hover {
+  background: rgba(118, 118, 128, 0.22);
 }
 
 .btn-ghost:active {
@@ -616,6 +547,7 @@ section {
   opacity: 0.8 !important;
   pointer-events: none !important;
   display: block !important;
+  visibility: visible !important;
 }
 
 .card:hover canvas.c3d {
@@ -2316,20 +2248,7 @@ footer {
     margin-bottom: 14px;
   }
 
-  /* Mobile Hero Theme Fix */
-  [data-theme="light"] .hero {
-    background: #f2f2f7 !important;
-  }
-
-  [data-theme="dark"] .hero {
-    background: #0d0d0f !important;
-  }
-
-  [data-theme="light"] #heroCanvas {
-    opacity: 0.6 !important;
-  }
-
-  [data-theme="dark"] #heroCanvas {
+  #heroCanvas {
     opacity: 0.9 !important;
   }
 }
@@ -2469,7 +2388,9 @@ footer {
 }
 
 /* ============================================================
-   DARK THEME - COMPLETE
+   DARK THEME - COMPLETE (single source of truth — do NOT
+   duplicate these blocks elsewhere, that's what caused the
+   light/dark mismatch bug)
    ============================================================ */
 [data-theme="dark"] {
   --bg: #0d0d0f;
@@ -2482,6 +2403,7 @@ footer {
 }
 
 /* Dark Theme - Body */
+[data-theme="dark"] html,
 [data-theme="dark"] body {
   background: var(--bg);
 }
@@ -2518,24 +2440,13 @@ footer {
   background: rgba(255, 255, 255, 0.15) !important;
 }
 
-/* Dark Theme - Hero */
-[data-theme="dark"] .hero {
-  background: #0d0d0f !important;
-}
-
-[data-theme="dark"] .hero h1 {
-  color: #f2f2f7 !important;
-}
-
+/* Dark Theme - Hero (uses var(--bg) already, this just keeps
+   canvas + gradient text readable) */
 [data-theme="dark"] .hero h1 .grad {
   background: linear-gradient(100deg, #4da3ff, #8b8bf7) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   color: transparent !important;
-}
-
-[data-theme="dark"] .hero p {
-  color: #98989e !important;
 }
 
 [data-theme="dark"] .eyebrow {
@@ -2579,10 +2490,6 @@ footer {
 }
 
 /* Dark Theme - Sections */
-[data-theme="dark"] section {
-  background: var(--bg) !important;
-}
-
 [data-theme="dark"] .sec-head h2 {
   color: #f2f2f7 !important;
 }
@@ -2781,22 +2688,4 @@ footer {
 [data-theme="dark"] .journey-tags span {
   background: rgba(0, 122, 255, 0.2) !important;
   color: #4da3ff !important;
-}
-
-/* ============================================================
-   EXTRA: ENSURE 3D CANVAS WORKS EVERYWHERE
-   ============================================================ */
-canvas#heroCanvas {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 0.8 !important;
-}
-
-.hero canvas {
-  display: block !important;
-}
-
-#heroCanvas {
-  display: block !important;
-  visibility: visible !important;
 }

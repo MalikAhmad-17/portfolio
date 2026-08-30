@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import './App.css';
 
@@ -361,8 +361,9 @@ export default function App() {
   const [showDiagramGallery, setShowDiagramGallery] = useState(false);
   const [diagramItems, setDiagramItems] = useState([]);
 
-  // Apply theme to body
-  useEffect(() => {
+  // Apply theme SYNC before paint (fixes hero/sections showing wrong theme colors)
+  useLayoutEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
     document.body.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }, [theme]);
@@ -693,8 +694,17 @@ IMPORTANT RULES:
   // ===== Hero 3D background =====
   useEffect(() => {
     const canvas = heroCanvasRef.current;
+    if (!canvas) return;
     const section = canvas.closest('.hero');
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    if (!section) return;
+
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    } catch (e) {
+      console.warn('⚠️ Hero WebGL context failed to init:', e);
+      return;
+    }
     const scene = new THREE.Scene();
     
     const isMobile = window.innerWidth < 600;
@@ -809,44 +819,87 @@ IMPORTANT RULES:
     };
   }, []);
 
-  // ===== Card ambient 3D shapes =====
+  // ===== Card ambient 3D shapes (lazy — fixes mobile WebGL context limit) =====
+  // Mobile browsers only allow ~8 live WebGL contexts. This app has 13 canvases
+  // (hero + 4 project cards + 4 sports cards + 4 trip cards). Creating all of them
+  // eagerly silently fails past the limit — cards just stay blank, no error shown.
+  // Fix: only create a WebGL context for a card canvas while it's actually on
+  // screen, and dispose it the moment it scrolls away, so we never hold more
+  // than a handful of contexts at once.
   useEffect(() => {
-    const cleanups = [];
-    Object.entries(cardCanvasRefs.current).forEach(([key, canvas]) => {
-      if (!canvas) return;
-      const color = new THREE.Color(canvas.dataset.color || '#007aff');
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-      
-      renderer.setSize(100, 100, false);
-      
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 20);
-      camera.position.z = 4;
+    const active = new Map(); // canvas -> { renderer, stop }
 
-      const geo = new THREE.OctahedronGeometry(1.1, 0);
-      const mat = new THREE.MeshBasicMaterial({ 
-        color, 
-        wireframe: true, 
-        transparent: true, 
-        opacity: 0.5 
-      });
-      const mesh = new THREE.Mesh(geo, mat);
-      scene.add(mesh);
+    function initCanvas(canvas) {
+      if (!canvas || active.has(canvas)) return;
+      try {
+        const color = new THREE.Color(canvas.dataset.color || '#007aff');
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+        renderer.setSize(100, 100, false);
 
-      let frameId;
-      function animate() {
-        frameId = requestAnimationFrame(animate);
-        mesh.rotation.x += 0.005;
-        mesh.rotation.y += 0.008;
-        renderer.render(scene, camera);
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 20);
+        camera.position.z = 4;
+
+        const geo = new THREE.OctahedronGeometry(1.1, 0);
+        const mat = new THREE.MeshBasicMaterial({
+          color,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.5
+        });
+        const mesh = new THREE.Mesh(geo, mat);
+        scene.add(mesh);
+
+        let frameId;
+        function animate() {
+          frameId = requestAnimationFrame(animate);
+          mesh.rotation.x += 0.005;
+          mesh.rotation.y += 0.008;
+          renderer.render(scene, camera);
+        }
+        animate();
+
+        active.set(canvas, {
+          stop: () => cancelAnimationFrame(frameId),
+          renderer
+        });
+      } catch (e) {
+        console.warn('⚠️ Card WebGL context failed to init:', e);
       }
-      animate();
-      cleanups.push(() => { 
-        cancelAnimationFrame(frameId); 
-        renderer.dispose(); 
+    }
+
+    function disposeCanvas(canvas) {
+      const entry = active.get(canvas);
+      if (!entry) return;
+      entry.stop();
+      entry.renderer.dispose();
+      active.delete(canvas);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            initCanvas(entry.target);
+          } else {
+            disposeCanvas(entry.target);
+          }
+        });
+      },
+      { rootMargin: '150px', threshold: 0.01 }
+    );
+
+    const canvases = Object.values(cardCanvasRefs.current).filter(Boolean);
+    canvases.forEach((canvas) => observer.observe(canvas));
+
+    return () => {
+      observer.disconnect();
+      active.forEach((entry) => {
+        entry.stop();
+        entry.renderer.dispose();
       });
-    });
-    return () => cleanups.forEach(fn => fn());
+      active.clear();
+    };
   }, []);
 
   function goToProject(id) {
