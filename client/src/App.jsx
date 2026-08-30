@@ -153,83 +153,82 @@ const PROJECTS = {
   },
   
   'proj-image': {
-  id: 'proj-image',
-  title: 'Darkroom Studio',
-  tagline: 'AI Image Studio — Real Darkroom Experience',
-  description: 'AI-powered text-to-image generation app with 5 film rolls, real darkroom feel, and professional editing tools.',
-  
-  introduction: `Darkroom Studio is an AI-powered image generation web application that replicates the real darkroom experience. Users write prompts (like "a girl in a cyberpunk city"), AI generates images, and the process gives a film developing feel. Multiple styles/rolls are available including Realistic, Anime, 3D, Oil Paint, and Custom. The application uses Pollinations.ai API for free image generation with no API key required.`,
-  
-  scope: `The application is designed for AI enthusiasts, designers, photographers, developers, and students. It provides a professional darkroom theme with 5 unique film rolls, developing animation, spot retouch, loupe zoom, and mobile responsiveness — all without requiring any API key.`,
-  
-  objectives: [
-    'To provide a real darkroom experience for AI image generation',
-    'To offer 5 different film rolls/styles (Realistic, Anime, 3D, Oil Paint, Custom)',
-    'To include professional editing tools (retouch, grain, exposure control)',
-    'To be completely free with no API key required',
-    'To deliver a professional UI with animations',
-    'To make AI image generation accessible to everyone'
-  ],
-  
-  modules: [
-    'Image Generation Module - Text-to-image using Pollinations.ai API',
-    'Film Roll Module - 5 different styles with unique outputs',
-    'Developing Animation - Real darkroom developing feel',
-    'Spot Retouch Module - Simple click + prompt fix',
-    'Loupe Zoom Module - Grain-level inspection',
-    'Exposure Control Module - Adjust image brightness and contrast',
-    'Gallery Module - Save and manage generated images'
-  ],
-  
-  futureEnhancements: [
-    'User Accounts - Save images and history',
-    'Better AI APIs - Replicate, DALL-E, Stable Diffusion integration',
-    'Social Sharing - Instagram, Twitter share',
-    'Image Editing - Crop, filter, resize',
-    'Video Generation - AI video generation',
-    'Custom Models - Fine-tuned AI models',
-    'Collaboration - Multi-user editing'
-  ],
-  
-  conclusion: `Darkroom Studio is a complete, professional, free AI image generator that delivers a real darkroom experience. It's the perfect combination of React, AI APIs, and UI/UX design, making it an ideal tool for creative professionals and AI enthusiasts.`,
-  
-  
-  images: [
-    '/images/AI-IMAGE_STUDIO/dashboard.png',
-    '/images/AI-IMAGE_STUDIO/image-generation.png',
-    '/images/AI-IMAGE_STUDIO/dodge-and-burn-prompting.png',
-    '/images/AI-IMAGE_STUDIO/exposure.png',
-    '/images/AI-IMAGE_STUDIO/loupe-review.png',
-    '/images/AI-IMAGE_STUDIO/retouch.png',
-    '/images/AI-IMAGE_STUDIO/your-gallery.png'
-  ],
-  
-  diagrams: [
-    { name: 'Activity Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/activity_diagram.png' },
-    { name: 'Class Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/class_diagram.png' },
-    { name: 'Component Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/component_diagram.png' },
-    { name: 'Sequence Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/sequence_diagram.png' },
-    { name: 'Use Case Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/usecase_diagram.png' }
-  ],
-  
-  techStack: ['React 18 + Vite', 'Pollinations.ai API', 'CSS3', 'Axios', 'Lucide React'],
-  
-  features: [
-    'Text-to-image generation using Stable Diffusion XL',
-    'Multiple image generation styles',
-    'Image download and share functionality',
-    'Prompt history and favorites',
-    'Responsive UI design',
-    'Fast and efficient image generation',
-    'Customizable generation parameters',
-    'Modern and intuitive interface'
-  ],
-  
-  links: {
-    demo: 'https://ai-image-studio-chi.vercel.app',
-    github: 'https://github.com/MalikAhmad-17/ai-image-studio'
+    id: 'proj-image',
+    title: 'Darkroom Studio',
+    tagline: 'AI Image Studio — Real Darkroom Experience',
+    description: 'AI-powered text-to-image generation app with 5 film rolls, real darkroom feel, and professional editing tools.',
+    
+    introduction: `Darkroom Studio is an AI-powered image generation web application that replicates the real darkroom experience. Users write prompts (like "a girl in a cyberpunk city"), AI generates images, and the process gives a film developing feel. Multiple styles/rolls are available including Realistic, Anime, 3D, Oil Paint, and Custom. The application uses Pollinations.ai API for free image generation with no API key required.`,
+    
+    scope: `The application is designed for AI enthusiasts, designers, photographers, developers, and students. It provides a professional darkroom theme with 5 unique film rolls, developing animation, spot retouch, loupe zoom, and mobile responsiveness — all without requiring any API key.`,
+    
+    objectives: [
+      'To provide a real darkroom experience for AI image generation',
+      'To offer 5 different film rolls/styles (Realistic, Anime, 3D, Oil Paint, Custom)',
+      'To include professional editing tools (retouch, grain, exposure control)',
+      'To be completely free with no API key required',
+      'To deliver a professional UI with animations',
+      'To make AI image generation accessible to everyone'
+    ],
+    
+    modules: [
+      'Image Generation Module - Text-to-image using Pollinations.ai API',
+      'Film Roll Module - 5 different styles with unique outputs',
+      'Developing Animation - Real darkroom developing feel',
+      'Spot Retouch Module - Simple click + prompt fix',
+      'Loupe Zoom Module - Grain-level inspection',
+      'Exposure Control Module - Adjust image brightness and contrast',
+      'Gallery Module - Save and manage generated images'
+    ],
+    
+    futureEnhancements: [
+      'User Accounts - Save images and history',
+      'Better AI APIs - Replicate, DALL-E, Stable Diffusion integration',
+      'Social Sharing - Instagram, Twitter share',
+      'Image Editing - Crop, filter, resize',
+      'Video Generation - AI video generation',
+      'Custom Models - Fine-tuned AI models',
+      'Collaboration - Multi-user editing'
+    ],
+    
+    conclusion: `Darkroom Studio is a complete, professional, free AI image generator that delivers a real darkroom experience. It's the perfect combination of React, AI APIs, and UI/UX design, making it an ideal tool for creative professionals and AI enthusiasts.`,
+    
+    images: [
+      '/images/AI-IMAGE_STUDIO/dashboard.png',
+      '/images/AI-IMAGE_STUDIO/image-generation.png',
+      '/images/AI-IMAGE_STUDIO/dodge-and-burn-prompting.png',
+      '/images/AI-IMAGE_STUDIO/exposure.png',
+      '/images/AI-IMAGE_STUDIO/loupe-review.png',
+      '/images/AI-IMAGE_STUDIO/retouch.png',
+      '/images/AI-IMAGE_STUDIO/your-gallery.png'
+    ],
+    
+    diagrams: [
+      { name: 'Activity Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/activity_diagram.png' },
+      { name: 'Class Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/class_diagram.png' },
+      { name: 'Component Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/component_diagram.png' },
+      { name: 'Sequence Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/sequence_diagram.png' },
+      { name: 'Use Case Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/usecase_diagram.png' }
+    ],
+    
+    techStack: ['React 18 + Vite', 'Pollinations.ai API', 'CSS3', 'Axios', 'Lucide React'],
+    
+    features: [
+      'Text-to-image generation using Stable Diffusion XL',
+      'Multiple image generation styles',
+      'Image download and share functionality',
+      'Prompt history and favorites',
+      'Responsive UI design',
+      'Fast and efficient image generation',
+      'Customizable generation parameters',
+      'Modern and intuitive interface'
+    ],
+    
+    links: {
+      demo: 'https://ai-image-studio-chi.vercel.app',
+      github: 'https://github.com/MalikAhmad-17/ai-image-studio'
+    }
   }
-}
 };
 
 // ===== ACADEMIC JOURNEY DATA =====
@@ -361,7 +360,7 @@ export default function App() {
   const [showDiagramGallery, setShowDiagramGallery] = useState(false);
   const [diagramItems, setDiagramItems] = useState([]);
 
-  // Apply theme SYNC before paint (fixes hero/sections showing wrong theme colors)
+  // Apply theme SYNC before paint
   useLayoutEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     document.body.setAttribute('data-theme', theme);
@@ -691,7 +690,7 @@ IMPORTANT RULES:
     setIsLoading(false);
   }
 
-  // ===== Hero 3D background =====
+  // ===== Hero 3D background - ALWAYS ACTIVE, NEVER DISPOSED =====
   useEffect(() => {
     const canvas = heroCanvasRef.current;
     if (!canvas) return;
@@ -819,8 +818,7 @@ IMPORTANT RULES:
     };
   }, []);
 
-  // ===== Card ambient 3D shapes (lazy — fixes mobile WebGL context limit) =====
-  // 🔥 FIXED: Hero canvas ko observe nahi karta - sirf card canvases ko
+  // ===== Card 3D shapes - ONLY CARDS, NO HERO! =====
   useEffect(() => {
     const active = new Map();
 
@@ -884,8 +882,13 @@ IMPORTANT RULES:
       { rootMargin: '150px', threshold: 0.01 }
     );
 
-    // ✅ FIX: ONLY card canvases - hero canvas NOT included!
-    const canvases = Object.values(cardCanvasRefs.current).filter(Boolean);
+    // 🔥 CRITICAL: ONLY card canvases - hero canvas NOT included!
+    // Make sure heroCanvasRef is NOT in cardCanvasRefs
+    const cardKeys = ['qr', 'queue', 'chat', 'image', 'cricket', 'kabaddi', 'football', 'overall', 'tripManage', 'vlog1', 'vlog2', 'tripHighlights'];
+    const canvases = cardKeys
+      .map(key => cardCanvasRefs.current[key])
+      .filter(Boolean);
+    
     canvases.forEach((canvas) => observer.observe(canvas));
 
     return () => {
