@@ -150,7 +150,7 @@ nav {
 }
 
 /* ============================================================
-   HERO SECTION
+   HERO SECTION - COMPLETE FIXED
    ============================================================ */
 .hero {
   position: relative;
@@ -165,13 +165,89 @@ nav {
   transition: background 0.3s ease;
 }
 
+/* Light Theme Hero */
+[data-theme="light"] .hero {
+  background: #f2f2f7 !important;
+}
+
+[data-theme="light"] .hero h1 {
+  color: #1c1c1e !important;
+}
+
+[data-theme="light"] .hero p {
+  color: #6e6e73 !important;
+}
+
+[data-theme="light"] .hero h1 .grad {
+  background: linear-gradient(100deg, #007aff, #5e5ce6 70%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+[data-theme="light"] .eyebrow {
+  background: rgba(0, 122, 255, 0.1) !important;
+  color: #007aff !important;
+}
+
+[data-theme="light"] .btn-ghost {
+  background: rgba(118, 118, 128, 0.14) !important;
+  color: #1c1c1e !important;
+}
+
+[data-theme="light"] .btn-ghost:hover {
+  background: rgba(118, 118, 128, 0.22) !important;
+}
+
+[data-theme="light"] #heroCanvas {
+  opacity: 0.6 !important;
+}
+
+/* Dark Theme Hero */
+[data-theme="dark"] .hero {
+  background: #0d0d0f !important;
+}
+
+[data-theme="dark"] .hero h1 {
+  color: #f2f2f7 !important;
+}
+
+[data-theme="dark"] .hero p {
+  color: #98989e !important;
+}
+
+[data-theme="dark"] .hero h1 .grad {
+  background: linear-gradient(100deg, #4da3ff, #8b8bf7) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+[data-theme="dark"] .eyebrow {
+  background: rgba(0, 122, 255, 0.15) !important;
+  color: #4da3ff !important;
+}
+
+[data-theme="dark"] .btn-ghost {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #f2f2f7 !important;
+}
+
+[data-theme="dark"] .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+[data-theme="dark"] #heroCanvas {
+  opacity: 0.8 !important;
+}
+
+/* Hero Common */
 #heroCanvas {
   position: absolute !important;
   inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
   z-index: 1 !important;
-  opacity: 0.8 !important;
   pointer-events: none !important;
   display: block !important;
 }
@@ -2239,6 +2315,23 @@ footer {
     font-size: 1.1rem;
     margin-bottom: 14px;
   }
+
+  /* Mobile Hero Theme Fix */
+  [data-theme="light"] .hero {
+    background: #f2f2f7 !important;
+  }
+
+  [data-theme="dark"] .hero {
+    background: #0d0d0f !important;
+  }
+
+  [data-theme="light"] #heroCanvas {
+    opacity: 0.6 !important;
+  }
+
+  [data-theme="dark"] #heroCanvas {
+    opacity: 0.9 !important;
+  }
 }
 
 /* ============================================================
@@ -2703,17 +2796,7 @@ canvas#heroCanvas {
   display: block !important;
 }
 
-/* Force hero canvas visibility on all devices */
 #heroCanvas {
   display: block !important;
   visibility: visible !important;
-}
-
-/* Fix for dark mode toggle button */
-[data-theme="dark"] .theme-toggle {
-  background: rgba(255, 255, 255, 0.08) !important;
-}
-
-[data-theme="dark"] .theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
 }
