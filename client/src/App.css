@@ -35,9 +35,7 @@ h3 {
 }
 
 body {
-  background-image:
-    radial-gradient(circle at 20% 0%, rgba(0, 122, 255, 0.08), transparent 45%),
-    radial-gradient(circle at 90% 20%, rgba(94, 92, 230, 0.08), transparent 45%);
+  background: var(--bg);
 }
 
 /* ===== NAV ===== */
@@ -152,7 +150,6 @@ nav {
   overflow: hidden;
 }
 
-/* ✅ HERO 3D - FIXED */
 #heroCanvas {
   position: absolute !important;
   inset: 0 !important;
@@ -501,7 +498,6 @@ section {
   z-index: 1;
 }
 
-/* ✅ CARD 3D - FIXED */
 .card canvas.c3d {
   position: absolute !important;
   top: 8px !important;
@@ -1948,8 +1944,61 @@ footer {
     font-size: 0.85rem;
   }
 
+  [data-theme="dark"] .hero {
+    background: #0d0d0f !important;
+    background-image: none !important;
+    background-color: #0d0d0f !important;
+  }
+
+  [data-theme="light"] .hero {
+    background: #f2f2f7 !important;
+  }
+
   #heroCanvas {
-    opacity: 0.4 !important;
+    opacity: 1 !important;
+    display: block !important;
+    z-index: 1 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .hero-copy {
+    position: relative !important;
+    z-index: 2 !important;
+  }
+
+  .stack-wrap {
+    position: relative !important;
+    z-index: 2 !important;
+  }
+
+  [data-theme="dark"] .hero h1 {
+    color: #ffffff !important;
+  }
+
+  [data-theme="dark"] .hero p {
+    color: #c0c0c0 !important;
+  }
+
+  [data-theme="dark"] .hero h1 .grad {
+    background: linear-gradient(100deg, #4da3ff, #8b8bf7) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+  }
+
+  [data-theme="dark"] .eyebrow {
+    background: rgba(0, 122, 255, 0.2) !important;
+    color: #4da3ff !important;
+  }
+
+  [data-theme="dark"] .btn-ghost {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+  }
+
+  [data-theme="dark"] .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
   }
 
   .widget-stack {
@@ -1966,7 +2015,6 @@ footer {
     font-size: 1.3rem;
   }
 
-  /* Cards - Mobile */
   .grid,
   #sports>div[style*="grid-template-columns"],
   #trip>div[style*="grid-template-columns"] {
@@ -2035,7 +2083,6 @@ footer {
     opacity: 0.5 !important;
   }
 
-  /* Gallery */
   .gallery-grid {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 10px;
@@ -2069,7 +2116,6 @@ footer {
     max-height: 100px !important;
   }
 
-  /* Ask Panel */
   .ask-panel {
     margin-top: 70px;
     max-height: 88vh;
@@ -2122,7 +2168,6 @@ footer {
     padding: 4px;
   }
 
-  /* Journey */
   .journey-container {
     padding: 10px 0;
   }
@@ -2221,7 +2266,7 @@ footer {
   }
 
   #heroCanvas {
-    opacity: 0.3 !important;
+    opacity: 1 !important;
   }
 
   .card h3,
@@ -2356,9 +2401,6 @@ footer {
 
 [data-theme="dark"] body {
   background: var(--bg);
-  background-image:
-    radial-gradient(circle at 20% 0%, rgba(0, 122, 255, 0.06), transparent 45%),
-    radial-gradient(circle at 90% 20%, rgba(94, 92, 230, 0.06), transparent 45%);
 }
 
 [data-theme="dark"] nav {
@@ -2385,7 +2427,6 @@ footer {
   color: var(--text);
 }
 
-/* ✅ HERO DARK THEME - FIXED */
 [data-theme="dark"] .hero {
   background: #0d0d0f !important;
   background-image: none !important;
@@ -2461,359 +2502,156 @@ footer {
 }
 
 [data-theme="dark"] .journey-cgpa {
-  color: #4da3ff;
+  color: #4da3ff !important;
 }
 
-[data-theme="dark"] .journey-year {
-  background: rgba(0, 122, 255, 0.15);
-  color: #4da3ff;
-}
-
-[data-theme="dark"] .timeline-line {
-  opacity: 0.3;
-}
-
-[data-theme="dark"] .journey-item::before {
-  background: var(--blue);
-  box-shadow: 0 0 0 3px var(--blue);
-}
-
-[data-theme="dark"] .doc-grid-item {
-  background: rgba(255, 255, 255, 0.04);
-}
-
-[data-theme="dark"] .doc-grid-item:hover {
-  background: rgba(0, 122, 255, 0.12);
-  border-color: var(--blue);
-}
-
-[data-theme="dark"] .doc-grid-name {
-  color: var(--text);
-}
-
-[data-theme="dark"] .doc-grid-download {
-  background: var(--blue);
-}
-
-[data-theme="dark"] .doc-grid-download:hover {
-  background: var(--purple);
-}
-
-[data-theme="dark"] .skill-cloud span {
-  background: var(--card-solid);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-[data-theme="dark"] .cert-tag {
-  background: rgba(0, 122, 255, 0.12);
-  color: #4da3ff;
-}
-
-[data-theme="dark"] .journey-tags span {
-  background: rgba(0, 122, 255, 0.12);
-  color: #4da3ff;
-}
-
-[data-theme="dark"] .ask-fab {
-  background: rgba(28, 28, 30, 0.9);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.4);
-}
-
-[data-theme="dark"] .ask-fab .dot {
-  box-shadow: 0 0 12px var(--blue);
-}
-
+/* ===== DARK THEME - ASK PANEL FIX ===== */
 [data-theme="dark"] .ask-panel {
-  background: rgba(28, 28, 30, 0.95);
-  color: var(--text);
-  border-color: rgba(255, 255, 255, 0.06);
+  background: rgba(28, 28, 30, 0.92) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
-[data-theme="dark"] .ask-search-box {
-  background: rgba(255, 255, 255, 0.06);
+[data-theme="dark"] .ask-panel .ask-back {
+  color: #4da3ff !important;
 }
 
-[data-theme="dark"] .ask-search-box input {
-  color: var(--text);
+[data-theme="dark"] .ask-panel .ask-search-box {
+  background: rgba(255, 255, 255, 0.08) !important;
 }
 
-[data-theme="dark"] .ask-search-box input::placeholder {
-  color: var(--muted);
+[data-theme="dark"] .ask-panel .ask-search-box input {
+  color: #f2f2f7 !important;
 }
 
-[data-theme="dark"] .ask-chips button {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
+[data-theme="dark"] .ask-panel .ask-search-box input::placeholder {
+  color: #98989e !important;
 }
 
-[data-theme="dark"] .ask-chips button:active {
-  background: var(--blue);
-  color: #fff;
+[data-theme="dark"] .ask-panel .ask-chips button {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #f2f2f7 !important;
 }
 
-[data-theme="dark"] .ask-answer p {
-  color: var(--text);
-}
-
-[data-theme="dark"] .ask-back {
-  color: #4da3ff;
-}
-
-[data-theme="dark"] .ask-project-btn {
-  background: rgba(0, 122, 255, 0.15);
-  color: #4da3ff;
-}
-
-[data-theme="dark"] .ask-project-btn:hover {
-  background: var(--blue);
-  color: #fff;
-}
-
-[data-theme="dark"] .ask-images-grid img {
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="dark"] .ask-images-grid img:hover {
-  border-color: var(--blue);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="dark"] .ask-submit-btn {
-  background: var(--blue);
-  color: #fff;
-}
-
-[data-theme="dark"] .ask-submit-btn:hover:not(:disabled) {
-  background: var(--purple);
-}
-
-[data-theme="dark"] .ask-note {
-  border-top-color: rgba(255, 255, 255, 0.06);
-  color: var(--muted);
-}
-
-[data-theme="dark"] .project-modal {
-  background: #1c1c1e;
-  color: var(--text);
-}
-
-[data-theme="dark"] .project-modal h2 {
-  color: var(--text);
-}
-
-[data-theme="dark"] .project-modal .modal-tagline {
-  color: var(--muted);
-}
-
-[data-theme="dark"] .project-modal .modal-close {
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
-}
-
-[data-theme="dark"] .project-modal .modal-close:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-[data-theme="dark"] .modal-docs .doc-section p,
-[data-theme="dark"] .modal-docs .doc-section ul li,
-[data-theme="dark"] .modal-features li {
-  color: var(--text);
-}
-
-[data-theme="dark"] .modal-docs .doc-section h4 {
-  color: #4da3ff;
-}
-
-[data-theme="dark"] .tech-tags span {
-  background: rgba(0, 122, 255, 0.15);
-  color: #4da3ff;
-}
-
-[data-theme="dark"] .diagram-item {
-  background: rgba(255, 255, 255, 0.04);
-}
-
-[data-theme="dark"] .diagram-item:hover {
-  background: rgba(0, 122, 255, 0.08);
-}
-
-[data-theme="dark"] .diagram-item p {
-  color: var(--muted);
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item {
-  background: rgba(255, 255, 255, 0.04);
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item:hover {
-  border-color: var(--blue);
-  box-shadow: 0 8px 30px rgba(0, 122, 255, 0.2);
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item img {
-  background: #1a1a1a;
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item p {
-  color: var(--text);
-  border-top-color: rgba(255, 255, 255, 0.06);
-}
-
-[data-theme="dark"] .lightbox-overlay {
-  background: rgba(0, 0, 0, 0.92);
-}
-
-[data-theme="dark"] .lightbox-title {
-  color: var(--text);
-}
-
-[data-theme="dark"] .lightbox-close {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="dark"] .lightbox-close:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-[data-theme="dark"] .lightbox-download-btn {
-  background: var(--blue);
-}
-
-[data-theme="dark"] .lightbox-download-btn:hover {
-  background: var(--purple);
-}
-
-[data-theme="dark"] .widget {
-  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-}
-
-[data-theme="dark"] .theme-toggle {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-[data-theme="dark"] .theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-[data-theme="dark"] .project-modal-overlay {
-  background: rgba(0, 0, 0, 0.7);
-}
-
-[data-theme="dark"] .modal-carousel {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-[data-theme="dark"] .carousel-btn {
-  background: rgba(44, 44, 46, 0.85);
-  color: var(--text);
-}
-
-[data-theme="dark"] .carousel-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="dark"] .carousel-dots .dot {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-[data-theme="dark"] .carousel-dots .dot.active {
-  background: var(--blue);
-}
-
-[data-theme="dark"] .gallery-overlay {
-  background: rgba(0, 0, 0, 0.92);
-}
-
-[data-theme="dark"] .gallery-title {
-  color: var(--text);
-}
-
-[data-theme="dark"] .gallery-close {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="dark"] .gallery-close:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-[data-theme="dark"] .gallery-grid img {
-  border-color: rgba(255, 255, 255, 0.06);
-}
-
-[data-theme="dark"] .gallery-grid img:hover {
-  border-color: var(--blue);
-}
-
-[data-theme="dark"] .view-all-btn {
-  background: rgba(0, 122, 255, 0.15);
-  color: #4da3ff;
-  border-color: #4da3ff;
-}
-
-[data-theme="dark"] .view-all-btn:hover {
-  background: var(--blue);
-  color: #fff;
-}
-
-/* ============================================================
-   ===== ASK FAB HIDE WHEN PANEL OPEN =====
-   ============================================================ */
-.overlay.open~.ask-fab,
-body:has(.overlay.open) .ask-fab {
-  display: none !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-/* ============================================================
-   ===== FIX: SPORTS OVERALL CARD DARK THEME =====
-   ============================================================ */
-
-[data-theme="dark"] #sports .card[style*="border: 2px solid var(--blue)"] {
-  background: var(--card) !important;
-  border-color: var(--blue) !important;
-}
-
-[data-theme="dark"] #sports .card[style*="border: 2px solid var(--blue)"] h3 {
-  color: var(--text) !important;
-}
-
-[data-theme="dark"] #sports .card[style*="border: 2px solid var(--blue)"] p {
-  color: var(--muted) !important;
-}
-
-[data-theme="dark"] #sports .card[style*="border: 2px solid var(--blue)"] .stack span {
-  background: rgba(255, 255, 255, 0.06) !important;
-  color: var(--muted) !important;
-}
-
-[data-theme="dark"] #sports .card[style*="border: 2px solid var(--blue)"] .icon-badge {
+[data-theme="dark"] .ask-panel .ask-chips button:active {
+  background: var(--blue) !important;
   color: #fff !important;
 }
 
-/* ✅ Ya phir simpler tarika - sabhi sports cards ko dark karo */
-[data-theme="dark"] #sports .card {
-  background: var(--card) !important;
-  border-color: rgba(255, 255, 255, 0.06) !important;
+[data-theme="dark"] .ask-panel .ask-answer p {
+  color: #f2f2f7 !important;
 }
 
-[data-theme="dark"] #sports .card:hover {
-  border-color: var(--blue) !important;
+[data-theme="dark"] .ask-panel .ask-note {
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: #98989e !important;
 }
 
-[data-theme="dark"] #sports .card h3 {
+[data-theme="dark"] .ask-fab {
+  background: rgba(28, 28, 30, 0.85) !important;
+  color: #f2f2f7 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ===== DARK THEME - PROJECT MODAL FIX ===== */
+[data-theme="dark"] .project-modal {
+  background: #1c1c1e !important;
+}
+
+[data-theme="dark"] .project-modal h2,
+[data-theme="dark"] .project-modal .modal-tagline {
+  color: #f2f2f7 !important;
+}
+
+[data-theme="dark"] .project-modal .modal-tabs {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+[data-theme="dark"] .project-modal .tab-btn {
+  color: #98989e !important;
+}
+
+[data-theme="dark"] .project-modal .tab-btn.active {
+  background: var(--blue) !important;
+  color: #fff !important;
+}
+
+[data-theme="dark"] .project-modal .doc-section p,
+[data-theme="dark"] .project-modal .doc-section ul li {
+  color: #f2f2f7 !important;
+}
+
+[data-theme="dark"] .project-modal .modal-carousel {
+  background: #0d0d0f !important;
+}
+
+[data-theme="dark"] .project-modal .diagram-item {
+  background: #0d0d0f !important;
+}
+
+[data-theme="dark"] .project-modal .diagram-item p {
+  color: #98989e !important;
+}
+
+[data-theme="dark"] .project-modal .modal-close {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #f2f2f7 !important;
+}
+
+[data-theme="dark"] .project-modal .modal-close:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="dark"] .project-modal .modal-features li {
+  color: #f2f2f7 !important;
+}
+
+[data-theme="dark"] .project-modal .tech-tags span {
+  background: rgba(0, 122, 255, 0.2) !important;
+}
+
+/* ===== DARK THEME - GALLERY FIX ===== */
+[data-theme="dark"] .gallery-overlay {
+  background: rgba(0, 0, 0, 0.95) !important;
+}
+
+[data-theme="dark"] .gallery-title {
+  color: #f2f2f7 !important;
+}
+
+[data-theme="dark"] .diagrams-gallery .diagram-item {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+[data-theme="dark"] .diagrams-gallery .diagram-item p {
+  color: #f2f2f7 !important;
+}
+
+/* ===== DARK THEME - LIGHTBOX FIX ===== */
+[data-theme="dark"] .lightbox-overlay {
+  background: rgba(0, 0, 0, 0.95) !important;
+}
+
+[data-theme="dark"] .lightbox-title {
+  color: #f2f2f7 !important;
+}
+
+/* ===== DARK THEME - SKILLS FIX ===== */
+[data-theme="dark"] .skill-cloud span {
+  background: var(--card-solid) !important;
   color: var(--text) !important;
 }
 
-[data-theme="dark"] #sports .card p {
+/* ===== DARK THEME - FOOTER FIX ===== */
+[data-theme="dark"] footer {
   color: var(--muted) !important;
 }
 
-[data-theme="dark"] #sports .card .stack span {
-  background: rgba(255, 255, 255, 0.06) !important;
+[data-theme="dark"] .footer-link {
   color: var(--muted) !important;
+}
+
+[data-theme="dark"] .footer-link:hover {
+  color: var(--blue) !important;
 }
