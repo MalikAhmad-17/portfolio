@@ -167,7 +167,7 @@ nav {
 
 /* Light Theme Hero */
 [data-theme="light"] .hero {
-  background: #f2f2f7 !important;
+  background: #fefeff !important;
 }
 
 [data-theme="light"] .hero h1 {
@@ -205,7 +205,7 @@ nav {
 
 /* Dark Theme Hero */
 [data-theme="dark"] .hero {
-  background: #0d0d0f !important;
+  background: #000000 !important;
 }
 
 [data-theme="dark"] .hero h1 {
