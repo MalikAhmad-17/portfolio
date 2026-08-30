@@ -691,146 +691,163 @@ IMPORTANT RULES:
     setIsLoading(false);
   }
 
-  // ===== Hero 3D background =====
+  // ===== Unified 3D canvas manager (hero + all cards) =====
+  // Mobile browsers only allow a handful of live WebGL contexts (commonly
+  // ~8). This page has 1 hero canvas + up to 12 card canvases (4 project +
+  // 4 sports + 4 trip). If each one lives forever once created, scrolling
+  // through Sports/Trip stacks up new contexts on top of the ones already
+  // held (hero + earlier cards) and once the ceiling is hit the browser
+  // silently evicts one to make room — no error, it just goes blank. That's
+  // what broke the hero (and its "theme" look) after scrolling down and
+  // back up.
+  //
+  // Fix: ONE IntersectionObserver drives every canvas, hero included, with
+  // a hard cap (MAX_LIVE) on how many contexts we keep alive at once —
+  // oldest one is disposed (LRU) before a new one is created, so we never
+  // even approach the browser's real limit. We also listen for
+  // webglcontextlost/restored so if the browser ever reclaims a context on
+  // its own anyway, we recover automatically instead of staying blank.
   useEffect(() => {
-    const canvas = heroCanvasRef.current;
-    if (!canvas) return;
-    const section = canvas.closest('.hero');
-    if (!section) return;
+    const MAX_LIVE = 6; // stay well under mobile's ~8 context ceiling
+    const active = new Map(); // canvas -> { dispose(), type }
 
-    let renderer;
-    try {
-      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    } catch (e) {
-      console.warn('⚠️ Hero WebGL context failed to init:', e);
-      return;
+    function disposeEntry(canvas) {
+      const entry = active.get(canvas);
+      if (!entry) return;
+      try { entry.dispose(); } catch (e) { /* already gone, ignore */ }
+      active.delete(canvas);
     }
-    const scene = new THREE.Scene();
-    
-    const isMobile = window.innerWidth < 600;
-    const camera = new THREE.PerspectiveCamera(50, section.clientWidth / section.clientHeight, 0.1, 100);
-    
-    if (isMobile) {
-      camera.position.set(0.5, 0.2, 5.5);
-    } else {
-      camera.position.set(0, 0, 7);
-    }
-    camera.lookAt(0, 0, 0);
 
-    function resize() {
-      renderer.setSize(section.clientWidth, section.clientHeight);
-      camera.aspect = section.clientWidth / section.clientHeight;
-      camera.updateProjectionMatrix();
+    function evictOldestIfNeeded() {
+      if (active.size < MAX_LIVE) return;
+      const oldestCanvas = active.keys().next().value;
+      if (oldestCanvas) disposeEntry(oldestCanvas);
     }
-    resize();
-    window.addEventListener('resize', resize);
 
-    const geo = new THREE.IcosahedronGeometry(1.6, 1);
-    const mat = new THREE.MeshBasicMaterial({ 
-      color: 0x007aff, 
-      wireframe: true, 
-      transparent: true, 
-      opacity: 0.2 
-    });
-    const mesh = new THREE.Mesh(geo, mat);
-    
-    if (isMobile) {
-      mesh.position.set(1.2, 0.3, -0.5);
-      mesh.scale.set(1.0, 1.0, 1.0);
-    } else {
-      mesh.position.set(3.2, 0.4, -1);
+    function touch(canvas) {
+      // Re-insert at the end of the Map so it counts as "most recently used"
+      // for LRU eviction purposes.
+      const entry = active.get(canvas);
+      if (entry) {
+        active.delete(canvas);
+        active.set(canvas, entry);
+      }
     }
-    scene.add(mesh);
 
-    const geo2 = new THREE.IcosahedronGeometry(0.8, 0);
-    const mat2 = new THREE.MeshBasicMaterial({ 
-      color: 0x5e5ce6, 
-      wireframe: true, 
-      transparent: true, 
-      opacity: 0.2 
-    });
-    const mesh2 = new THREE.Mesh(geo2, mat2);
-    
-    if (isMobile) {
-      mesh2.position.set(0.8, -0.8, -1.2);
-    } else {
-      mesh2.position.set(2.0, -1.6, -1.5);
-    }
-    scene.add(mesh2);
+    function initHero(canvas) {
+      const section = canvas.closest('.hero');
+      if (!section) return null;
 
-    const pCount = isMobile ? 50 : 90;
-    const positions = new Float32Array(pCount * 3);
-    for (let i = 0; i < pCount; i++) {
-      const range = isMobile ? 4 : 9;
-      positions[i * 3] = (Math.random() - 0.5) * range;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * (isMobile ? 2.5 : 6);
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
-    }
-    const pGeo = new THREE.BufferGeometry();
-    pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const pMat = new THREE.PointsMaterial({ 
-      color: 0x007aff, 
-      size: isMobile ? 0.035 : 0.03, 
-      transparent: true, 
-      opacity: 0.25 
-    });
-    const points = new THREE.Points(pGeo, pMat);
-    scene.add(points);
+      let renderer;
+      try {
+        renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      } catch (e) {
+        console.warn('⚠️ Hero WebGL context failed to init:', e);
+        return null;
+      }
+      const scene = new THREE.Scene();
 
-    const handleResize = () => {
-      const mobile = window.innerWidth < 600;
-      
-      camera.position.set(0, 0, mobile ? 5.5 : 7);
+      const isMobile = window.innerWidth < 600;
+      const camera = new THREE.PerspectiveCamera(50, section.clientWidth / section.clientHeight, 0.1, 100);
+      camera.position.set(isMobile ? 0.5 : 0, isMobile ? 0.2 : 0, isMobile ? 5.5 : 7);
       camera.lookAt(0, 0, 0);
-      camera.updateProjectionMatrix();
-      
-      if (mobile) {
+
+      function resize() {
+        renderer.setSize(section.clientWidth, section.clientHeight);
+        camera.aspect = section.clientWidth / section.clientHeight;
+        camera.updateProjectionMatrix();
+      }
+      resize();
+
+      const geo = new THREE.IcosahedronGeometry(1.6, 1);
+      const mat = new THREE.MeshBasicMaterial({
+        color: 0x007aff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.2
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      if (isMobile) {
         mesh.position.set(1.2, 0.3, -0.5);
         mesh.scale.set(1.0, 1.0, 1.0);
-        mesh2.position.set(0.8, -0.8, -1.2);
       } else {
         mesh.position.set(3.2, 0.4, -1);
-        mesh.scale.set(1, 1, 1);
+      }
+      scene.add(mesh);
+
+      const geo2 = new THREE.IcosahedronGeometry(0.8, 0);
+      const mat2 = new THREE.MeshBasicMaterial({
+        color: 0x5e5ce6,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.2
+      });
+      const mesh2 = new THREE.Mesh(geo2, mat2);
+      if (isMobile) {
+        mesh2.position.set(0.8, -0.8, -1.2);
+      } else {
         mesh2.position.set(2.0, -1.6, -1.5);
       }
-      
-      renderer.setSize(section.clientWidth, section.clientHeight);
-      camera.aspect = section.clientWidth / section.clientHeight;
-      camera.updateProjectionMatrix();
-    };
-    window.addEventListener('resize', handleResize);
+      scene.add(mesh2);
 
-    let frameId;
-    function animate() {
-      frameId = requestAnimationFrame(animate);
-      mesh.rotation.y += 0.0022;
-      mesh.rotation.x += 0.001;
-      mesh2.rotation.y -= 0.0026;
-      points.rotation.y += 0.0005;
-      renderer.render(scene, camera);
+      const pCount = isMobile ? 50 : 90;
+      const positions = new Float32Array(pCount * 3);
+      for (let i = 0; i < pCount; i++) {
+        const range = isMobile ? 4 : 9;
+        positions[i * 3] = (Math.random() - 0.5) * range;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * (isMobile ? 2.5 : 6);
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
+      }
+      const pGeo = new THREE.BufferGeometry();
+      pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const pMat = new THREE.PointsMaterial({
+        color: 0x007aff,
+        size: isMobile ? 0.035 : 0.03,
+        transparent: true,
+        opacity: 0.25
+      });
+      const points = new THREE.Points(pGeo, pMat);
+      scene.add(points);
+
+      function handleResize() {
+        const mobile = window.innerWidth < 600;
+        camera.position.set(0, 0, mobile ? 5.5 : 7);
+        camera.lookAt(0, 0, 0);
+        if (mobile) {
+          mesh.position.set(1.2, 0.3, -0.5);
+          mesh.scale.set(1.0, 1.0, 1.0);
+          mesh2.position.set(0.8, -0.8, -1.2);
+        } else {
+          mesh.position.set(3.2, 0.4, -1);
+          mesh.scale.set(1, 1, 1);
+          mesh2.position.set(2.0, -1.6, -1.5);
+        }
+        resize();
+      }
+      window.addEventListener('resize', handleResize);
+
+      let frameId;
+      function animate() {
+        frameId = requestAnimationFrame(animate);
+        mesh.rotation.y += 0.0022;
+        mesh.rotation.x += 0.001;
+        mesh2.rotation.y -= 0.0026;
+        points.rotation.y += 0.0005;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      return {
+        type: 'hero',
+        dispose() {
+          cancelAnimationFrame(frameId);
+          window.removeEventListener('resize', handleResize);
+          renderer.dispose();
+        }
+      };
     }
-    animate();
 
-    return () => {
-      cancelAnimationFrame(frameId);
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('resize', handleResize);
-      renderer.dispose();
-    };
-  }, []);
-
-  // ===== Card ambient 3D shapes (lazy — fixes mobile WebGL context limit) =====
-  // Mobile browsers only allow ~8 live WebGL contexts. This app has 13 canvases
-  // (hero + 4 project cards + 4 sports cards + 4 trip cards). Creating all of them
-  // eagerly silently fails past the limit — cards just stay blank, no error shown.
-  // Fix: only create a WebGL context for a card canvas while it's actually on
-  // screen, and dispose it the moment it scrolls away, so we never hold more
-  // than a handful of contexts at once.
-  useEffect(() => {
-    const active = new Map(); // canvas -> { renderer, stop }
-
-    function initCanvas(canvas) {
-      if (!canvas || active.has(canvas)) return;
+    function initCard(canvas) {
       try {
         const color = new THREE.Color(canvas.dataset.color || '#007aff');
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
@@ -859,45 +876,71 @@ IMPORTANT RULES:
         }
         animate();
 
-        active.set(canvas, {
-          stop: () => cancelAnimationFrame(frameId),
-          renderer
-        });
+        return {
+          type: 'card',
+          dispose() {
+            cancelAnimationFrame(frameId);
+            renderer.dispose();
+          }
+        };
       } catch (e) {
         console.warn('⚠️ Card WebGL context failed to init:', e);
+        return null;
       }
     }
 
-    function disposeCanvas(canvas) {
-      const entry = active.get(canvas);
-      if (!entry) return;
-      entry.stop();
-      entry.renderer.dispose();
-      active.delete(canvas);
+    function activate(canvas) {
+      if (active.has(canvas)) {
+        touch(canvas);
+        return;
+      }
+      evictOldestIfNeeded();
+      const entry = canvas.id === 'heroCanvas' ? initHero(canvas) : initCard(canvas);
+      if (entry) active.set(canvas, entry);
+    }
+
+    function deactivate(canvas) {
+      disposeEntry(canvas);
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            initCanvas(entry.target);
+            activate(entry.target);
           } else {
-            disposeCanvas(entry.target);
+            deactivate(entry.target);
           }
         });
       },
-      { rootMargin: '150px', threshold: 0.01 }
+      { rootMargin: '200px', threshold: 0.01 }
     );
 
-    const canvases = Object.values(cardCanvasRefs.current).filter(Boolean);
-    canvases.forEach((canvas) => observer.observe(canvas));
+    const allCanvases = [heroCanvasRef.current, ...Object.values(cardCanvasRefs.current)].filter(Boolean);
+
+    // If the browser itself evicts a context (independent of our own cap),
+    // recover instead of staying blank.
+    function onContextLost(e) {
+      e.preventDefault();
+      deactivate(e.target);
+    }
+    function onContextRestored(e) {
+      activate(e.target);
+    }
+
+    allCanvases.forEach((canvas) => {
+      observer.observe(canvas);
+      canvas.addEventListener('webglcontextlost', onContextLost, false);
+      canvas.addEventListener('webglcontextrestored', onContextRestored, false);
+    });
 
     return () => {
       observer.disconnect();
-      active.forEach((entry) => {
-        entry.stop();
-        entry.renderer.dispose();
+      allCanvases.forEach((canvas) => {
+        canvas.removeEventListener('webglcontextlost', onContextLost, false);
+        canvas.removeEventListener('webglcontextrestored', onContextRestored, false);
       });
+      active.forEach((_, canvas) => disposeEntry(canvas));
       active.clear();
     };
   }, []);
