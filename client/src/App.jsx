@@ -1205,7 +1205,7 @@ IMPORTANT RULES:
           </div>
 
           {/* Card 4 - Overall Victory */}
-          <div className="card" style={{ cursor: 'default', border: '2px solid var(--blue)' }}>
+          <div className="card" style={{ cursor: 'default' }}>
             <canvas className="c3d" data-color="#f1c40f" ref={el => { 
               if (!cardCanvasRefs.current.overall) cardCanvasRefs.current.overall = el; 
             }}></canvas>

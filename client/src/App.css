@@ -152,21 +152,25 @@ nav {
   overflow: hidden;
 }
 
+/* ✅ HERO 3D - FIXED */
 #heroCanvas {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.hero-copy,
-.stack-wrap {
-  position: relative;
-  z-index: 2;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1 !important;
+  opacity: 0.6 !important;
+  pointer-events: none !important;
 }
 
 .hero-copy {
-  flex: 1 1 420px;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.stack-wrap {
+  position: relative !important;
+  z-index: 2 !important;
 }
 
 .eyebrow {
@@ -497,61 +501,17 @@ section {
   z-index: 1;
 }
 
-/* ===== FLOATING ANIMATION - ALL CARDS ===== */
-.card:nth-child(1),
-#sports .card:nth-child(1),
-#trip .card:nth-child(1) {
-  animation: float3d 5s ease-in-out infinite;
-}
-
-.card:nth-child(2),
-#sports .card:nth-child(2),
-#trip .card:nth-child(2) {
-  animation: float3d 6s ease-in-out infinite 0.5s;
-}
-
-.card:nth-child(3),
-#sports .card:nth-child(3),
-#trip .card:nth-child(3) {
-  animation: float3d 7s ease-in-out infinite 1s;
-}
-
-.card:nth-child(4),
-#sports .card:nth-child(4),
-#trip .card:nth-child(4) {
-  animation: float3d 8s ease-in-out infinite 1.5s;
-}
-
-.card:hover,
-#sports .card:hover,
-#trip .card:hover {
-  animation-play-state: paused;
-}
-
-@keyframes float3d {
-  0%,
-  100% {
-    transform: translateY(0px) rotateX(0deg) rotateY(0deg);
-  }
-  25% {
-    transform: translateY(-8px) rotateX(2deg) rotateY(1deg);
-  }
-  75% {
-    transform: translateY(-4px) rotateX(-1deg) rotateY(-1deg);
-  }
-}
-
-/* ===== PROJECT CARDS - 3D CANVAS ===== */
+/* ✅ CARD 3D - FIXED */
 .card canvas.c3d {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 100px !important;
-  height: 100px !important;
-  z-index: 0;
-  opacity: 0.85;
-  pointer-events: none;
-  transition: transform 0.6s ease;
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  width: 80px !important;
+  height: 80px !important;
+  z-index: 0 !important;
+  opacity: 0.8 !important;
+  pointer-events: none !important;
+  display: block !important;
 }
 
 .card:hover canvas.c3d {
@@ -986,7 +946,6 @@ footer {
   }
 }
 
-/* ✅ Ask Panel Body - Scrollable */
 .ask-panel-body {
   flex: 1;
   overflow-y: auto;
@@ -1373,25 +1332,13 @@ footer {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* ✅ Trophy Images - Face Visible */
-.gallery-grid img[src*="trophy.jpg"],
-.gallery-grid img[src*="trophy1"],
-.gallery-grid img[src*="trophy2"],
-.gallery-grid img[src*="trophy3"] {
-  object-position: center 20% !important;
-}
-
-.gallery-grid img[src*="sports-day-group"] {
-  object-position: center 10% !important;
-}
-
 /* ===== DIAGRAMS GALLERY ===== */
 .diagrams-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 16px;
-  max-width: 850px;
-  max-height: 65vh;
+  max-width: 1000px;
+  max-height: 70vh;
   overflow-y: auto;
   padding: 16px;
   width: 100%;
@@ -1419,35 +1366,41 @@ footer {
   transition: all 0.3s ease;
   border: 2px solid transparent;
   cursor: pointer;
+  aspect-ratio: 16/9;
+  display: flex;
+  flex-direction: column;
 }
 
 .diagrams-gallery .diagram-item:hover {
   border-color: var(--blue);
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.02);
   box-shadow: 0 8px 30px rgba(0, 122, 255, 0.2);
 }
 
 .diagrams-gallery .diagram-item img {
   width: 100%;
-  height: auto;
-  max-height: 250px;
+  height: 100%;
   object-fit: contain;
-  padding: 12px;
   background: #fff;
-  border-radius: 8px;
+  padding: 8px;
+  border-radius: 8px 8px 0 0;
+  display: block;
+  flex: 1;
 }
 
 .diagrams-gallery .diagram-item p {
   text-align: center;
-  padding: 10px;
+  padding: 10px 8px;
   color: var(--text);
   font-weight: 600;
   font-size: 0.8rem;
   background: rgba(255, 255, 255, 0.03);
   margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
 }
 
-/* ===== LIGHTBOX - HIGHEST Z-INDEX ===== */
+/* ===== LIGHTBOX ===== */
 .lightbox-overlay {
   position: fixed;
   inset: 0;
@@ -1566,9 +1519,7 @@ footer {
   transform: scale(0.95);
 }
 
-/* ============================================================
-   ===== PROJECT MODAL =====
-   ============================================================ */
+/* ===== PROJECT MODAL ===== */
 .project-modal-overlay {
   position: fixed;
   inset: 0;
@@ -1997,6 +1948,10 @@ footer {
     font-size: 0.85rem;
   }
 
+  #heroCanvas {
+    opacity: 0.4 !important;
+  }
+
   .widget-stack {
     width: 190px;
     height: 190px;
@@ -2070,7 +2025,14 @@ footer {
     height: 45px !important;
     top: 6px !important;
     right: 6px !important;
-    opacity: 0.4 !important;
+    opacity: 0.6 !important;
+  }
+
+  #sports .card canvas.c3d,
+  #trip .card canvas.c3d {
+    width: 40px !important;
+    height: 40px !important;
+    opacity: 0.5 !important;
   }
 
   /* Gallery */
@@ -2081,12 +2043,21 @@ footer {
     padding: 12px;
   }
 
-  /* Trophy images - mobile */
-  .gallery-grid img[src*="trophy.jpg"],
-  .gallery-grid img[src*="trophy1"],
-  .gallery-grid img[src*="trophy2"],
-  .gallery-grid img[src*="trophy3"] {
-    object-position: center 15% !important;
+  .diagrams-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    max-height: 55vh;
+    padding: 12px;
+  }
+
+  .diagrams-gallery .diagram-item img {
+    max-height: 180px;
+    padding: 8px;
+  }
+
+  .diagrams-gallery .diagram-item p {
+    font-size: 0.7rem;
+    padding: 8px 6px;
   }
 
   .ask-images-grid {
@@ -2131,19 +2102,6 @@ footer {
     padding: 3px 10px;
   }
 
-  /* Diagrams Gallery */
-  .diagrams-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
-    max-height: 55vh;
-    padding: 12px;
-  }
-
-  .diagrams-gallery .diagram-item img {
-    max-height: 180px;
-    padding: 8px;
-  }
-
   .modal-diagrams {
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     gap: 10px;
@@ -2156,6 +2114,11 @@ footer {
   .diagram-item img {
     min-height: 60px;
     max-height: 100px;
+    padding: 4px;
+  }
+
+  .diagram-item p {
+    font-size: 0.6rem;
     padding: 4px;
   }
 
@@ -2214,10 +2177,6 @@ footer {
     font-size: 1rem;
   }
 
-  #heroCanvas {
-    opacity: 0.4 !important;
-  }
-
   .ask-fab {
     padding: 10px 14px;
     font-size: 0.75rem;
@@ -2261,6 +2220,10 @@ footer {
     padding: 12px 16px;
   }
 
+  #heroCanvas {
+    opacity: 0.3 !important;
+  }
+
   .card h3,
   #sports .card h3,
   #trip .card h3 {
@@ -2292,11 +2255,21 @@ footer {
     padding: 8px;
   }
 
-  .gallery-grid img[src*="trophy.jpg"],
-  .gallery-grid img[src*="trophy1"],
-  .gallery-grid img[src*="trophy2"],
-  .gallery-grid img[src*="trophy3"] {
-    object-position: center 10% !important;
+  .diagrams-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 8px;
+    max-height: 50vh;
+    padding: 8px;
+  }
+
+  .diagrams-gallery .diagram-item img {
+    max-height: 140px;
+    padding: 6px;
+  }
+
+  .diagrams-gallery .diagram-item p {
+    font-size: 0.6rem;
+    padding: 6px;
   }
 
   .ask-images-grid {
@@ -2319,21 +2292,15 @@ footer {
     padding: 0 10px 10px;
   }
 
-  .diagrams-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-    gap: 8px;
-    max-height: 50vh;
-    padding: 8px;
-  }
-
-  .diagrams-gallery .diagram-item img {
-    max-height: 140px;
-    padding: 6px;
-  }
-
-  .diagrams-gallery .diagram-item p {
+  .ask-submit-btn {
+    padding: 4px 8px;
     font-size: 0.6rem;
-    padding: 6px;
+    min-width: 32px;
+  }
+
+  .ask-project-btn {
+    font-size: 0.55rem;
+    padding: 2px 8px;
   }
 
   .modal-diagrams {
@@ -2366,21 +2333,6 @@ footer {
     width: 30px;
     height: 30px;
     font-size: 0.8rem;
-  }
-
-  .ask-submit-btn {
-    padding: 4px 8px;
-    font-size: 0.6rem;
-    min-width: 32px;
-  }
-
-  .ask-project-btn {
-    font-size: 0.55rem;
-    padding: 2px 8px;
-  }
-
-  #heroCanvas {
-    opacity: 0.3 !important;
   }
 
   .view-all-btn {
@@ -2433,17 +2385,45 @@ footer {
   color: var(--text);
 }
 
+/* ✅ HERO DARK THEME - FIXED */
+[data-theme="dark"] .hero {
+  background: #0d0d0f !important;
+  background-image: none !important;
+  background-color: #0d0d0f !important;
+}
+
 [data-theme="dark"] .hero h1 {
-  color: var(--text);
+  color: #f2f2f7 !important;
+}
+
+[data-theme="dark"] .hero h1 .grad {
+  background: linear-gradient(100deg, #4da3ff, #8b8bf7) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
 }
 
 [data-theme="dark"] .hero p {
-  color: var(--muted);
+  color: #98989e !important;
 }
 
 [data-theme="dark"] .eyebrow {
-  background: rgba(0, 122, 255, 0.15);
-  color: #4da3ff;
+  background: rgba(0, 122, 255, 0.15) !important;
+  color: #4da3ff !important;
+}
+
+[data-theme="dark"] .btn-ghost {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #f2f2f7 !important;
+}
+
+[data-theme="dark"] .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+[data-theme="dark"] .btn-primary {
+  background: var(--blue);
+  color: #fff;
 }
 
 [data-theme="dark"] .card,
@@ -2533,20 +2513,6 @@ footer {
 [data-theme="dark"] .journey-tags span {
   background: rgba(0, 122, 255, 0.12);
   color: #4da3ff;
-}
-
-[data-theme="dark"] .btn-ghost {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
-}
-
-[data-theme="dark"] .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-[data-theme="dark"] .btn-primary {
-  background: var(--blue);
-  color: #fff;
 }
 
 [data-theme="dark"] .ask-fab {
@@ -2678,6 +2644,24 @@ footer {
   color: var(--muted);
 }
 
+[data-theme="dark"] .diagrams-gallery .diagram-item {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="dark"] .diagrams-gallery .diagram-item:hover {
+  border-color: var(--blue);
+  box-shadow: 0 8px 30px rgba(0, 122, 255, 0.2);
+}
+
+[data-theme="dark"] .diagrams-gallery .diagram-item img {
+  background: #1a1a1a;
+}
+
+[data-theme="dark"] .diagrams-gallery .diagram-item p {
+  color: var(--text);
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
 [data-theme="dark"] .lightbox-overlay {
   background: rgba(0, 0, 0, 0.92);
 }
@@ -2757,14 +2741,6 @@ footer {
   background: rgba(255, 255, 255, 0.15);
 }
 
-[data-theme="dark"] .diagrams-gallery .diagram-item {
-  background: rgba(255, 255, 255, 0.04);
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item p {
-  color: var(--text);
-}
-
 [data-theme="dark"] .gallery-grid img {
   border-color: rgba(255, 255, 255, 0.06);
 }
@@ -2794,847 +2770,50 @@ body:has(.overlay.open) .ask-fab {
   pointer-events: none !important;
 }
 /* ============================================================
-   ===== DIAGRAMS GALLERY - GAP FIX =====
+   ===== FIX: SPORTS OVERALL CARD DARK THEME =====
    ============================================================ */
 
-/* ✅ Diagrams Gallery - Proper Gap */
-.diagrams-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px !important;  /* ✅ Gap between items */
-  row-gap: 24px !important;  /* ✅ Vertical gap */
-  column-gap: 20px !important;  /* ✅ Horizontal gap */
-  max-width: 1000px;
-  max-height: 70vh;
-  overflow-y: auto;
-  padding: 20px !important;
-  width: 100%;
-  z-index: 900000;
-}
-
-.diagrams-gallery::-webkit-scrollbar {
-  width: 6px;
-}
-
-.diagrams-gallery::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
-.diagrams-gallery::-webkit-scrollbar-thumb {
-  background: var(--blue);
-  border-radius: 10px;
-}
-
-/* ✅ Diagram Item - Card Style with spacing */
-.diagrams-gallery .diagram-item {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-  cursor: pointer;
-  aspect-ratio: 16/9;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-}
-
-.diagrams-gallery .diagram-item:hover {
-  border-color: var(--blue);
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 30px rgba(0, 122, 255, 0.25);
-}
-
-/* ✅ Diagram Image - Full width with padding */
-.diagrams-gallery .diagram-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #fff;
-  padding: 10px;
-  border-radius: 8px 8px 0 0;
-  display: block;
-  flex: 1;
-}
-
-/* ✅ Diagram Label - Bottom */
-.diagrams-gallery .diagram-item p {
-  text-align: center;
-  padding: 10px 8px;
-  color: var(--text);
-  font-weight: 600;
-  font-size: 0.8rem;
-  background: rgba(0, 0, 0, 0.03);
-  margin: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-  flex-shrink: 0;
-}
-
-/* ============================================================
-   ===== MOBILE - DIAGRAMS GALLERY =====
-   ============================================================ */
-
-@media(max-width:600px) {
-  .diagrams-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 14px !important;
-    row-gap: 18px !important;
-    column-gap: 14px !important;
-    max-height: 60vh;
-    padding: 14px !important;
-  }
-
-  .diagrams-gallery .diagram-item {
-    aspect-ratio: 16/9;
-  }
-
-  .diagrams-gallery .diagram-item img {
-    padding: 6px;
-  }
-
-  .diagrams-gallery .diagram-item p {
-    font-size: 0.7rem;
-    padding: 8px 6px;
-  }
-}
-
-@media(max-width:380px) {
-  .diagrams-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px !important;
-    row-gap: 14px !important;
-    column-gap: 10px !important;
-    max-height: 55vh;
-    padding: 10px !important;
-  }
-
-  .diagrams-gallery .diagram-item {
-    aspect-ratio: 16/9;
-  }
-
-  .diagrams-gallery .diagram-item img {
-    padding: 4px;
-  }
-
-  .diagrams-gallery .diagram-item p {
-    font-size: 0.6rem;
-    padding: 6px 4px;
-  }
-}
-
-/* ============================================================
-   ===== DARK THEME - DIAGRAMS GALLERY =====
-   ============================================================ */
-
-[data-theme="dark"] .diagrams-gallery .diagram-item {
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item:hover {
-  border-color: var(--blue);
-  box-shadow: 0 8px 30px rgba(0, 122, 255, 0.2);
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item img {
-  background: #1a1a1a;
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item p {
-  color: var(--text);
-  border-top-color: rgba(255, 255, 255, 0.06);
-  background: rgba(255, 255, 255, 0.03);
-}
-/* ============================================================
-   ===== DIAGRAMS GALLERY - FINAL GAP FIX =====
-   ============================================================ */
-
-/* ✅ Override everything - Force gap */
-.diagrams-gallery {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
-  gap: 24px 20px !important;
-  row-gap: 28px !important;
-  column-gap: 20px !important;
-  max-width: 1000px !important;
-  max-height: 70vh !important;
-  overflow-y: auto !important;
-  padding: 24px !important;
-  width: 100% !important;
-  z-index: 900000 !important;
-  background: transparent !important;
-}
-
-.diagrams-gallery::-webkit-scrollbar {
-  width: 6px;
-}
-
-.diagrams-gallery::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
-.diagrams-gallery::-webkit-scrollbar-thumb {
-  background: var(--blue);
-  border-radius: 10px;
-}
-
-/* ✅ Diagram Item - Card Style */
-.diagrams-gallery .diagram-item {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  transition: all 0.3s ease !important;
-  border: 2px solid transparent !important;
-  cursor: pointer !important;
-  aspect-ratio: 16/9 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-  margin: 0 !important;
-}
-
-.diagrams-gallery .diagram-item:hover {
+[data-theme="dark"] #sports .card[style*="border: 2px solid var(--blue)"] {
+  background: var(--card) !important;
   border-color: var(--blue) !important;
-  transform: translateY(-4px) scale(1.02) !important;
-  box-shadow: 0 8px 30px rgba(0, 122, 255, 0.25) !important;
 }
 
-/* ✅ Diagram Image */
-.diagrams-gallery .diagram-item img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important;
-  background: #fff !important;
-  padding: 12px !important;
-  border-radius: 8px 8px 0 0 !important;
-  display: block !important;
-  flex: 1 !important;
-  min-height: 80px !important;
-}
-
-/* ✅ Diagram Label */
-.diagrams-gallery .diagram-item p {
-  text-align: center !important;
-  padding: 10px 8px !important;
+[data-theme="dark"] #sports .card[style*="border: 2px solid var(--blue)"] h3 {
   color: var(--text) !important;
-  font-weight: 600 !important;
-  font-size: 0.8rem !important;
-  background: rgba(0, 0, 0, 0.03) !important;
-  margin: 0 !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
-  flex-shrink: 0 !important;
 }
 
-/* ============================================================
-   ===== MOBILE - DIAGRAMS GALLERY =====
-   ============================================================ */
-
-@media(max-width:600px) {
-  .diagrams-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
-    gap: 16px 12px !important;
-    row-gap: 20px !important;
-    column-gap: 12px !important;
-    max-height: 60vh !important;
-    padding: 16px !important;
-  }
-
-  .diagrams-gallery .diagram-item {
-    aspect-ratio: 16/9 !important;
-  }
-
-  .diagrams-gallery .diagram-item img {
-    padding: 8px !important;
-    min-height: 60px !important;
-  }
-
-  .diagrams-gallery .diagram-item p {
-    font-size: 0.7rem !important;
-    padding: 8px 6px !important;
-  }
+[data-theme="dark"] #sports .card[style*="border: 2px solid var(--blue)"] p {
+  color: var(--muted) !important;
 }
 
-@media(max-width:380px) {
-  .diagrams-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
-    gap: 12px 8px !important;
-    row-gap: 16px !important;
-    column-gap: 8px !important;
-    max-height: 55vh !important;
-    padding: 12px !important;
-  }
-
-  .diagrams-gallery .diagram-item {
-    aspect-ratio: 16/9 !important;
-  }
-
-  .diagrams-gallery .diagram-item img {
-    padding: 6px !important;
-    min-height: 50px !important;
-  }
-
-  .diagrams-gallery .diagram-item p {
-    font-size: 0.6rem !important;
-    padding: 6px 4px !important;
-  }
-}
-
-/* ============================================================
-   ===== DARK THEME - DIAGRAMS GALLERY =====
-   ============================================================ */
-
-[data-theme="dark"] .diagrams-gallery .diagram-item {
+[data-theme="dark"] #sports .card[style*="border: 2px solid var(--blue)"] .stack span {
   background: rgba(255, 255, 255, 0.06) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  color: var(--muted) !important;
 }
 
-[data-theme="dark"] .diagrams-gallery .diagram-item:hover {
+[data-theme="dark"] #sports .card[style*="border: 2px solid var(--blue)"] .icon-badge {
+  color: #fff !important;
+}
+
+/* ✅ Ya phir simpler tarika - sabhi sports cards ko dark karo */
+[data-theme="dark"] #sports .card {
+  background: var(--card) !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+[data-theme="dark"] #sports .card:hover {
   border-color: var(--blue) !important;
-  box-shadow: 0 8px 30px rgba(0, 122, 255, 0.2) !important;
 }
 
-[data-theme="dark"] .diagrams-gallery .diagram-item img {
-  background: #1a1a1a !important;
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item p {
+[data-theme="dark"] #sports .card h3 {
   color: var(--text) !important;
-  border-top-color: rgba(255, 255, 255, 0.06) !important;
-  background: rgba(255, 255, 255, 0.03) !important;
-}
-/* ============================================================
-   ===== DIAGRAMS GALLERY - EXACTLY PROJECT SCREENSHOTS JAISA =====
-   ============================================================ */
-
-/* ✅ Diagrams Gallery - Same as Gallery Grid */
-.diagrams-gallery {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
-  gap: 14px !important;
-  max-width: 1000px !important;
-  max-height: 70vh !important;
-  overflow-y: auto !important;
-  padding: 16px !important;
-  width: 100% !important;
-  z-index: 900000 !important;
-  background: transparent !important;
 }
 
-.diagrams-gallery::-webkit-scrollbar {
-  width: 6px;
+[data-theme="dark"] #sports .card p {
+  color: var(--muted) !important;
 }
 
-.diagrams-gallery::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
-.diagrams-gallery::-webkit-scrollbar-thumb {
-  background: var(--blue);
-  border-radius: 10px;
-}
-
-/* ✅ Diagram Item - Project Screenshot jaisa */
-.diagrams-gallery .diagram-item {
+[data-theme="dark"] #sports .card .stack span {
   background: rgba(255, 255, 255, 0.06) !important;
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  transition: all 0.3s ease !important;
-  border: 2px solid transparent !important;
-  cursor: pointer !important;
-  width: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
-}
-
-.diagrams-gallery .diagram-item:hover {
-  border-color: var(--blue) !important;
-  transform: translateY(-4px) scale(1.02) !important;
-  box-shadow: 0 8px 30px rgba(0, 122, 255, 0.25) !important;
-}
-
-/* ✅ Diagram Image - 16:9 like project screenshot */
-.diagrams-gallery .diagram-item img {
-  width: 100% !important;
-  aspect-ratio: 16/9 !important;
-  object-fit: contain !important;
-  background: #fff !important;
-  padding: 8px !important;
-  border-radius: 8px 8px 0 0 !important;
-  display: block !important;
-}
-
-/* ✅ Diagram Label */
-.diagrams-gallery .diagram-item p {
-  text-align: center !important;
-  padding: 10px 8px !important;
-  color: var(--text) !important;
-  font-weight: 600 !important;
-  font-size: 0.8rem !important;
-  background: rgba(255, 255, 255, 0.03) !important;
-  margin: 0 !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-/* ============================================================
-   ===== MOBILE - DIAGRAMS GALLERY =====
-   ============================================================ */
-
-@media(max-width:600px) {
-  .diagrams-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
-    gap: 10px !important;
-    max-height: 60vh !important;
-    padding: 12px !important;
-  }
-
-  .diagrams-gallery .diagram-item img {
-    padding: 6px !important;
-  }
-
-  .diagrams-gallery .diagram-item p {
-    font-size: 0.7rem !important;
-    padding: 8px 6px !important;
-  }
-}
-
-@media(max-width:380px) {
-  .diagrams-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)) !important;
-    gap: 8px !important;
-    max-height: 55vh !important;
-    padding: 8px !important;
-  }
-
-  .diagrams-gallery .diagram-item img {
-    padding: 4px !important;
-  }
-
-  .diagrams-gallery .diagram-item p {
-    font-size: 0.6rem !important;
-    padding: 6px 4px !important;
-  }
-}
-
-/* ============================================================
-   ===== DARK THEME - DIAGRAMS GALLERY =====
-   ============================================================ */
-
-[data-theme="dark"] .diagrams-gallery .diagram-item {
-  background: rgba(255, 255, 255, 0.04) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item:hover {
-  border-color: var(--blue) !important;
-  box-shadow: 0 8px 30px rgba(0, 122, 255, 0.2) !important;
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item img {
-  background: #1a1a1a !important;
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item p {
-  color: var(--text) !important;
-  border-top-color: rgba(255, 255, 255, 0.06) !important;
-}
-/* ============================================================
-   ===== DIAGRAMS GALLERY - FINAL FIX (PROJECT SCREENSHOTS JAISA) =====
-   ============================================================ */
-
-/* ✅ Override everything - Same as Gallery Grid */
-.diagrams-gallery {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
-  gap: 16px !important;
-  row-gap: 16px !important;
-  column-gap: 16px !important;
-  max-width: 1000px !important;
-  max-height: 70vh !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  padding: 20px !important;
-  width: 100% !important;
-  z-index: 900000 !important;
-  background: transparent !important;
-  margin: 0 auto !important;
-  justify-content: center !important;
-  align-items: start !important;
-}
-
-.diagrams-gallery::-webkit-scrollbar {
-  width: 6px !important;
-}
-
-.diagrams-gallery::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border-radius: 10px !important;
-}
-
-.diagrams-gallery::-webkit-scrollbar-thumb {
-  background: var(--blue) !important;
-  border-radius: 10px !important;
-}
-
-/* ✅ Diagram Item - Project Screenshot jaisa */
-.diagrams-gallery .diagram-item {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  transition: all 0.3s ease !important;
-  border: 2px solid transparent !important;
-  cursor: pointer !important;
-  width: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
-  margin: 0 !important;
-  justify-self: center !important;
-}
-
-.diagrams-gallery .diagram-item:hover {
-  border-color: var(--blue) !important;
-  transform: translateY(-4px) scale(1.02) !important;
-  box-shadow: 0 8px 30px rgba(0, 122, 255, 0.25) !important;
-}
-
-/* ✅ Diagram Image - 16:9 like project screenshot */
-.diagrams-gallery .diagram-item img {
-  width: 100% !important;
-  aspect-ratio: 16/9 !important;
-  object-fit: contain !important;
-  background: #fff !important;
-  padding: 10px !important;
-  border-radius: 8px 8px 0 0 !important;
-  display: block !important;
-  min-height: 80px !important;
-}
-
-/* ✅ Diagram Label */
-.diagrams-gallery .diagram-item p {
-  text-align: center !important;
-  padding: 10px 8px !important;
-  color: var(--text) !important;
-  font-weight: 600 !important;
-  font-size: 0.8rem !important;
-  background: rgba(0, 0, 0, 0.03) !important;
-  margin: 0 !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
-  flex-shrink: 0 !important;
-}
-
-/* ============================================================
-   ===== MOBILE - DIAGRAMS GALLERY =====
-   ============================================================ */
-
-@media(max-width:600px) {
-  .diagrams-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
-    gap: 12px !important;
-    row-gap: 12px !important;
-    column-gap: 12px !important;
-    max-height: 60vh !important;
-    padding: 14px !important;
-  }
-
-  .diagrams-gallery .diagram-item img {
-    padding: 6px !important;
-    min-height: 60px !important;
-  }
-
-  .diagrams-gallery .diagram-item p {
-    font-size: 0.7rem !important;
-    padding: 8px 6px !important;
-  }
-}
-
-@media(max-width:380px) {
-  .diagrams-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)) !important;
-    gap: 8px !important;
-    row-gap: 8px !important;
-    column-gap: 8px !important;
-    max-height: 55vh !important;
-    padding: 10px !important;
-  }
-
-  .diagrams-gallery .diagram-item img {
-    padding: 4px !important;
-    min-height: 50px !important;
-  }
-
-  .diagrams-gallery .diagram-item p {
-    font-size: 0.6rem !important;
-    padding: 6px 4px !important;
-  }
-}
-
-/* ============================================================
-   ===== DARK THEME - DIAGRAMS GALLERY =====
-   ============================================================ */
-
-[data-theme="dark"] .diagrams-gallery .diagram-item {
-  background: rgba(255, 255, 255, 0.06) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item:hover {
-  border-color: var(--blue) !important;
-  box-shadow: 0 8px 30px rgba(0, 122, 255, 0.2) !important;
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item img {
-  background: #1a1a1a !important;
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item p {
-  color: var(--text) !important;
-  border-top-color: rgba(255, 255, 255, 0.06) !important;
-  background: rgba(255, 255, 255, 0.03) !important;
-}
-
-/* ✅ Fix scrollbar shifting right */
-.diagrams-gallery {
-  scrollbar-gutter: stable !important;
-}
-
-.gallery-overlay {
-  scrollbar-gutter: stable !important;
-}
-/* ============================================================
-   ===== DIAGRAMS GALLERY - FORCE GAP FIX =====
-   ============================================================ */
-
-/* ✅ Force Diagrams Gallery */
-.diagrams-gallery {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
-  gap: 20px 20px !important;
-  max-width: 1000px !important;
-  max-height: 70vh !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  padding: 20px !important;
-  width: 100% !important;
-  z-index: 900000 !important;
-  background: transparent !important;
-  margin: 0 auto !important;
-  justify-content: center !important;
-  align-items: start !important;
-}
-
-/* ✅ Diagram Item */
-.diagrams-gallery .diagram-item {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  transition: all 0.3s ease !important;
-  border: 2px solid transparent !important;
-  cursor: pointer !important;
-  width: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
-  margin: 0 !important;
-}
-
-.diagrams-gallery .diagram-item:hover {
-  border-color: var(--blue) !important;
-  transform: translateY(-4px) scale(1.02) !important;
-  box-shadow: 0 8px 30px rgba(0, 122, 255, 0.25) !important;
-}
-
-/* ✅ Diagram Image */
-.diagrams-gallery .diagram-item img {
-  width: 100% !important;
-  aspect-ratio: 16/9 !important;
-  object-fit: contain !important;
-  background: #fff !important;
-  padding: 10px !important;
-  border-radius: 8px 8px 0 0 !important;
-  display: block !important;
-  min-height: 80px !important;
-}
-
-/* ✅ Diagram Label */
-.diagrams-gallery .diagram-item p {
-  text-align: center !important;
-  padding: 10px 8px !important;
-  color: var(--text) !important;
-  font-weight: 600 !important;
-  font-size: 0.8rem !important;
-  background: rgba(0, 0, 0, 0.03) !important;
-  margin: 0 !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
-  flex-shrink: 0 !important;
-}
-
-/* ============================================================
-   ===== MOBILE - DIAGRAMS GALLERY =====
-   ============================================================ */
-
-@media(max-width:600px) {
-  .diagrams-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
-    gap: 14px 14px !important;
-    max-height: 60vh !important;
-    padding: 14px !important;
-  }
-
-  .diagrams-gallery .diagram-item img {
-    padding: 6px !important;
-    min-height: 60px !important;
-  }
-
-  .diagrams-gallery .diagram-item p {
-    font-size: 0.7rem !important;
-    padding: 8px 6px !important;
-  }
-}
-
-@media(max-width:380px) {
-  .diagrams-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)) !important;
-    gap: 10px 10px !important;
-    max-height: 55vh !important;
-    padding: 10px !important;
-  }
-
-  .diagrams-gallery .diagram-item img {
-    padding: 4px !important;
-    min-height: 50px !important;
-  }
-
-  .diagrams-gallery .diagram-item p {
-    font-size: 0.6rem !important;
-    padding: 6px 4px !important;
-  }
-}
-
-/* ============================================================
-   ===== DARK THEME - DIAGRAMS GALLERY =====
-   ============================================================ */
-
-[data-theme="dark"] .diagrams-gallery .diagram-item {
-  background: rgba(255, 255, 255, 0.06) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item:hover {
-  border-color: var(--blue) !important;
-  box-shadow: 0 8px 30px rgba(0, 122, 255, 0.2) !important;
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item img {
-  background: #1a1a1a !important;
-}
-
-[data-theme="dark"] .diagrams-gallery .diagram-item p {
-  color: var(--text) !important;
-  border-top-color: rgba(255, 255, 255, 0.06) !important;
-  background: rgba(255, 255, 255, 0.03) !important;
-}
-/* ============================================================
-   ===== FIX: MOBILE 3D ANIMATION VISIBLE =====
-   ============================================================ */
-
-/* ✅ Mobile par 3D Canvas Visible */
-/* Hero 3D - Mobile & Desktop */
-#heroCanvas {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  z-index: 1 !important;
-  opacity: 0.6 !important;
-  pointer-events: none !important;
-}
-
-.hero-copy {
-  position: relative !important;
-  z-index: 2 !important;
-}
-
-.stack-wrap {
-  position: relative !important;
-  z-index: 2 !important;
-}
-
-/* Card 3D Models */
-.card canvas.c3d {
-  position: absolute !important;
-  top: 8px !important;
-  right: 8px !important;
-  width: 80px !important;
-  height: 80px !important;
-  z-index: 0 !important;
-  opacity: 0.8 !important;
-  pointer-events: none !important;
-  display: block !important;
-}
-
-/* Mobile */
-@media(max-width:600px) {
-  #heroCanvas {
-    opacity: 0.4 !important;
-  }
-  
-  .card canvas.c3d {
-    width: 45px !important;
-    height: 45px !important;
-    opacity: 0.6 !important;
-  }
-}
-  
-  /* Sports & Trip 3D */
-  #sports .card canvas.c3d,
-  #trip .card canvas.c3d {
-    width: 45px !important;
-    height: 45px !important;
-    opacity: 0.7 !important;
-    display: block !important;
-    top: 8px !important;
-    right: 8px !important;
-  }
-/* ============================================================
-   ===== FINAL FIX: HERO SECTION FULL DARK =====
-   ============================================================ */
-
-/* Hero background - Force dark */
-[data-theme="dark"] .hero {
-  background: #0d0d0f !important;
-  background-image: none !important;
-  background-color: #0d0d0f !important;
-}
-
-/* Hero gradient text */
-[data-theme="dark"] .hero h1 .grad {
-  background: linear-gradient(100deg, #4da3ff, #8b8bf7) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-}
-
-/* Hero description text */
-[data-theme="dark"] .hero p {
-  color: #98989e !important;
-}
-
-/* Hero eyebrow */
-[data-theme="dark"] .eyebrow {
-  background: rgba(0, 122, 255, 0.15) !important;
-  color: #4da3ff !important;
-}
-
-/* Hero buttons */
-[data-theme="dark"] .btn-ghost {
-  background: rgba(255, 255, 255, 0.06) !important;
-  color: #f2f2f7 !important;
-}
-
-[data-theme="dark"] .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.12) !important;
+  color: var(--muted) !important;
 }
