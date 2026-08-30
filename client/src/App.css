@@ -1,3 +1,6 @@
+/* ============================================================
+   ROOT VARIABLES
+   ============================================================ */
 :root {
   --bg: #f2f2f7;
   --card: rgba(255, 255, 255, 0.72);
@@ -11,6 +14,9 @@
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
 }
 
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -25,6 +31,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', Inter, sans-serif;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 h1,
@@ -36,9 +43,12 @@ h3 {
 
 body {
   background: var(--bg);
+  transition: background 0.3s ease;
 }
 
-/* ===== NAV ===== */
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
 nav {
   position: fixed;
   top: 0;
@@ -53,6 +63,7 @@ nav {
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--line);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .logo {
@@ -138,7 +149,9 @@ nav {
   transform: scale(1.05);
 }
 
-/* ===== HERO ===== */
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
 .hero {
   position: relative;
   min-height: 96vh;
@@ -148,6 +161,8 @@ nav {
   gap: 50px;
   flex-wrap: wrap;
   overflow: hidden;
+  background: var(--bg) !important;
+  transition: background 0.3s ease;
 }
 
 #heroCanvas {
@@ -156,8 +171,9 @@ nav {
   width: 100% !important;
   height: 100% !important;
   z-index: 1 !important;
-  opacity: 0.6 !important;
+  opacity: 0.8 !important;
   pointer-events: none !important;
+  display: block !important;
 }
 
 .hero-copy {
@@ -198,6 +214,7 @@ nav {
   margin-bottom: 18px;
   color: var(--text);
   perspective: 600px;
+  transition: color 0.3s ease;
 }
 
 .hero h1 .grad {
@@ -239,6 +256,7 @@ nav {
   max-width: 500px;
   line-height: 1.6;
   margin-bottom: 30px;
+  transition: color 0.3s ease;
 }
 
 .hero-cta {
@@ -276,7 +294,9 @@ nav {
   transform: scale(0.97);
 }
 
-/* ===== WIDGET STACK ===== */
+/* ============================================================
+   WIDGET STACK
+   ============================================================ */
 .stack-wrap {
   flex: 1 1 320px;
   display: flex;
@@ -362,9 +382,13 @@ nav {
   opacity: 0.85;
 }
 
-/* ===== SECTIONS ===== */
+/* ============================================================
+   SECTIONS
+   ============================================================ */
 section {
   padding: 80px 6vw;
+  background: var(--bg);
+  transition: background 0.3s ease;
 }
 
 .sec-head {
@@ -383,9 +407,13 @@ section {
   font-size: clamp(1.7rem, 3.2vw, 2.3rem);
   margin-top: 8px;
   font-weight: 800;
+  color: var(--text);
+  transition: color 0.3s ease;
 }
 
-/* ===== CARDS - BASE 3D ANIMATION ===== */
+/* ============================================================
+   CARDS
+   ============================================================ */
 .card,
 #sports .card,
 #trip .card {
@@ -450,6 +478,8 @@ section {
   font-weight: 700;
   position: relative;
   z-index: 1;
+  color: var(--text);
+  transition: color 0.3s ease;
 }
 
 .card p,
@@ -460,6 +490,7 @@ section {
   line-height: 1.55;
   position: relative;
   z-index: 1;
+  transition: color 0.3s ease;
 }
 
 .card .stack,
@@ -482,6 +513,7 @@ section {
   border-radius: 999px;
   background: rgba(118, 118, 128, 0.12);
   color: var(--muted);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .card .link,
@@ -529,14 +561,18 @@ section {
   }
 }
 
-/* ===== PROJECTS GRID ===== */
+/* ============================================================
+   GRID
+   ============================================================ */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   gap: 18px;
 }
 
-/* ===== JOURNEY ===== */
+/* ============================================================
+   JOURNEY
+   ============================================================ */
 .journey-subtitle {
   color: var(--muted);
   font-size: 0.95rem;
@@ -667,6 +703,7 @@ section {
   font-size: 1rem;
   margin: 2px 0;
   color: var(--text);
+  transition: color 0.3s ease;
 }
 
 .journey-sub {
@@ -712,9 +749,12 @@ section {
   color: var(--text);
   line-height: 1.6;
   margin-bottom: 4px;
+  transition: color 0.3s ease;
 }
 
-/* ===== DOCUMENTS GRID ===== */
+/* ============================================================
+   DOCUMENTS GRID
+   ============================================================ */
 .documents-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -792,7 +832,9 @@ section {
   background: var(--purple);
 }
 
-/* ===== CERTIFICATIONS ===== */
+/* ============================================================
+   CERTIFICATIONS
+   ============================================================ */
 .cert-grid {
   padding: 6px 0;
 }
@@ -828,7 +870,9 @@ section {
   color: var(--blue);
 }
 
-/* ===== SKILLS ===== */
+/* ============================================================
+   SKILLS
+   ============================================================ */
 .skill-cloud {
   display: flex;
   flex-wrap: wrap;
@@ -849,7 +893,9 @@ section {
   transform: scale(0.95);
 }
 
-/* ===== FOOTER ===== */
+/* ============================================================
+   FOOTER
+   ============================================================ */
 footer {
   padding: 44px 6vw;
   text-align: center;
@@ -868,7 +914,9 @@ footer {
   text-decoration: underline;
 }
 
-/* ===== ASK FAB ===== */
+/* ============================================================
+   ASK FAB
+   ============================================================ */
 .ask-fab {
   position: fixed;
   bottom: 26px;
@@ -887,6 +935,7 @@ footer {
   font-weight: 600;
   color: var(--text);
   border: none;
+  transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
 }
 
 .ask-fab .dot {
@@ -897,7 +946,9 @@ footer {
   box-shadow: 0 0 8px var(--blue);
 }
 
-/* ===== ASK PANEL ===== */
+/* ============================================================
+   ASK PANEL
+   ============================================================ */
 .overlay {
   position: fixed;
   inset: 0;
@@ -929,6 +980,7 @@ footer {
   max-height: 85vh;
   display: flex;
   flex-direction: column;
+  transition: background 0.3s ease, border 0.3s ease;
 }
 
 @keyframes panelIn {
@@ -985,6 +1037,7 @@ footer {
   background: none;
   border: none;
   white-space: nowrap;
+  transition: color 0.3s ease;
 }
 
 .ask-search-box {
@@ -997,6 +1050,7 @@ footer {
   padding: 6px 10px;
   min-width: 0;
   width: 100%;
+  transition: background 0.3s ease;
 }
 
 .ask-search-box svg {
@@ -1016,6 +1070,7 @@ footer {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   min-width: 50px;
   width: 100%;
+  transition: color 0.3s ease;
 }
 
 .ask-search-box input::placeholder {
@@ -1203,6 +1258,7 @@ footer {
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--text);
+  transition: color 0.3s ease;
 }
 
 .ask-note {
@@ -1214,7 +1270,9 @@ footer {
   flex-shrink: 0;
 }
 
-/* ===== VIEW ALL BUTTON ===== */
+/* ============================================================
+   VIEW ALL BUTTON
+   ============================================================ */
 .view-all-btn {
   background: rgba(0, 122, 255, 0.08);
   border: 2px solid var(--blue);
@@ -1238,7 +1296,9 @@ footer {
   transform: scale(0.96);
 }
 
-/* ===== GALLERY OVERLAY ===== */
+/* ============================================================
+   GALLERY OVERLAY
+   ============================================================ */
 .gallery-overlay {
   position: fixed;
   inset: 0;
@@ -1328,7 +1388,9 @@ footer {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* ===== DIAGRAMS GALLERY ===== */
+/* ============================================================
+   DIAGRAMS GALLERY
+   ============================================================ */
 .diagrams-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -1396,7 +1458,9 @@ footer {
   flex-shrink: 0;
 }
 
-/* ===== LIGHTBOX ===== */
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
 .lightbox-overlay {
   position: fixed;
   inset: 0;
@@ -1515,7 +1579,9 @@ footer {
   transform: scale(0.95);
 }
 
-/* ===== PROJECT MODAL ===== */
+/* ============================================================
+   PROJECT MODAL
+   ============================================================ */
 .project-modal-overlay {
   position: fixed;
   inset: 0;
@@ -1549,6 +1615,7 @@ footer {
   padding: 28px;
   position: relative;
   animation: modalSlideUp 0.3s ease;
+  transition: background 0.3s ease;
 }
 
 @keyframes modalSlideUp {
@@ -1603,6 +1670,7 @@ footer {
   font-size: 1.8rem;
   margin-bottom: 2px;
   margin-top: 0;
+  color: var(--text);
 }
 
 .modal-tagline {
@@ -1900,7 +1968,7 @@ footer {
 }
 
 /* ============================================================
-   ===== MOBILE RESPONSIVE =====
+   MOBILE RESPONSIVE
    ============================================================ */
 @media(max-width:600px) {
   nav {
@@ -1928,6 +1996,11 @@ footer {
     gap: 24px;
   }
 
+  #heroCanvas {
+    opacity: 0.9 !important;
+    display: block !important;
+  }
+
   .hero h1 {
     font-size: 1.8rem;
   }
@@ -1944,63 +2017,6 @@ footer {
     font-size: 0.85rem;
   }
 
-  [data-theme="dark"] .hero {
-    background: #0d0d0f !important;
-    background-image: none !important;
-    background-color: #0d0d0f !important;
-  }
-
-  [data-theme="light"] .hero {
-    background: #f2f2f7 !important;
-  }
-
-  #heroCanvas {
-    opacity: 1 !important;
-    display: block !important;
-    z-index: 1 !important;
-    width: 100% !important;
-    height: 100% !important;
-  }
-
-  .hero-copy {
-    position: relative !important;
-    z-index: 2 !important;
-  }
-
-  .stack-wrap {
-    position: relative !important;
-    z-index: 2 !important;
-  }
-
-  [data-theme="dark"] .hero h1 {
-    color: #ffffff !important;
-  }
-
-  [data-theme="dark"] .hero p {
-    color: #c0c0c0 !important;
-  }
-
-  [data-theme="dark"] .hero h1 .grad {
-    background: linear-gradient(100deg, #4da3ff, #8b8bf7) !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    color: transparent !important;
-  }
-
-  [data-theme="dark"] .eyebrow {
-    background: rgba(0, 122, 255, 0.2) !important;
-    color: #4da3ff !important;
-  }
-
-  [data-theme="dark"] .btn-ghost {
-    background: rgba(255, 255, 255, 0.08) !important;
-    color: #ffffff !important;
-  }
-
-  [data-theme="dark"] .btn-ghost:hover {
-    background: rgba(255, 255, 255, 0.15) !important;
-  }
-
   .widget-stack {
     width: 190px;
     height: 190px;
@@ -2015,53 +2031,37 @@ footer {
     font-size: 1.3rem;
   }
 
-  .grid,
-  #sports>div[style*="grid-template-columns"],
-  #trip>div[style*="grid-template-columns"] {
+  .grid {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
 
-  .card,
-  #sports .card,
-  #trip .card {
+  .card {
     padding: 18px !important;
     border-radius: 16px !important;
-    animation: none !important;
   }
 
-  .card:hover,
-  #sports .card:hover,
-  #trip .card:hover {
+  .card:hover {
     transform: translateY(-4px) scale(1.01) !important;
-    animation: none !important;
   }
 
-  .card h3,
-  #sports .card h3,
-  #trip .card h3 {
+  .card h3 {
     font-size: 1rem !important;
     padding-right: 0 !important;
   }
 
-  .card p,
-  #sports .card p,
-  #trip .card p {
+  .card p {
     font-size: 0.82rem !important;
     padding-right: 0 !important;
     line-height: 1.5 !important;
   }
 
-  .card .stack span,
-  #sports .card .stack span,
-  #trip .card .stack span {
+  .card .stack span {
     font-size: 0.6rem !important;
     padding: 3px 8px !important;
   }
 
-  .card .icon-badge,
-  #sports .card .icon-badge,
-  #trip .card .icon-badge {
+  .card .icon-badge {
     width: 38px !important;
     height: 38px !important;
     font-size: 1rem !important;
@@ -2074,13 +2074,6 @@ footer {
     top: 6px !important;
     right: 6px !important;
     opacity: 0.6 !important;
-  }
-
-  #sports .card canvas.c3d,
-  #trip .card canvas.c3d {
-    width: 40px !important;
-    height: 40px !important;
-    opacity: 0.5 !important;
   }
 
   .gallery-grid {
@@ -2248,7 +2241,9 @@ footer {
   }
 }
 
-/* ===== SMALL MOBILE (under 380px) ===== */
+/* ============================================================
+   SMALL MOBILE (under 380px)
+   ============================================================ */
 @media(max-width:380px) {
   .hero h1 {
     font-size: 1.5rem;
@@ -2269,15 +2264,11 @@ footer {
     opacity: 1 !important;
   }
 
-  .card h3,
-  #sports .card h3,
-  #trip .card h3 {
+  .card h3 {
     font-size: 0.9rem !important;
   }
 
-  .card p,
-  #sports .card p,
-  #trip .card p {
+  .card p {
     font-size: 0.75rem !important;
   }
 
@@ -2286,9 +2277,7 @@ footer {
     height: 35px !important;
   }
 
-  .card .icon-badge,
-  #sports .card .icon-badge,
-  #trip .card .icon-badge {
+  .card .icon-badge {
     width: 32px !important;
     height: 32px !important;
     font-size: 0.85rem !important;
@@ -2387,7 +2376,7 @@ footer {
 }
 
 /* ============================================================
-   ===== DARK THEME =====
+   DARK THEME - COMPLETE
    ============================================================ */
 [data-theme="dark"] {
   --bg: #0d0d0f;
@@ -2399,38 +2388,46 @@ footer {
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
+/* Dark Theme - Body */
 [data-theme="dark"] body {
   background: var(--bg);
 }
 
+/* Dark Theme - Nav */
 [data-theme="dark"] nav {
-  background: rgba(13, 13, 15, 0.85);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(13, 13, 15, 0.85) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
 }
 
 [data-theme="dark"] .logo {
-  color: var(--text);
+  color: #f2f2f7 !important;
 }
 
 [data-theme="dark"] .nav-links {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.06) !important;
 }
 
 [data-theme="dark"] .nav-links a {
-  color: var(--muted);
+  color: #98989e !important;
 }
 
 [data-theme="dark"] .nav-links a:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text);
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #f2f2f7 !important;
 }
 
+[data-theme="dark"] .theme-toggle {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Dark Theme - Hero */
 [data-theme="dark"] .hero {
   background: #0d0d0f !important;
-  background-image: none !important;
-  background-color: #0d0d0f !important;
 }
 
 [data-theme="dark"] .hero h1 {
@@ -2462,54 +2459,90 @@ footer {
   background: rgba(255, 255, 255, 0.12) !important;
 }
 
-[data-theme="dark"] .btn-primary {
-  background: var(--blue);
-  color: #fff;
-}
-
+/* Dark Theme - Cards */
 [data-theme="dark"] .card,
 [data-theme="dark"] .journey-card {
-  background: var(--card);
-  border-color: rgba(255, 255, 255, 0.06);
+  background: var(--card) !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
 }
 
 [data-theme="dark"] .card:hover,
 [data-theme="dark"] .journey-card:hover {
-  border-color: var(--blue);
-  box-shadow: 0 0 30px rgba(0, 122, 255, 0.15), 0 12px 40px rgba(0, 0, 0, 0.3);
+  border-color: var(--blue) !important;
+  box-shadow: 0 0 30px rgba(0, 122, 255, 0.15), 0 12px 40px rgba(0, 0, 0, 0.3) !important;
 }
 
-[data-theme="dark"] .card h3,
-[data-theme="dark"] .journey-info h3 {
-  color: var(--text);
+[data-theme="dark"] .card h3 {
+  color: #f2f2f7 !important;
 }
 
 [data-theme="dark"] .card p {
-  color: var(--muted);
+  color: #98989e !important;
 }
 
 [data-theme="dark"] .card .stack span {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--muted);
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #98989e !important;
 }
 
-[data-theme="dark"] .card .icon-badge {
-  color: #fff;
+/* Dark Theme - Sections */
+[data-theme="dark"] section {
+  background: var(--bg) !important;
+}
+
+[data-theme="dark"] .sec-head h2 {
+  color: #f2f2f7 !important;
+}
+
+[data-theme="dark"] .sec-head .tag {
+  color: #4da3ff !important;
+}
+
+/* Dark Theme - Journey */
+[data-theme="dark"] .journey-info h3 {
+  color: #f2f2f7 !important;
 }
 
 [data-theme="dark"] .journey-sub {
-  color: var(--muted);
+  color: #98989e !important;
 }
 
 [data-theme="dark"] .journey-cgpa {
   color: #4da3ff !important;
 }
 
-/* ===== DARK THEME - ASK PANEL FIX ===== */
+[data-theme="dark"] .journey-details ul li {
+  color: #f2f2f7 !important;
+}
+
+[data-theme="dark"] .journey-year {
+  color: #4da3ff !important;
+  background: rgba(0, 122, 255, 0.2) !important;
+}
+
+/* Dark Theme - Skills */
+[data-theme="dark"] .skill-cloud span {
+  background: var(--card-solid) !important;
+  color: var(--text) !important;
+}
+
+/* Dark Theme - Footer */
+[data-theme="dark"] footer {
+  color: #98989e !important;
+}
+
+[data-theme="dark"] .footer-link {
+  color: #98989e !important;
+}
+
+[data-theme="dark"] .footer-link:hover {
+  color: #4da3ff !important;
+}
+
+/* Dark Theme - Ask Panel */
 [data-theme="dark"] .ask-panel {
   background: rgba(28, 28, 30, 0.92) !important;
   backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
@@ -2554,7 +2587,7 @@ footer {
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
-/* ===== DARK THEME - PROJECT MODAL FIX ===== */
+/* Dark Theme - Project Modal */
 [data-theme="dark"] .project-modal {
   background: #1c1c1e !important;
 }
@@ -2611,7 +2644,7 @@ footer {
   background: rgba(0, 122, 255, 0.2) !important;
 }
 
-/* ===== DARK THEME - GALLERY FIX ===== */
+/* Dark Theme - Gallery */
 [data-theme="dark"] .gallery-overlay {
   background: rgba(0, 0, 0, 0.95) !important;
 }
@@ -2628,7 +2661,7 @@ footer {
   color: #f2f2f7 !important;
 }
 
-/* ===== DARK THEME - LIGHTBOX FIX ===== */
+/* Dark Theme - Lightbox */
 [data-theme="dark"] .lightbox-overlay {
   background: rgba(0, 0, 0, 0.95) !important;
 }
@@ -2637,21 +2670,50 @@ footer {
   color: #f2f2f7 !important;
 }
 
-/* ===== DARK THEME - SKILLS FIX ===== */
-[data-theme="dark"] .skill-cloud span {
-  background: var(--card-solid) !important;
-  color: var(--text) !important;
+/* Dark Theme - Documents */
+[data-theme="dark"] .doc-grid-item {
+  background: rgba(255, 255, 255, 0.03) !important;
 }
 
-/* ===== DARK THEME - FOOTER FIX ===== */
-[data-theme="dark"] footer {
-  color: var(--muted) !important;
+[data-theme="dark"] .doc-grid-name {
+  color: #f2f2f7 !important;
 }
 
-[data-theme="dark"] .footer-link {
-  color: var(--muted) !important;
+/* Dark Theme - Certifications */
+[data-theme="dark"] .cert-tag {
+  background: rgba(0, 122, 255, 0.2) !important;
+  color: #4da3ff !important;
 }
 
-[data-theme="dark"] .footer-link:hover {
-  color: var(--blue) !important;
+[data-theme="dark"] .journey-tags span {
+  background: rgba(0, 122, 255, 0.2) !important;
+  color: #4da3ff !important;
+}
+
+/* ============================================================
+   EXTRA: ENSURE 3D CANVAS WORKS EVERYWHERE
+   ============================================================ */
+canvas#heroCanvas {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 0.8 !important;
+}
+
+.hero canvas {
+  display: block !important;
+}
+
+/* Force hero canvas visibility on all devices */
+#heroCanvas {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Fix for dark mode toggle button */
+[data-theme="dark"] .theme-toggle {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
 }
