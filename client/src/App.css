@@ -3537,3 +3537,83 @@ body:has(.overlay.open) .ask-fab {
   border-top-color: rgba(255, 255, 255, 0.06) !important;
   background: rgba(255, 255, 255, 0.03) !important;
 }
+/* ============================================================
+   ===== FIX: MOBILE 3D ANIMATION VISIBLE =====
+   ============================================================ */
+
+/* ✅ Mobile par 3D Canvas Visible */
+@media(max-width:600px) {
+  /* Hero 3D */
+  #heroCanvas {
+    opacity: 1 !important;
+    display: block !important;
+    z-index: 1 !important;
+  }
+  
+  .hero-copy {
+    position: relative;
+    z-index: 2 !important;
+  }
+  
+  .stack-wrap {
+    position: relative;
+    z-index: 2 !important;
+  }
+  
+  /* Card 3D */
+  .card canvas.c3d {
+    width: 50px !important;
+    height: 50px !important;
+    opacity: 0.8 !important;
+    display: block !important;
+    top: 10px !important;
+    right: 10px !important;
+  }
+  
+  /* Sports & Trip 3D */
+  #sports .card canvas.c3d,
+  #trip .card canvas.c3d {
+    width: 45px !important;
+    height: 45px !important;
+    opacity: 0.7 !important;
+    display: block !important;
+    top: 8px !important;
+    right: 8px !important;
+  }
+}
+
+/* ============================================================
+   ===== FIX: DARK THEME HERO SECTION =====
+   ============================================================ */
+
+[data-theme="dark"] .hero {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+[data-theme="dark"] .hero h1 {
+  color: var(--text) !important;
+}
+
+[data-theme="dark"] .hero h1 .grad {
+  color: #fff !important;
+  text-shadow: 0 0 30px rgba(0, 122, 255, 0.2) !important;
+}
+
+[data-theme="dark"] .hero p {
+  color: var(--muted) !important;
+}
+
+[data-theme="dark"] .eyebrow {
+  background: rgba(0, 122, 255, 0.15) !important;
+  color: #4da3ff !important;
+}
+
+[data-theme="dark"] .btn-ghost {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--text) !important;
+}
+
+[data-theme="dark"] .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
