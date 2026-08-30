@@ -3542,33 +3542,52 @@ body:has(.overlay.open) .ask-fab {
    ============================================================ */
 
 /* ✅ Mobile par 3D Canvas Visible */
+/* Hero 3D - Mobile & Desktop */
+#heroCanvas {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1 !important;
+  opacity: 0.6 !important;
+  pointer-events: none !important;
+}
+
+.hero-copy {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.stack-wrap {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Card 3D Models */
+.card canvas.c3d {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  width: 80px !important;
+  height: 80px !important;
+  z-index: 0 !important;
+  opacity: 0.8 !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+
+/* Mobile */
 @media(max-width:600px) {
-  /* Hero 3D */
   #heroCanvas {
-    opacity: 1 !important;
-    display: block !important;
-    z-index: 1 !important;
+    opacity: 0.4 !important;
   }
   
-  .hero-copy {
-    position: relative;
-    z-index: 2 !important;
-  }
-  
-  .stack-wrap {
-    position: relative;
-    z-index: 2 !important;
-  }
-  
-  /* Card 3D */
   .card canvas.c3d {
-    width: 50px !important;
-    height: 50px !important;
-    opacity: 0.8 !important;
-    display: block !important;
-    top: 10px !important;
-    right: 10px !important;
+    width: 45px !important;
+    height: 45px !important;
+    opacity: 0.6 !important;
   }
+}
   
   /* Sports & Trip 3D */
   #sports .card canvas.c3d,
@@ -3580,16 +3599,10 @@ body:has(.overlay.open) .ask-fab {
     top: 8px !important;
     right: 8px !important;
   }
-}
-
-/* ===== HERO SECTION - FULL DARK THEME ===== */
+/* Dark Theme - Hero Full Dark */
 [data-theme="dark"] .hero {
   background: #0d0d0f !important;
   background-image: none !important;
-}
-
-[data-theme="dark"] .hero-copy {
-  background: transparent !important;
 }
 
 [data-theme="dark"] .hero h1 {
@@ -3607,7 +3620,4 @@ body:has(.overlay.open) .ask-fab {
   color: transparent !important;
 }
 
-[data-theme="dark"] .eyebrow {
-  background: rgba(0, 122, 255, 0.15) !important;
-  color: #4da3ff !important;
-}
+
