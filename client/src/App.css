@@ -3599,33 +3599,42 @@ body:has(.overlay.open) .ask-fab {
     top: 8px !important;
     right: 8px !important;
   }
-/* ===== HERO - FULL DARK THEME ===== */
+/* ============================================================
+   ===== FINAL FIX: HERO SECTION FULL DARK =====
+   ============================================================ */
+
+/* Hero background - Force dark */
 [data-theme="dark"] .hero {
   background: #0d0d0f !important;
   background-image: none !important;
+  background-color: #0d0d0f !important;
 }
 
-[data-theme="dark"] .hero::before {
-  display: none !important;
-}
-
-[data-theme="dark"] .hero-copy {
-  background: transparent !important;
-}
-
-[data-theme="dark"] .hero h1 {
-  color: #f2f2f7 !important;
-}
-
-[data-theme="dark"] .hero p {
-  color: #98989e !important;
-}
-
-[data-theme="dark"] .hero .grad {
+/* Hero gradient text */
+[data-theme="dark"] .hero h1 .grad {
   background: linear-gradient(100deg, #4da3ff, #8b8bf7) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   color: transparent !important;
 }
 
+/* Hero description text */
+[data-theme="dark"] .hero p {
+  color: #98989e !important;
+}
 
+/* Hero eyebrow */
+[data-theme="dark"] .eyebrow {
+  background: rgba(0, 122, 255, 0.15) !important;
+  color: #4da3ff !important;
+}
+
+/* Hero buttons */
+[data-theme="dark"] .btn-ghost {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #f2f2f7 !important;
+}
+
+[data-theme="dark"] .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
