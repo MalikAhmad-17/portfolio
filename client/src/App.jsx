@@ -691,23 +691,17 @@ IMPORTANT RULES:
     setIsLoading(false);
   }
 
-  // ===== Unified 3D canvas manager (hero + all cards) =====
-  // Mobile browsers only allow a handful of live WebGL contexts (commonly
-  // ~8). This page has 1 hero canvas + up to 12 card canvases (4 project +
-  // 4 sports + 4 trip). If each one lives forever once created, scrolling
-  // through Sports/Trip stacks up new contexts on top of the ones already
-  // held (hero + earlier cards) and once the ceiling is hit the browser
-  // silently evicts one to make room — no error, it just goes blank. That's
-  // what broke the hero (and its "theme" look) after scrolling down and
-  // back up.
-  //
-  // Fix: ONE IntersectionObserver drives every canvas, hero included, with
-  // a hard cap (MAX_LIVE) on how many contexts we keep alive at once —
-  // oldest one is disposed (LRU) before a new one is created, so we never
-  // even approach the browser's real limit. We also listen for
-  // webglcontextlost/restored so if the browser ever reclaims a context on
-  // its own anyway, we recover automatically instead of staying blank.
+  // ===== Unified 3D canvas manager (hero + all cards) — DESKTOP ONLY =====
+  // These wireframe animations are purely decorative. On mobile they've
+  // proven unreliable across different phones/Chrome builds even with a
+  // context cap + LRU eviction + auto-recovery (all three of which are
+  // still in place below, for desktop). Rather than keep chasing
+  // device-specific GPU quirks, we simply never touch WebGL on small
+  // viewports — no context is ever created there, so there's nothing left
+  // to break on scroll. Desktop keeps the full animation.
   useEffect(() => {
+    if (window.innerWidth < 768) return; // mobile: skip entirely, nothing to init or clean up
+
     const MAX_LIVE = 6; // stay well under mobile's ~8 context ceiling
     const active = new Map(); // canvas -> { dispose(), type }
 

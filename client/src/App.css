@@ -1,4 +1,110 @@
 /* ============================================================
+   3D WIREFRAME CANVASES — DESKTOP ONLY
+   These are purely decorative. JS skips creating any WebGL context
+   below 768px (see App.jsx), so we hide the empty canvas elements
+   here too. In their place, mobile gets a pure-CSS decorative
+   replacement below — soft glowing orbs on the hero, a corner glow
+   on each card. Just transform/opacity animation on ::before/::after
+   pseudo-elements, no canvas, no WebGL, so it can never break on
+   scroll the way the 3D version did.
+   ============================================================ */
+@media (max-width: 767px) {
+  #heroCanvas,
+  canvas.c3d {
+    display: none !important;
+  }
+
+  /* --- Hero: floating blurred gradient orbs --- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before,
+  .hero::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(38px);
+    opacity: 0.4;
+    animation: heroOrbFloat 9s ease-in-out infinite;
+  }
+
+  .hero::before {
+    width: 200px;
+    height: 200px;
+    background: var(--blue);
+    top: 8%;
+    right: -50px;
+  }
+
+  .hero::after {
+    width: 160px;
+    height: 160px;
+    background: var(--purple);
+    bottom: 12%;
+    left: -40px;
+    animation-delay: -4.5s;
+  }
+
+  [data-theme="dark"] .hero::before,
+  [data-theme="dark"] .hero::after {
+    opacity: 0.28;
+  }
+
+  @keyframes heroOrbFloat {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-18px, 22px) scale(1.12);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero::before,
+    .hero::after {
+      animation: none;
+    }
+  }
+
+  /* --- Cards: soft corner glow where the 3D canvas used to sit --- */
+  .card {
+    position: relative;
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    top: -24px;
+    right: -24px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--blue) 0%, transparent 72%);
+    opacity: 0.22;
+    filter: blur(4px);
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .card:nth-of-type(2n)::after {
+    background: radial-gradient(circle, var(--purple) 0%, transparent 72%);
+  }
+
+  .card:nth-of-type(3n)::after {
+    background: radial-gradient(circle, var(--teal) 0%, transparent 72%);
+  }
+
+  .card:active::after {
+    opacity: 0.35;
+  }
+}
+
+/* ============================================================
    ROOT VARIABLES
    ============================================================ */
 :root {
