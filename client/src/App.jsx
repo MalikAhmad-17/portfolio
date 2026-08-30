@@ -361,16 +361,6 @@ export default function App() {
   const [diagramItems, setDiagramItems] = useState([]);
 
   // ===== THEME EFFECT =====
-  // Applies theme synchronously before paint, then forces a hard
-  // reflow/repaint on the next frame. This fixes a known bug in
-  // in-app WebViews (WhatsApp/Instagram/Facebook browser) where
-  // off-screen sections (e.g. hero, when you're scrolled down to
-  // sports/trip) keep their OLD painted layer even after the
-  // `--bg`/`--text` CSS variables change, because those sections
-  // have their own GPU compositing layer (from `will-change` /
-  // backdrop-filter) that isn't repainted until it re-enters the
-  // viewport. Forcing `transform` + `offsetHeight` read on <body>
-  // invalidates every layer's cache and forces a full repaint.
   useLayoutEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     document.body.setAttribute('data-theme', theme);
@@ -378,8 +368,7 @@ export default function App() {
 
     requestAnimationFrame(() => {
       document.body.style.transform = 'translateZ(0.001px)';
-      // eslint-disable-next-line no-unused-expressions
-      void document.body.offsetHeight; // force synchronous reflow
+      void document.body.offsetHeight;
       document.body.style.transform = '';
     });
   }, [theme]);
@@ -708,6 +697,7 @@ IMPORTANT RULES:
   }
 
   // ===== Hero 3D background - ALWAYS ACTIVE, NEVER DISPOSED =====
+  // 🔥 FIX: renderer.dispose() HATAYA - hero canvas kabhi dispose nahi hoga!
   useEffect(() => {
     const canvas = heroCanvasRef.current;
     if (!canvas) return;
@@ -827,11 +817,12 @@ IMPORTANT RULES:
     }
     animate();
 
+    // ✅ FIXED: renderer.dispose() HATAYA!
     return () => {
       cancelAnimationFrame(frameId);
       window.removeEventListener('resize', resize);
       window.removeEventListener('resize', handleResize);
-      renderer.dispose();
+      // renderer.dispose(); // 🔥 HATAYA - hero canvas kabhi dispose nahi hoga!
     };
   }, []);
 
@@ -899,7 +890,7 @@ IMPORTANT RULES:
       { rootMargin: '150px', threshold: 0.01 }
     );
 
-    // 🔥 CRITICAL: ONLY card canvases - hero canvas NOT included!
+    // 🔥 ONLY card canvases - hero canvas NOT included!
     const cardKeys = ['qr', 'queue', 'chat', 'image', 'cricket', 'kabaddi', 'football', 'overall', 'tripManage', 'vlog1', 'vlog2', 'tripHighlights'];
     const canvases = cardKeys
       .map(key => cardCanvasRefs.current[key])
