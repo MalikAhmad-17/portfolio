@@ -419,7 +419,7 @@ section {
 }
 
 /* ============================================================
-   CARDS
+   CARDS - 🔥 FIX 2: will-change REMOVED
    ============================================================ */
 .card,
 #sports .card,
@@ -437,13 +437,7 @@ section {
   cursor: pointer;
   transform-style: preserve-3d;
   perspective: 800px;
-  /* NOTE: will-change: transform intentionally REMOVED here.
-     It was forcing each card onto its own permanent GPU
-     compositing layer, which in in-app WebViews (WhatsApp/
-     Instagram browser) caused off-screen cards/hero to keep
-     a stale painted layer after a theme (dark/light) switch,
-     until they scrolled back into view. Removing it lets the
-     browser manage layers dynamically and repaint correctly. */
+  /* 🔥 will-change REMOVED - isi wajah se stale GPU layer rehti thi */
 }
 
 .card:hover,
@@ -2394,9 +2388,7 @@ footer {
 }
 
 /* ============================================================
-   DARK THEME - COMPLETE (single source of truth — do NOT
-   duplicate these blocks elsewhere, that's what caused the
-   light/dark mismatch bug)
+   DARK THEME - COMPLETE (single source of truth)
    ============================================================ */
 [data-theme="dark"] {
   --bg: #0d0d0f;
@@ -2408,13 +2400,11 @@ footer {
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Dark Theme - Body */
 [data-theme="dark"] html,
 [data-theme="dark"] body {
   background: var(--bg);
 }
 
-/* Dark Theme - Nav */
 [data-theme="dark"] nav {
   background: rgba(13, 13, 15, 0.85) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
@@ -2446,8 +2436,6 @@ footer {
   background: rgba(255, 255, 255, 0.15) !important;
 }
 
-/* Dark Theme - Hero (uses var(--bg) already, this just keeps
-   canvas + gradient text readable) */
 [data-theme="dark"] .hero h1 .grad {
   background: linear-gradient(100deg, #4da3ff, #8b8bf7) !important;
   -webkit-background-clip: text !important;
@@ -2469,7 +2457,6 @@ footer {
   background: rgba(255, 255, 255, 0.12) !important;
 }
 
-/* Dark Theme - Cards */
 [data-theme="dark"] .card,
 [data-theme="dark"] .journey-card {
   background: var(--card) !important;
@@ -2495,7 +2482,6 @@ footer {
   color: #98989e !important;
 }
 
-/* Dark Theme - Sections */
 [data-theme="dark"] .sec-head h2 {
   color: #f2f2f7 !important;
 }
@@ -2504,7 +2490,6 @@ footer {
   color: #4da3ff !important;
 }
 
-/* Dark Theme - Journey */
 [data-theme="dark"] .journey-info h3 {
   color: #f2f2f7 !important;
 }
@@ -2526,13 +2511,11 @@ footer {
   background: rgba(0, 122, 255, 0.2) !important;
 }
 
-/* Dark Theme - Skills */
 [data-theme="dark"] .skill-cloud span {
   background: var(--card-solid) !important;
   color: var(--text) !important;
 }
 
-/* Dark Theme - Footer */
 [data-theme="dark"] footer {
   color: #98989e !important;
 }
@@ -2545,7 +2528,6 @@ footer {
   color: #4da3ff !important;
 }
 
-/* Dark Theme - Ask Panel */
 [data-theme="dark"] .ask-panel {
   background: rgba(28, 28, 30, 0.92) !important;
   backdrop-filter: blur(24px) saturate(180%) !important;
@@ -2593,7 +2575,6 @@ footer {
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
-/* Dark Theme - Project Modal */
 [data-theme="dark"] .project-modal {
   background: #1c1c1e !important;
 }
@@ -2650,7 +2631,6 @@ footer {
   background: rgba(0, 122, 255, 0.2) !important;
 }
 
-/* Dark Theme - Gallery */
 [data-theme="dark"] .gallery-overlay {
   background: rgba(0, 0, 0, 0.95) !important;
 }
@@ -2667,7 +2647,6 @@ footer {
   color: #f2f2f7 !important;
 }
 
-/* Dark Theme - Lightbox */
 [data-theme="dark"] .lightbox-overlay {
   background: rgba(0, 0, 0, 0.95) !important;
 }
@@ -2676,7 +2655,6 @@ footer {
   color: #f2f2f7 !important;
 }
 
-/* Dark Theme - Documents */
 [data-theme="dark"] .doc-grid-item {
   background: rgba(255, 255, 255, 0.03) !important;
 }
@@ -2685,7 +2663,6 @@ footer {
   color: #f2f2f7 !important;
 }
 
-/* Dark Theme - Certifications */
 [data-theme="dark"] .cert-tag {
   background: rgba(0, 122, 255, 0.2) !important;
   color: #4da3ff !important;
