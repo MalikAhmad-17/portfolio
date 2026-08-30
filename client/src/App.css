@@ -3599,10 +3599,18 @@ body:has(.overlay.open) .ask-fab {
     top: 8px !important;
     right: 8px !important;
   }
-/* Dark Theme - Hero Full Dark */
+/* ===== HERO - FULL DARK THEME ===== */
 [data-theme="dark"] .hero {
   background: #0d0d0f !important;
   background-image: none !important;
+}
+
+[data-theme="dark"] .hero::before {
+  display: none !important;
+}
+
+[data-theme="dark"] .hero-copy {
+  background: transparent !important;
 }
 
 [data-theme="dark"] .hero h1 {
