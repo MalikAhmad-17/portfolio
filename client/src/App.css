@@ -437,7 +437,13 @@ section {
   cursor: pointer;
   transform-style: preserve-3d;
   perspective: 800px;
-  will-change: transform;
+  /* NOTE: will-change: transform intentionally REMOVED here.
+     It was forcing each card onto its own permanent GPU
+     compositing layer, which in in-app WebViews (WhatsApp/
+     Instagram browser) caused off-screen cards/hero to keep
+     a stale painted layer after a theme (dark/light) switch,
+     until they scrolled back into view. Removing it lets the
+     browser manage layers dynamically and repaint correctly. */
 }
 
 .card:hover,

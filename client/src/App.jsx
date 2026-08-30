@@ -20,11 +20,11 @@ const PROJECTS = {
     title: 'QR Kavach',
     tagline: 'QR-based Vehicle Identity & Safety System',
     description: 'Complete vehicle identity verification and safety ecosystem with QR codes, smart cards, alerts system, and admin panel.',
-    
+
     introduction: `QR Kavach is a web-based application developed to provide a seamless and efficient way to manage, generate, and scan QR codes for vehicle identity verification. With the advancement of technology and increased need for smart surveillance and tracking, traditional manual vehicle registration methods have become outdated. This system bridges the gap by offering a digital solution that is fast, reliable, and user-friendly.`,
-    
+
     scope: `The system is designed to meet the needs of both administrators and end users. It can be used by Residential societies and parking authorities, Government vehicle departments, and Individual vehicle owners.`,
-    
+
     objectives: [
       'To automate the QR code generation process',
       'To provide real-time access to vehicle information',
@@ -33,7 +33,7 @@ const PROJECTS = {
       'To improve operational satisfaction',
       'To provide an efficient management system for administrators'
     ],
-    
+
     modules: [
       'Authentication Module - Handles user registration and login via JWT',
       'Admin Module - Manages vehicle records, controls user data, monitors QR scan activity',
@@ -42,7 +42,7 @@ const PROJECTS = {
       'Scan Module - Handles QR code scan requests via public API',
       'Database Module - Stores all system data, ensures data integrity'
     ],
-    
+
     futureEnhancements: [
       'Dedicated mobile application for Android and iOS',
       'Real-time CCTV integration and IoT-based automatic QR scanning',
@@ -52,7 +52,7 @@ const PROJECTS = {
       'Email and SMS notifications',
       'Cloud deployment on AWS or Azure'
     ],
-    
+
     conclusion: `QR Kavach is a practical and scalable solution that meets the basic requirements of QR-based vehicle identification. With further improvements and advanced features, it can be developed into a fully functional commercial application.`,
 
     images: [
@@ -71,7 +71,7 @@ const PROJECTS = {
       '/images/qr-kavach/coupons.png',
       '/images/qr-kavach/documents.png'
     ],
-    
+
     diagrams: [
       { name: 'E-R Diagram', src: '/images/qr-kavach/diagrams/e-r_diagram.png' },
       { name: 'DFD Level 0', src: '/images/qr-kavach/diagrams/dfd_level_0.png' },
@@ -84,9 +84,9 @@ const PROJECTS = {
       { name: 'Component Diagram', src: '/images/qr-kavach/diagrams/component_diagram.png' },
       { name: 'Deployment Diagram', src: '/images/qr-kavach/diagrams/deployment_diagram.png' }
     ],
-    
+
     techStack: ['React.js', 'Laravel', 'MySQL', 'JWT', 'Tailwind CSS', 'Vite'],
-    
+
     features: [
       'Vehicle QR Code Generation & Management',
       'Smart Card Digital Identity System with QR',
@@ -104,12 +104,12 @@ const PROJECTS = {
       'FAQ Management with Categories',
       'State/City/Location Masters'
     ],
-    
+
     links: {
       github: 'https://github.com/MalikAhmad-17/qr-kavach'
     }
   },
-  
+
   'proj-queue': {
     id: 'proj-queue',
     title: 'SmartQueue',
@@ -130,7 +130,7 @@ const PROJECTS = {
       github: 'https://github.com/MalikAhmad-17/smartqueue'
     }
   },
-  
+
   'proj-chat': {
     id: 'proj-chat',
     title: 'Real-time Chat App',
@@ -151,17 +151,17 @@ const PROJECTS = {
       github: 'https://github.com/MalikAhmad-17/chat-app'
     }
   },
-  
+
   'proj-image': {
     id: 'proj-image',
     title: 'Darkroom Studio',
     tagline: 'AI Image Studio — Real Darkroom Experience',
     description: 'AI-powered text-to-image generation app with 5 film rolls, real darkroom feel, and professional editing tools.',
-    
+
     introduction: `Darkroom Studio is an AI-powered image generation web application that replicates the real darkroom experience. Users write prompts (like "a girl in a cyberpunk city"), AI generates images, and the process gives a film developing feel. Multiple styles/rolls are available including Realistic, Anime, 3D, Oil Paint, and Custom. The application uses Pollinations.ai API for free image generation with no API key required.`,
-    
+
     scope: `The application is designed for AI enthusiasts, designers, photographers, developers, and students. It provides a professional darkroom theme with 5 unique film rolls, developing animation, spot retouch, loupe zoom, and mobile responsiveness — all without requiring any API key.`,
-    
+
     objectives: [
       'To provide a real darkroom experience for AI image generation',
       'To offer 5 different film rolls/styles (Realistic, Anime, 3D, Oil Paint, Custom)',
@@ -170,7 +170,7 @@ const PROJECTS = {
       'To deliver a professional UI with animations',
       'To make AI image generation accessible to everyone'
     ],
-    
+
     modules: [
       'Image Generation Module - Text-to-image using Pollinations.ai API',
       'Film Roll Module - 5 different styles with unique outputs',
@@ -180,7 +180,7 @@ const PROJECTS = {
       'Exposure Control Module - Adjust image brightness and contrast',
       'Gallery Module - Save and manage generated images'
     ],
-    
+
     futureEnhancements: [
       'User Accounts - Save images and history',
       'Better AI APIs - Replicate, DALL-E, Stable Diffusion integration',
@@ -190,9 +190,9 @@ const PROJECTS = {
       'Custom Models - Fine-tuned AI models',
       'Collaboration - Multi-user editing'
     ],
-    
+
     conclusion: `Darkroom Studio is a complete, professional, free AI image generator that delivers a real darkroom experience. It's the perfect combination of React, AI APIs, and UI/UX design, making it an ideal tool for creative professionals and AI enthusiasts.`,
-    
+
     images: [
       '/images/AI-IMAGE_STUDIO/dashboard.png',
       '/images/AI-IMAGE_STUDIO/image-generation.png',
@@ -202,7 +202,7 @@ const PROJECTS = {
       '/images/AI-IMAGE_STUDIO/retouch.png',
       '/images/AI-IMAGE_STUDIO/your-gallery.png'
     ],
-    
+
     diagrams: [
       { name: 'Activity Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/activity_diagram.png' },
       { name: 'Class Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/class_diagram.png' },
@@ -210,9 +210,9 @@ const PROJECTS = {
       { name: 'Sequence Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/sequence_diagram.png' },
       { name: 'Use Case Diagram', src: '/images/AI-IMAGE_STUDIO/diagrams/usecase_diagram.png' }
     ],
-    
+
     techStack: ['React 18 + Vite', 'Pollinations.ai API', 'CSS3', 'Axios', 'Lucide React'],
-    
+
     features: [
       'Text-to-image generation using Stable Diffusion XL',
       'Multiple image generation styles',
@@ -223,7 +223,7 @@ const PROJECTS = {
       'Customizable generation parameters',
       'Modern and intuitive interface'
     ],
-    
+
     links: {
       demo: 'https://ai-image-studio-chi.vercel.app',
       github: 'https://github.com/MalikAhmad-17/ai-image-studio'
@@ -345,26 +345,43 @@ export default function App() {
     if (saved) return saved;
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
-  
+
   const [lightboxImage, setLightboxImage] = useState(null);
   const [lightboxTitle, setLightboxTitle] = useState(null);
   const [lightboxDownloadUrl, setLightboxDownloadUrl] = useState(null);
-  
+
   const [showProjectImages, setShowProjectImages] = useState(false);
   const [projectImages, setProjectImages] = useState([]);
   const [projectDiagrams, setProjectDiagrams] = useState([]);
-  
+
   const [showGallery, setShowGallery] = useState(false);
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryTitle, setGalleryTitle] = useState('');
   const [showDiagramGallery, setShowDiagramGallery] = useState(false);
   const [diagramItems, setDiagramItems] = useState([]);
 
-  // Apply theme SYNC before paint
+  // ===== THEME EFFECT =====
+  // Applies theme synchronously before paint, then forces a hard
+  // reflow/repaint on the next frame. This fixes a known bug in
+  // in-app WebViews (WhatsApp/Instagram/Facebook browser) where
+  // off-screen sections (e.g. hero, when you're scrolled down to
+  // sports/trip) keep their OLD painted layer even after the
+  // `--bg`/`--text` CSS variables change, because those sections
+  // have their own GPU compositing layer (from `will-change` /
+  // backdrop-filter) that isn't repainted until it re-enters the
+  // viewport. Forcing `transform` + `offsetHeight` read on <body>
+  // invalidates every layer's cache and forces a full repaint.
   useLayoutEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     document.body.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+
+    requestAnimationFrame(() => {
+      document.body.style.transform = 'translateZ(0.001px)';
+      // eslint-disable-next-line no-unused-expressions
+      void document.body.offsetHeight; // force synchronous reflow
+      document.body.style.transform = '';
+    });
   }, [theme]);
 
   function toggleTheme() {
@@ -398,55 +415,55 @@ export default function App() {
   // ===== LOCAL FALLBACK RESPONSE =====
   function getLocalResponse(query) {
     const lower = query.toLowerCase();
-    
+
     if (lower.includes('qr kavach')) {
       return 'QR Kavach is a vehicle QR identity verification system built with Laravel + React + MySQL + JWT. Features: JWT authentication, OTP login, admin panel, real-time alerts, auto QR generation.';
     }
-    
+
     if (lower.includes('smartqueue')) {
       return 'SmartQueue is an AI-ready real-time queue management system built with Spring Boot + React + PostgreSQL + Redis. Features: Multi-role dashboard, AI-powered wait time predictions, analytics, customer notifications.';
     }
-    
+
     if (lower.includes('chat app') || lower.includes('real-time chat')) {
       return 'Real-time Chat App is a live messaging platform built with React + Node.js + Socket.IO + MongoDB. Features: Real-time messaging, JWT authentication, chat history, online/offline status.';
     }
-    
+
     if (lower.includes('ai image studio') || lower.includes('image studio')) {
       return 'AI-powered image generation app with 5 film rolls, real darkroom feel, and professional editing tools — completely free!.';
     }
-    
+
     if (lower.includes('project')) {
       return 'Malik has built <b>QR Kavach</b> (Laravel + React vehicle QR identity system), <b>SmartQueue</b> (Spring Boot + React queue management), a <b>real-time chat app</b> (Socket.IO + MongoDB), and an <b>AI Image Studio</b> (Stable Diffusion XL).';
     }
-    
+
     if (lower.includes('internship')) {
       return 'Malik did his <b>React.js internship at The Entrepreneurship Network</b>. He worked on React.js frontend development, built responsive UI components, integrated REST APIs, and collaborated with the team on project delivery.';
     }
-    
+
     if (lower.includes('oracle')) {
       return 'Malik has the following Oracle certifications: <b>Oracle Developer Associate, Oracle DevOps Professional, Oracle Gen AI Professional, Oracle Networking Professional, and Oracle Observability Professional.</b>';
     }
-    
+
     if (lower.includes('capgemini')) {
       return 'Malik has a <b>Capgemini Full Stack Java</b> certification.';
     }
-    
+
     if (lower.includes('certification') || lower.includes('certificate')) {
       return 'Malik holds certifications in: <b>Oracle (5 certifications), Capgemini Full Stack Java, English Spoken, IT & Management, Poetry-cum-Shayri, and Rummage Hunt.</b>';
     }
-    
+
     if (lower.includes('skill') || lower.includes('tech') || lower.includes('stack')) {
       return 'Malik\'s core toolkit includes: <b>PHP/Laravel, React.js, Spring Boot, MySQL, JWT auth, Python, Android Dev, Node.js, and Socket.IO.</b>';
     }
-    
+
     if (lower.includes('journey') || lower.includes('academic') || lower.includes('college') || lower.includes('mca')) {
       return 'Malik completed his <b>MCA at AICAIT Pune</b> (2024–2026, CGPA 9.00) after a <b>BBACA at Abeda Inamdar Senior College</b> (2021–2024, CGPA 8.379). He also did a React.js internship at The Entrepreneurship Network.';
     }
-    
+
     if (lower.includes('contact') || lower.includes('email') || lower.includes('phone')) {
       return 'Please visit the <b>Contact section</b> on the portfolio for contact details.';
     }
-    
+
     return 'I can answer questions about Malik\'s <b>projects, skills, academic journey, certifications, and internship</b>. What would you like to know?';
   }
 
@@ -462,7 +479,7 @@ export default function App() {
     }
 
     const model = 'gemini-pro';
-    
+
     try {
       const response = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`,
@@ -594,7 +611,7 @@ IMPORTANT RULES:
       );
 
       const data = await response.json();
-      
+
       if (data.candidates && data.candidates[0] && data.candidates[0].content) {
         return data.candidates[0].content.parts[0].text;
       } else if (data.error) {
@@ -628,7 +645,7 @@ IMPORTANT RULES:
       const response = await getGeminiResponse(q);
       setLightboxTitle(response);
       setAnswerKey('gemini');
-      
+
       const lower = q.toLowerCase();
       if (lower.includes('qr kavach')) {
         setProjectImages(PROJECTS['proj-qr']?.images || []);
@@ -645,7 +662,7 @@ IMPORTANT RULES:
         setProjectDiagrams(PROJECTS['proj-image']?.diagrams || []);
         setShowProjectImages(true);
       }
-      
+
       if (lower.includes('certification') || lower.includes('certificate')) {
         const certData = ACADEMIC_DATA.find(item => item.isCertification === true);
         if (certData && certData.documents) {
@@ -653,7 +670,7 @@ IMPORTANT RULES:
           setShowProjectImages(true);
         }
       }
-      
+
     } catch (error) {
       console.error('❌ runAsk Error:', error);
       const fallback = getLocalResponse(q);
@@ -705,10 +722,10 @@ IMPORTANT RULES:
       return;
     }
     const scene = new THREE.Scene();
-    
+
     const isMobile = window.innerWidth < 600;
     const camera = new THREE.PerspectiveCamera(50, section.clientWidth / section.clientHeight, 0.1, 100);
-    
+
     if (isMobile) {
       camera.position.set(0.5, 0.2, 5.5);
     } else {
@@ -725,14 +742,14 @@ IMPORTANT RULES:
     window.addEventListener('resize', resize);
 
     const geo = new THREE.IcosahedronGeometry(1.6, 1);
-    const mat = new THREE.MeshBasicMaterial({ 
-      color: 0x007aff, 
-      wireframe: true, 
-      transparent: true, 
-      opacity: 0.2 
+    const mat = new THREE.MeshBasicMaterial({
+      color: 0x007aff,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.2
     });
     const mesh = new THREE.Mesh(geo, mat);
-    
+
     if (isMobile) {
       mesh.position.set(1.2, 0.3, -0.5);
       mesh.scale.set(1.0, 1.0, 1.0);
@@ -742,14 +759,14 @@ IMPORTANT RULES:
     scene.add(mesh);
 
     const geo2 = new THREE.IcosahedronGeometry(0.8, 0);
-    const mat2 = new THREE.MeshBasicMaterial({ 
-      color: 0x5e5ce6, 
-      wireframe: true, 
-      transparent: true, 
-      opacity: 0.2 
+    const mat2 = new THREE.MeshBasicMaterial({
+      color: 0x5e5ce6,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.2
     });
     const mesh2 = new THREE.Mesh(geo2, mat2);
-    
+
     if (isMobile) {
       mesh2.position.set(0.8, -0.8, -1.2);
     } else {
@@ -767,22 +784,22 @@ IMPORTANT RULES:
     }
     const pGeo = new THREE.BufferGeometry();
     pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const pMat = new THREE.PointsMaterial({ 
-      color: 0x007aff, 
-      size: isMobile ? 0.035 : 0.03, 
-      transparent: true, 
-      opacity: 0.25 
+    const pMat = new THREE.PointsMaterial({
+      color: 0x007aff,
+      size: isMobile ? 0.035 : 0.03,
+      transparent: true,
+      opacity: 0.25
     });
     const points = new THREE.Points(pGeo, pMat);
     scene.add(points);
 
     const handleResize = () => {
       const mobile = window.innerWidth < 600;
-      
+
       camera.position.set(0, 0, mobile ? 5.5 : 7);
       camera.lookAt(0, 0, 0);
       camera.updateProjectionMatrix();
-      
+
       if (mobile) {
         mesh.position.set(1.2, 0.3, -0.5);
         mesh.scale.set(1.0, 1.0, 1.0);
@@ -792,7 +809,7 @@ IMPORTANT RULES:
         mesh.scale.set(1, 1, 1);
         mesh2.position.set(2.0, -1.6, -1.5);
       }
-      
+
       renderer.setSize(section.clientWidth, section.clientHeight);
       camera.aspect = section.clientWidth / section.clientHeight;
       camera.updateProjectionMatrix();
@@ -883,12 +900,11 @@ IMPORTANT RULES:
     );
 
     // 🔥 CRITICAL: ONLY card canvases - hero canvas NOT included!
-    // Make sure heroCanvasRef is NOT in cardCanvasRefs
     const cardKeys = ['qr', 'queue', 'chat', 'image', 'cricket', 'kabaddi', 'football', 'overall', 'tripManage', 'vlog1', 'vlog2', 'tripHighlights'];
     const canvases = cardKeys
       .map(key => cardCanvasRefs.current[key])
       .filter(Boolean);
-    
+
     canvases.forEach((canvas) => observer.observe(canvas));
 
     return () => {
@@ -926,7 +942,7 @@ IMPORTANT RULES:
 
   function nextImage() {
     if (selectedProject && selectedProject.images) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex((prev) =>
         prev === selectedProject.images.length - 1 ? 0 : prev + 1
       );
     }
@@ -934,7 +950,7 @@ IMPORTANT RULES:
 
   function prevImage() {
     if (selectedProject && selectedProject.images) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex((prev) =>
         prev === 0 ? selectedProject.images.length - 1 : prev - 1
       );
     }
@@ -948,7 +964,7 @@ IMPORTANT RULES:
     e.stopPropagation();
     const url = lightboxDownloadUrl || lightboxImage;
     if (!url) return;
-    
+
     const link = document.createElement('a');
     link.href = url;
     const filename = url.split('/').pop() || 'download.jpg';
@@ -1041,13 +1057,13 @@ IMPORTANT RULES:
           <h2>How I got here</h2>
           <p className="journey-subtitle">My educational and professional journey so far</p>
         </div>
-        
+
         <div className="journey-container">
           <div className="timeline-line"></div>
-          
+
           {ACADEMIC_DATA.map((item, index) => (
-            <div 
-              key={item.id} 
+            <div
+              key={item.id}
               className={`journey-item ${index % 2 === 0 ? 'left' : 'right'}`}
             >
               <div className="journey-card" style={{ '--accent': item.color }}>
@@ -1067,7 +1083,7 @@ IMPORTANT RULES:
                     {expandedId === item.id ? '▲' : '▼'}
                   </span>
                 </div>
-                
+
                 <div className={`journey-details ${expandedId === item.id ? 'open' : ''}`}>
                   {item.isCertification ? (
                     <>
@@ -1081,8 +1097,8 @@ IMPORTANT RULES:
                       {item.documents && item.documents.length > 0 && (
                         <div className="documents-grid">
                           {item.documents.map((doc, i) => (
-                            <div 
-                              key={i} 
+                            <div
+                              key={i}
                               className="doc-grid-item"
                               onClick={() => {
                                 openLightbox(doc.file, doc.name);
@@ -1090,7 +1106,7 @@ IMPORTANT RULES:
                             >
                               <div className="doc-grid-icon">📄</div>
                               <span className="doc-grid-name">{doc.name}</span>
-                              <button 
+                              <button
                                 className="doc-grid-download"
                                 onClick={(e) => {
                                   e.stopPropagation();
@@ -1117,8 +1133,8 @@ IMPORTANT RULES:
                       {item.documents && item.documents.length > 0 && (
                         <div className="documents-grid">
                           {item.documents.map((doc, i) => (
-                            <div 
-                              key={i} 
+                            <div
+                              key={i}
                               className="doc-grid-item"
                               onClick={() => {
                                 openLightbox(doc.file, doc.name);
@@ -1126,7 +1142,7 @@ IMPORTANT RULES:
                             >
                               <div className="doc-grid-icon">📄</div>
                               <span className="doc-grid-name">{doc.name}</span>
-                              <button 
+                              <button
                                 className="doc-grid-download"
                                 onClick={(e) => {
                                   e.stopPropagation();
@@ -1189,7 +1205,7 @@ IMPORTANT RULES:
           <div className="tag">🏆 Victory</div>
           <h2>University Sports Day 2025</h2>
           <p className="journey-subtitle" style={{ marginTop: '8px' }}>
-            <strong>Overall Champions!</strong> Won Cricket 🏏, Kabaddi 🤼, and Football ⚽ — 
+            <strong>Overall Champions!</strong> Won Cricket 🏏, Kabaddi 🤼, and Football ⚽ —
             first time in university history!
           </p>
         </div>
@@ -1202,14 +1218,14 @@ IMPORTANT RULES:
         }}>
           {/* Card 1 - Cricket */}
           <div className="card" style={{ cursor: 'default' }}>
-            <canvas className="c3d" data-color="#f9ca24" ref={el => { 
-              if (!cardCanvasRefs.current.cricket) cardCanvasRefs.current.cricket = el; 
+            <canvas className="c3d" data-color="#f9ca24" ref={el => {
+              if (!cardCanvasRefs.current.cricket) cardCanvasRefs.current.cricket = el;
             }}></canvas>
             <div className="icon-badge" style={{ background: 'linear-gradient(135deg,#f9ca24,#f0932b)' }}>🏏</div>
             <h3>Cricket Champions</h3>
             <p style={{ fontSize: '0.85rem', lineHeight: '1.6' }}>
-              Led the cricket team to victory with <strong>strategic planning</strong> and 
-              <strong> team coordination</strong>. Every player gave their best — from batting 
+              Led the cricket team to victory with <strong>strategic planning</strong> and
+              <strong> team coordination</strong>. Every player gave their best — from batting
               to bowling, it was a complete team effort!
             </p>
             <div className="stack" style={{ marginTop: '10px' }}>
@@ -1221,14 +1237,14 @@ IMPORTANT RULES:
 
           {/* Card 2 - Kabaddi */}
           <div className="card" style={{ cursor: 'default' }}>
-            <canvas className="c3d" data-color="#e056fd" ref={el => { 
-              if (!cardCanvasRefs.current.kabaddi) cardCanvasRefs.current.kabaddi = el; 
+            <canvas className="c3d" data-color="#e056fd" ref={el => {
+              if (!cardCanvasRefs.current.kabaddi) cardCanvasRefs.current.kabaddi = el;
             }}></canvas>
             <div className="icon-badge" style={{ background: 'linear-gradient(135deg,#e056fd,#be2edd)' }}>🤼</div>
             <h3>Kabaddi Champions</h3>
             <p style={{ fontSize: '0.85rem', lineHeight: '1.6' }}>
-              <strong>Unstoppable!</strong> The kabaddi team showed incredible <strong>agility, 
-              strength, and coordination</strong>. Dominated the mat with perfect raids and 
+              <strong>Unstoppable!</strong> The kabaddi team showed incredible <strong>agility,
+              strength, and coordination</strong>. Dominated the mat with perfect raids and
               solid defense.
             </p>
             <div className="stack" style={{ marginTop: '10px' }}>
@@ -1240,13 +1256,13 @@ IMPORTANT RULES:
 
           {/* Card 3 - Football */}
           <div className="card" style={{ cursor: 'default' }}>
-            <canvas className="c3d" data-color="#6ab04c" ref={el => { 
-              if (!cardCanvasRefs.current.football) cardCanvasRefs.current.football = el; 
+            <canvas className="c3d" data-color="#6ab04c" ref={el => {
+              if (!cardCanvasRefs.current.football) cardCanvasRefs.current.football = el;
             }}></canvas>
             <div className="icon-badge" style={{ background: 'linear-gradient(135deg,#6ab04c,#2ecc71)' }}>⚽</div>
             <h3>Football Champions</h3>
             <p style={{ fontSize: '0.85rem', lineHeight: '1.6' }}>
-              <strong>Team Spirit at its Best!</strong> From midfield control to goal-scoring 
+              <strong>Team Spirit at its Best!</strong> From midfield control to goal-scoring
               moments, the football team played with <strong>passion and determination</strong>.
             </p>
             <div className="stack" style={{ marginTop: '10px' }}>
@@ -1258,15 +1274,15 @@ IMPORTANT RULES:
 
           {/* Card 4 - Overall Victory */}
           <div className="card" style={{ cursor: 'default' }}>
-            <canvas className="c3d" data-color="#f1c40f" ref={el => { 
-              if (!cardCanvasRefs.current.overall) cardCanvasRefs.current.overall = el; 
+            <canvas className="c3d" data-color="#f1c40f" ref={el => {
+              if (!cardCanvasRefs.current.overall) cardCanvasRefs.current.overall = el;
             }}></canvas>
             <div className="icon-badge" style={{ background: 'linear-gradient(135deg,#f1c40f,#f39c12)' }}>🏆</div>
             <h3>🏆 Overall Champions</h3>
             <p style={{ fontSize: '0.85rem', lineHeight: '1.6' }}>
               <strong style={{ fontSize: '1.1rem', color: 'var(--blue)' }}>HISTORY CREATED! 🎉</strong><br /><br />
-              For the <strong>FIRST TIME</strong> in university history, our department won the 
-              <strong> Overall Championship</strong> — winning <strong>3 major sports</strong> 
+              For the <strong>FIRST TIME</strong> in university history, our department won the
+              <strong> Overall Championship</strong> — winning <strong>3 major sports</strong>
               in a single day!<br /><br />
               <em>"It's not about winning alone — it's about how we win, together."</em>
             </p>
@@ -1283,7 +1299,7 @@ IMPORTANT RULES:
         <div style={{ marginTop: '30px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
             <h4 style={{ color: 'var(--muted)', fontSize: '0.95rem' }}>📸 Sports Day Memories</h4>
-            <button 
+            <button
               className="view-all-btn"
               onClick={() => {
                 const sportsImages = [
@@ -1313,16 +1329,16 @@ IMPORTANT RULES:
             ].map((img, idx) => {
               const isTrophy = img.includes('trophy');
               return (
-                <img 
-                  key={idx} 
-                  src={img} 
+                <img
+                  key={idx}
+                  src={img}
                   alt={`Sports Photo ${idx + 1}`}
-                  style={{ 
-                    aspectRatio: '16/9', 
+                  style={{
+                    aspectRatio: '16/9',
                     objectFit: 'cover',
                     objectPosition: isTrophy ? 'center 20%' : 'center center',
-                    borderRadius: '12px', 
-                    cursor: 'pointer' 
+                    borderRadius: '12px',
+                    cursor: 'pointer'
                   }}
                   onClick={() => openLightbox(img, `Sports Day ${idx + 1}`)}
                   onError={(e) => {
@@ -1343,7 +1359,7 @@ IMPORTANT RULES:
           <div className="tag">🎥 Beyond Code</div>
           <h2>Mahabaleshwar Trip 2025</h2>
           <p className="journey-subtitle" style={{ marginTop: '8px' }}>
-            Planned & managed the entire college trip for <strong>40+ classmates</strong> — 
+            Planned & managed the entire college trip for <strong>40+ classmates</strong> —
             from bus booking to resort stay, and captured every moment in <strong>2 vlogs</strong>!
           </p>
         </div>
@@ -1356,8 +1372,8 @@ IMPORTANT RULES:
         }}>
           {/* Card 1 - Trip Management */}
           <div className="card" style={{ cursor: 'default' }}>
-            <canvas className="c3d" data-color="#ff6b6b" ref={el => { 
-              if (!cardCanvasRefs.current.tripManage) cardCanvasRefs.current.tripManage = el; 
+            <canvas className="c3d" data-color="#ff6b6b" ref={el => {
+              if (!cardCanvasRefs.current.tripManage) cardCanvasRefs.current.tripManage = el;
             }}></canvas>
             <div className="icon-badge" style={{ background: 'linear-gradient(135deg,#ff6b6b,#ee5a24)' }}>📋</div>
             <h3>Event Management</h3>
@@ -1380,13 +1396,13 @@ IMPORTANT RULES:
 
           {/* Card 2 - Vlog 1: Aak Yaadgar College Trip */}
           <div className="card" style={{ cursor: 'pointer' }} onClick={() => window.open('https://youtu.be/wR26GelGJ1g?si=zjy-X5mTpuC89lPt', '_blank')}>
-            <canvas className="c3d" data-color="#ff4757" ref={el => { 
-              if (!cardCanvasRefs.current.vlog1) cardCanvasRefs.current.vlog1 = el; 
+            <canvas className="c3d" data-color="#ff4757" ref={el => {
+              if (!cardCanvasRefs.current.vlog1) cardCanvasRefs.current.vlog1 = el;
             }}></canvas>
             <div className="icon-badge" style={{ background: 'linear-gradient(135deg,#ff4757,#ff6b81)' }}>🎬</div>
             <h3>🎬 Aak Yaadgar College Trip</h3>
             <p style={{ fontSize: '0.85rem', lineHeight: '1.6' }}>
-              The <strong>ultimate college trip vlog</strong> capturing all the fun moments — 
+              The <strong>ultimate college trip vlog</strong> capturing all the fun moments —
               from bus journey to sightseeing, food, and memories with friends!
             </p>
             <div className="stack" style={{ marginTop: '10px' }}>
@@ -1399,14 +1415,14 @@ IMPORTANT RULES:
 
           {/* Card 3 - Vlog 2: Maybe Last Trip */}
           <div className="card" style={{ cursor: 'pointer' }} onClick={() => window.open('https://youtu.be/258WVyaN5YQ?si=jm_NzhNmDBJXgTjN', '_blank')}>
-            <canvas className="c3d" data-color="#2ed573" ref={el => { 
-              if (!cardCanvasRefs.current.vlog2) cardCanvasRefs.current.vlog2 = el; 
+            <canvas className="c3d" data-color="#2ed573" ref={el => {
+              if (!cardCanvasRefs.current.vlog2) cardCanvasRefs.current.vlog2 = el;
             }}></canvas>
             <div className="icon-badge" style={{ background: 'linear-gradient(135deg,#2ed573,#7bed9f)' }}>🎬</div>
             <h3>🎬 Maybe Last Trip</h3>
             <p style={{ fontSize: '0.85rem', lineHeight: '1.6' }}>
-              <strong>Emotional yet unforgettable!</strong> This vlog captures the essence of 
-              our <strong>last college trip</strong> — the bonds, the laughter, and the 
+              <strong>Emotional yet unforgettable!</strong> This vlog captures the essence of
+              our <strong>last college trip</strong> — the bonds, the laughter, and the
               bittersweet feeling of saying goodbye.
             </p>
             <div className="stack" style={{ marginTop: '10px' }}>
@@ -1419,8 +1435,8 @@ IMPORTANT RULES:
 
           {/* Card 4 - Trip Highlights */}
           <div className="card" style={{ cursor: 'default' }}>
-            <canvas className="c3d" data-color="#4a69bd" ref={el => { 
-              if (!cardCanvasRefs.current.tripHighlights) cardCanvasRefs.current.tripHighlights = el; 
+            <canvas className="c3d" data-color="#4a69bd" ref={el => {
+              if (!cardCanvasRefs.current.tripHighlights) cardCanvasRefs.current.tripHighlights = el;
             }}></canvas>
             <div className="icon-badge" style={{ background: 'linear-gradient(135deg,#4a69bd,#1e3799)' }}>🏔️</div>
             <h3>Trip Highlights</h3>
@@ -1445,7 +1461,7 @@ IMPORTANT RULES:
         <div style={{ marginTop: '30px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
             <h4 style={{ color: 'var(--muted)', fontSize: '0.95rem' }}>📸 Trip Memories</h4>
-            <button 
+            <button
               className="view-all-btn"
               onClick={() => {
                 const tripImages = [
@@ -1469,9 +1485,9 @@ IMPORTANT RULES:
               '/images/trip/Maybe-Last-Trip.jpg',
               '/images/trip/resort.jpg'
             ].map((img, idx) => (
-              <img 
-                key={idx} 
-                src={img} 
+              <img
+                key={idx}
+                src={img}
                 alt={`Trip Photo ${idx + 1}`}
                 style={{ aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px', cursor: 'pointer' }}
                 onClick={() => openLightbox(img, `Trip Photo ${idx + 1}`)}
@@ -1516,8 +1532,8 @@ IMPORTANT RULES:
                 placeholder="Ask anything about Malik…"
                 onKeyDown={handleKeyDown}
               />
-              <button 
-                className="ask-submit-btn" 
+              <button
+                className="ask-submit-btn"
                 onClick={handleSend}
                 disabled={!searchQuery.trim() || isLoading}
               >
@@ -1525,7 +1541,7 @@ IMPORTANT RULES:
               </button>
             </div>
           </div>
-          
+
           <div className="ask-panel-body">
             <div className="ask-project-buttons">
               <button className="ask-project-btn" onClick={() => setSearchQuery('What is QR Kavach?')}>🛡️ QR Kavach</button>
@@ -1533,7 +1549,7 @@ IMPORTANT RULES:
               <button className="ask-project-btn" onClick={() => setSearchQuery('What is Real-time Chat App?')}>💬 Chat App</button>
               <button className="ask-project-btn" onClick={() => setSearchQuery('What is AI Image Studio?')}>✨ AI Image Studio</button>
             </div>
-            
+
             <div className="ask-chips">
               <button onClick={() => setSearchQuery('Which projects has Malik built?')}>📂 All Projects</button>
               <button onClick={() => setSearchQuery('Show academic journey')}>🎓 Journey</button>
@@ -1541,7 +1557,7 @@ IMPORTANT RULES:
               <button onClick={() => setSearchQuery("What certifications does Malik have?")}>📜 Certifications</button>
               <button onClick={() => setSearchQuery('How do I contact Malik?')}>📞 Contact</button>
             </div>
-            
+
             {answerKey && (
               <div className="ask-answer show">
                 <div className="who">
@@ -1549,16 +1565,16 @@ IMPORTANT RULES:
                   <span>🤖 GEMINI · AI ASSISTANT</span>
                 </div>
                 <p dangerouslySetInnerHTML={{ __html: lightboxTitle }} />
-                
+
                 {showProjectImages && projectImages.length > 0 && (
                   <div className="ask-project-images">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
                       <p className="ask-images-label">
-                        {searchQuery.toLowerCase().includes('certification') || searchQuery.toLowerCase().includes('certificate') 
-                          ? '📜 Certificates' 
+                        {searchQuery.toLowerCase().includes('certification') || searchQuery.toLowerCase().includes('certificate')
+                          ? '📜 Certificates'
                           : '📸 Project Screenshots'}
                       </p>
-                      <button 
+                      <button
                         className="ask-view-all-btn"
                         onClick={() => {
                           setGalleryImages(projectImages);
@@ -1575,9 +1591,9 @@ IMPORTANT RULES:
                     </div>
                     <div className="ask-images-grid">
                       {projectImages.slice(0, 4).map((img, idx) => (
-                        <img 
-                          key={idx} 
-                          src={img} 
+                        <img
+                          key={idx}
+                          src={img}
                           alt={`Image ${idx + 1}`}
                           onClick={() => openLightbox(img, `Image ${idx + 1}`)}
                           onError={(e) => {
@@ -1588,12 +1604,12 @@ IMPORTANT RULES:
                     </div>
                   </div>
                 )}
-                
+
                 {showProjectImages && projectDiagrams && projectDiagrams.length > 0 && (
                   <div className="ask-project-images" style={{ marginTop: '8px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '4px' }}>
                       <p className="ask-images-label">📊 Project Diagrams</p>
-                      <button 
+                      <button
                         className="ask-view-all-btn"
                         onClick={() => {
                           setDiagramItems(projectDiagrams);
@@ -1605,14 +1621,14 @@ IMPORTANT RULES:
                     </div>
                     <div className="ask-images-grid">
                       {projectDiagrams.slice(0, 4).map((diag, idx) => (
-                        <img 
-                          key={idx} 
-                          src={diag.src} 
+                        <img
+                          key={idx}
+                          src={diag.src}
                           alt={diag.name}
                           onClick={() => openLightbox(diag.src, diag.name)}
-                          style={{ 
-                            aspectRatio: '16/9', 
-                            objectFit: 'contain', 
+                          style={{
+                            aspectRatio: '16/9',
+                            objectFit: 'contain',
                             background: '#f5f5f7',
                             borderRadius: '8px',
                             padding: '4px'
@@ -1627,7 +1643,7 @@ IMPORTANT RULES:
                 )}
               </div>
             )}
-            
+
             <div className="ask-note">Powered by Gemini AI — real answers about Malik's work.</div>
           </div>
         </div>
@@ -1638,13 +1654,13 @@ IMPORTANT RULES:
         <div className="project-modal-overlay" onClick={closeProjectModal}>
           <div className="project-modal" onClick={(e) => e.stopPropagation()}>
             <button className="modal-close" onClick={closeProjectModal}>✕</button>
-            
+
             <h2>{selectedProject.title}</h2>
             <p className="modal-tagline">{selectedProject.tagline}</p>
-            
+
             <div className="modal-tabs">
               {selectedProject.images && selectedProject.images.length > 0 && (
-                <button 
+                <button
                   className={`tab-btn ${activeTab === 'screenshots' ? 'active' : ''}`}
                   onClick={() => setActiveTab('screenshots')}
                 >
@@ -1652,7 +1668,7 @@ IMPORTANT RULES:
                 </button>
               )}
               {hasDiagrams && (
-                <button 
+                <button
                   className={`tab-btn ${activeTab === 'diagrams' ? 'active' : ''}`}
                   onClick={() => setActiveTab('diagrams')}
                 >
@@ -1660,7 +1676,7 @@ IMPORTANT RULES:
                 </button>
               )}
               {hasDocs && (
-                <button 
+                <button
                   className={`tab-btn ${activeTab === 'docs' ? 'active' : ''}`}
                   onClick={() => setActiveTab('docs')}
                 >
@@ -1671,7 +1687,7 @@ IMPORTANT RULES:
 
             {activeTab === 'screenshots' && selectedProject.images && selectedProject.images.length > 0 && (
               <>
-                <div 
+                <div
                   className="modal-carousel"
                   onClick={() => openLightbox(
                     selectedProject.images[currentImageIndex],
@@ -1679,8 +1695,8 @@ IMPORTANT RULES:
                   )}
                 >
                   <button className="carousel-btn prev" onClick={(e) => { e.stopPropagation(); prevImage(); }}>‹</button>
-                  <img 
-                    src={selectedProject.images[currentImageIndex]} 
+                  <img
+                    src={selectedProject.images[currentImageIndex]}
                     alt={selectedProject.title}
                     onError={(e) => {
                       e.target.src = '/images/placeholder.png';
@@ -1690,8 +1706,8 @@ IMPORTANT RULES:
                   {selectedProject.images.length > 1 && (
                     <div className="carousel-dots">
                       {selectedProject.images.map((_, idx) => (
-                        <span 
-                          key={idx} 
+                        <span
+                          key={idx}
                           className={`dot ${idx === currentImageIndex ? 'active' : ''}`}
                           onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
                         />
@@ -1701,7 +1717,7 @@ IMPORTANT RULES:
                 </div>
                 {selectedProject.images.length > 1 && (
                   <div style={{ textAlign: 'center', marginBottom: '16px' }}>
-                    <button 
+                    <button
                       className="view-all-btn"
                       onClick={() => {
                         setGalleryImages(selectedProject.images);
@@ -1720,8 +1736,8 @@ IMPORTANT RULES:
               <>
                 <div className="modal-diagrams">
                   {selectedProject.diagrams.slice(0, 6).map((diagram, idx) => (
-                    <div 
-                      key={idx} 
+                    <div
+                      key={idx}
                       className="diagram-item"
                       onClick={() => openLightbox(diagram.src, diagram.name)}
                     >
@@ -1732,7 +1748,7 @@ IMPORTANT RULES:
                 </div>
                 {selectedProject.diagrams.length > 6 && (
                   <div style={{ textAlign: 'center', marginBottom: '16px' }}>
-                    <button 
+                    <button
                       className="view-all-btn"
                       onClick={() => {
                         setDiagramItems(selectedProject.diagrams);
@@ -1824,9 +1840,9 @@ IMPORTANT RULES:
           <h3 className="gallery-title">{galleryTitle || '📸 All Images'}</h3>
           <div className="gallery-grid" onClick={(e) => e.stopPropagation()}>
             {galleryImages.map((img, idx) => (
-              <img 
-                key={idx} 
-                src={img} 
+              <img
+                key={idx}
+                src={img}
                 alt={`Image ${idx + 1}`}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -1846,9 +1862,9 @@ IMPORTANT RULES:
           <h3 className="gallery-title">📊 All Diagrams</h3>
           <div className="diagrams-gallery" onClick={(e) => e.stopPropagation()}>
             {diagramItems.map((diag, idx) => (
-              <div 
-                key={idx} 
-                className="diagram-item" 
+              <div
+                key={idx}
+                className="diagram-item"
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
@@ -1868,16 +1884,16 @@ IMPORTANT RULES:
         <div className="lightbox-overlay" onClick={closeLightbox}>
           <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
             <button className="lightbox-close" onClick={closeLightbox}>✕</button>
-            <img 
-              src={lightboxImage} 
-              alt={lightboxTitle || 'Document'} 
+            <img
+              src={lightboxImage}
+              alt={lightboxTitle || 'Document'}
               onError={(e) => {
                 console.error('❌ Image load error:', lightboxImage);
                 e.target.src = '/images/placeholder.png';
               }}
             />
             {lightboxTitle && <p className="lightbox-title">{lightboxTitle}</p>}
-            <button 
+            <button
               className="lightbox-download-btn"
               onClick={handleDownload}
             >
