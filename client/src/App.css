@@ -3582,38 +3582,32 @@ body:has(.overlay.open) .ask-fab {
   }
 }
 
-/* ============================================================
-   ===== FIX: DARK THEME HERO SECTION =====
-   ============================================================ */
-
+/* ===== HERO SECTION - FULL DARK THEME ===== */
 [data-theme="dark"] .hero {
-  background-color: var(--bg) !important;
-  color: var(--text) !important;
+  background: #0d0d0f !important;
+  background-image: none !important;
+}
+
+[data-theme="dark"] .hero-copy {
+  background: transparent !important;
 }
 
 [data-theme="dark"] .hero h1 {
-  color: var(--text) !important;
-}
-
-[data-theme="dark"] .hero h1 .grad {
-  color: #fff !important;
-  text-shadow: 0 0 30px rgba(0, 122, 255, 0.2) !important;
+  color: #f2f2f7 !important;
 }
 
 [data-theme="dark"] .hero p {
-  color: var(--muted) !important;
+  color: #98989e !important;
+}
+
+[data-theme="dark"] .hero .grad {
+  background: linear-gradient(100deg, #4da3ff, #8b8bf7) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
 }
 
 [data-theme="dark"] .eyebrow {
   background: rgba(0, 122, 255, 0.15) !important;
   color: #4da3ff !important;
-}
-
-[data-theme="dark"] .btn-ghost {
-  background: rgba(255, 255, 255, 0.06) !important;
-  color: var(--text) !important;
-}
-
-[data-theme="dark"] .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.12) !important;
 }
