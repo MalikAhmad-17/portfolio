@@ -232,6 +232,16 @@ const PROJECTS = {
 }
 };
 
+// ===== GOOGLE STUDENT AMBASSADOR DATA =====
+const AMBASSADOR_IMAGES = [
+  '/images/google-ambassador/kit-items.jpg',
+  '/images/google-ambassador/welcome-letter.jpg',
+  '/images/google-ambassador/tshirt-front.jpg',
+  '/images/google-ambassador/cap.jpg',
+  '/images/google-ambassador/tshirt-back.jpg',
+  '/images/google-ambassador/certificate.jpg'
+];
+
 // ===== ACADEMIC JOURNEY DATA =====
 const ACADEMIC_DATA = [
   {
@@ -368,7 +378,7 @@ export default function App() {
   const HERO_TYPE_TOTAL = HERO_LINE1.length + HERO_LINE2_PLAIN.length + HERO_LINE2_GRAD.length;
   const [typedCount, setTypedCount] = useState(0);
 
-  // Apply theme SYNC before paint (fixes hero/sections showing wrong theme colors)
+  // Apply theme SYNC before paint
   useLayoutEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     document.body.setAttribute('data-theme', theme);
@@ -379,8 +389,7 @@ export default function App() {
     setTheme(theme === 'light' ? 'dark' : 'light');
   }
 
-  // Types out the hero heading on load, like it's being handwritten.
-  // Respects prefers-reduced-motion (shows full text instantly for those users).
+  // Types out the hero heading on load
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
@@ -398,7 +407,7 @@ export default function App() {
         setTypedCount(i);
         if (i >= HERO_TYPE_TOTAL) clearInterval(typingInterval);
       }, TYPE_SPEED_MS);
-    }, 250); // brief pause before typing starts, feels more natural
+    }, 250);
 
     return () => {
       clearTimeout(startDelay);
@@ -482,7 +491,11 @@ export default function App() {
       return 'Please visit the <b>Contact section</b> on the portfolio for contact details.';
     }
     
-    return 'I can answer questions about Malik\'s <b>projects, skills, academic journey, certifications, and internship</b>. What would you like to know?';
+    if (lower.includes('ambassador') || lower.includes('google student') || lower.includes('gsa')) {
+      return 'Malik is a <b>Google Student Ambassador</b> under the Google Gemini Student Ambassador Program — representing Google Gemini on campus, leading AI workshops, and building real-world skills through hands-on initiatives. He received an official welcome kit (stickers, pens, t-shirt, cap) and is working toward certifications and exclusive Google events as part of the program.';
+    }
+    
+    return 'I can answer questions about Malik\'s <b>projects, skills, academic journey, certifications, internship, and the Google Student Ambassador program</b>. What would you like to know?';
   }
 
   // ===== GEMINI API FUNCTION =====
@@ -589,6 +602,17 @@ Professional Certifications:
 10. Rummage Hunt Certification
 
 ============================================================
+GOOGLE STUDENT AMBASSADOR:
+============================================================
+Malik is a Google Student Ambassador, selected for the Google Gemini Student Ambassador Program.
+Role includes:
+- Representing Google Gemini at his campus
+- Building real-world skills through hands-on initiatives
+- Leading AI workshops and sparking curiosity among peers
+- Working toward certifications and access to exclusive Google events
+He received an official onboarding kit: branded stickers, pens, a t-shirt, and a cap, along with a welcome letter from the Google Gemini team.
+
+============================================================
 SPORTS ACHIEVEMENTS:
 ============================================================
 - Overall Champions in University Sports Day 2025
@@ -611,8 +635,9 @@ IMPORTANT RULES:
 4. For specific certification questions (e.g., Oracle), list only Oracle certifications.
 5. For internship questions, provide detailed internship information.
 6. For project questions, provide detailed project information from the list above.
-7. Be helpful and accurate. Use information only from the data provided above.
-8. If you don't know the answer, say: "I can only answer questions about Malik's projects, skills, education, certifications, and internship."`
+7. For Google Student Ambassador questions, describe the program role and kit from the section above.
+8. Be helpful and accurate. Use information only from the data provided above.
+9. If you don't know the answer, say: "I can only answer questions about Malik's projects, skills, education, certifications, internship, and the Google Student Ambassador program."`
                   },
                   {
                     text: `User asked: ${query}`
@@ -679,6 +704,9 @@ IMPORTANT RULES:
         setProjectImages(PROJECTS['proj-image']?.images || []);
         setProjectDiagrams(PROJECTS['proj-image']?.diagrams || []);
         setShowProjectImages(true);
+      } else if (lower.includes('ambassador') || lower.includes('google student') || lower.includes('gsa')) {
+        setProjectImages(AMBASSADOR_IMAGES);
+        setShowProjectImages(true);
       }
       
       if (lower.includes('certification') || lower.includes('certificate')) {
@@ -725,24 +753,9 @@ IMPORTANT RULES:
     setIsLoading(false);
   }
 
-  // ===== Hero 3D background — DESKTOP ONLY, PERMANENT =====
-  // Purely decorative. Skipped entirely on mobile (no WebGL touched
-  // there at all — see the CSS-only glow orbs instead). On desktop it
-  // initializes ONCE on mount and stays alive for the page's lifetime.
-  //
-  // Earlier this was lazy (IntersectionObserver-driven, dispose on
-  // scroll-away, reinit on scroll-back) alongside the card canvases,
-  // to dodge mobile's ~8 WebGL-context ceiling. But re-initializing
-  // measured `section.clientWidth/clientHeight` freshly each time,
-  // and depending on exactly when that measurement landed relative to
-  // layout/font settling, the sphere could come back very slightly
-  // differently sized — visible as "it gets bigger after I scroll down
-  // and back up". Since mobile no longer touches WebGL at all, hero is
-  // just ONE context on desktop — nothing worth making lazy. Keeping
-  // it permanent removes the reinit seam entirely, so there's nothing
-  // left that can drift in size.
+  // ===== Hero 3D background — DESKTOP ONLY =====
   useEffect(() => {
-    if (window.innerWidth < 768) return; // mobile: skip entirely
+    if (window.innerWidth < 768) return;
 
     const canvas = heroCanvasRef.current;
     if (!canvas) return;
@@ -758,7 +771,6 @@ IMPORTANT RULES:
     }
     const scene = new THREE.Scene();
 
-    const isMobile = false; // this effect never runs below 768px
     const camera = new THREE.PerspectiveCamera(50, section.clientWidth / section.clientHeight, 0.1, 100);
     camera.position.set(0, 0, 6.6);
     camera.lookAt(0, 0, 0);
@@ -770,7 +782,8 @@ IMPORTANT RULES:
     }
     resize();
 
-    const geo = new THREE.IcosahedronGeometry(2.0, 2);
+    // ===== BIG SPHERE — MOVED CLOSER TO TEXT CORNER =====
+    const geo = new THREE.IcosahedronGeometry(1.7, 2);
     const mat = new THREE.MeshBasicMaterial({
       color: 0x007aff,
       wireframe: true,
@@ -778,14 +791,10 @@ IMPORTANT RULES:
       opacity: 0.38
     });
     const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.set(3.2, 0.4, -0.6);
+    mesh.position.set(5.2, 1.0, -0.5);
     scene.add(mesh);
 
-    // Small sphere: pulled back in closer to camera / more toward
-    // center-right so it's actually inside the visible frustum. It
-    // was drifting off-canvas at x=5.3 (invisible on real viewports),
-    // so this keeps it on the right side, just behind/near the
-    // widget-stack card, with a little bit of overlap allowed.
+    // ===== SMALL SPHERE — BOTTOM-LEFT AREA =====
     const geo2 = new THREE.IcosahedronGeometry(0.95, 1);
     const mat2 = new THREE.MeshBasicMaterial({
       color: 0x5e5ce6,
@@ -794,19 +803,14 @@ IMPORTANT RULES:
       opacity: 0.34
     });
     const mesh2 = new THREE.Mesh(geo2, mat2);
-    mesh2.position.set(1.8, -1.7, -0.3);
+    mesh2.position.set(3.2, -0.8, -0.3);
     scene.add(mesh2);
 
     function handleResize() {
-      // Desktop only (effect returns early below 768px on mount, and we
-      // don't re-check on resize since a resize crossing that boundary
-      // would need a full remount anyway — resize just keeps proportions
-      // correct at the current width).
       camera.position.set(0, 0, 6.6);
       camera.lookAt(0, 0, 0);
-      mesh.position.set(3.2, 0.4, -0.6);
-      mesh.scale.set(1, 1, 1);
-      mesh2.position.set(1.8, -1.7, -0.3);
+      mesh.position.set(5.2, 1.0, -0.5);
+      mesh2.position.set(3.2, -0.8, -0.3);
       resize();
     }
     window.addEventListener('resize', handleResize);
@@ -821,8 +825,6 @@ IMPORTANT RULES:
     }
     animate();
 
-    // Recover automatically if the browser ever reclaims this context
-    // (rare on desktop, but cheap insurance).
     function onContextLost(e) {
       e.preventDefault();
       cancelAnimationFrame(frameId);
@@ -842,23 +844,17 @@ IMPORTANT RULES:
     };
   }, []);
 
-  // ===== Card 3D wireframes — DESKTOP ONLY, LAZY (LRU-capped) =====
-  // Unlike the hero, these have no isMobile-dependent camera math and
-  // no possible scale drift on reinit — they're always the same fixed
-  // 100x100 render with a static camera. So it's still worth keeping
-  // them lazy: with up to 12 of them (4 project + 4 sports + 4 trip
-  // cards), staying under a context cap and only running the ones
-  // actually on/near screen is lighter on the GPU with zero downside.
+  // ===== Card 3D wireframes — DESKTOP ONLY, LAZY =====
   useEffect(() => {
-    if (window.innerWidth < 768) return; // mobile: skip entirely
+    if (window.innerWidth < 768) return;
 
     const MAX_LIVE = 6;
-    const active = new Map(); // canvas -> { dispose() }
+    const active = new Map();
 
     function disposeEntry(canvas) {
       const entry = active.get(canvas);
       if (!entry) return;
-      try { entry.dispose(); } catch (e) { /* already gone, ignore */ }
+      try { entry.dispose(); } catch (e) { /* ignore */ }
       active.delete(canvas);
     }
 
@@ -971,13 +967,7 @@ IMPORTANT RULES:
     };
   }, []);
 
-  // ===== WebView repaint nudge (defensive) =====
-  // Some in-app browsers (WhatsApp/Instagram/Telegram/etc. embedded WebViews)
-  // fail to repaint a composited layer — like the hero or a card — after it
-  // scrolls off screen and back on. The DOM and canvas underneath are fine;
-  // the GPU layer just doesn't redraw itself. A one-frame visibility toggle
-  // when the element re-enters view forces the browser to recompute that
-  // layer, which fixes it. The flash is a single frame and not visible.
+  // ===== WebView repaint nudge =====
   useEffect(() => {
     const targets = document.querySelectorAll('.hero, .card, .journey-card');
     if (!targets.length) return;
@@ -1068,6 +1058,7 @@ IMPORTANT RULES:
           <li><a href="#skills">Skills</a></li>
           <li><a href="#sports">🏆 Sports</a></li>
           <li><a href="#trip">🎥 Trip</a></li>
+          <li><a href="#ambassador">🎓 GSA</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
         <div className="nav-avatar"><img src="/malik-photo.jpg" alt="Malik Ahmad" /></div>
@@ -1294,9 +1285,7 @@ IMPORTANT RULES:
         </div>
       </section>
 
-      {/* ============================================================
-         ===== SPORTS DAY - OVERALL WINNER =====
-         ============================================================ */}
+      {/* ===== SPORTS DAY ===== */}
       <section id="sports" style={{ padding: '60px 6vw', background: 'var(--bg)' }}>
         <div className="sec-head">
           <div className="tag">🏆 Victory</div>
@@ -1313,7 +1302,6 @@ IMPORTANT RULES:
           gap: '20px',
           marginTop: '24px'
         }}>
-          {/* Card 1 - Cricket */}
           <div className="card" style={{ cursor: 'default' }}>
             <canvas className="c3d" data-color="#f9ca24" ref={el => { 
               if (!cardCanvasRefs.current.cricket) cardCanvasRefs.current.cricket = el; 
@@ -1332,7 +1320,6 @@ IMPORTANT RULES:
             </div>
           </div>
 
-          {/* Card 2 - Kabaddi */}
           <div className="card" style={{ cursor: 'default' }}>
             <canvas className="c3d" data-color="#e056fd" ref={el => { 
               if (!cardCanvasRefs.current.kabaddi) cardCanvasRefs.current.kabaddi = el; 
@@ -1351,7 +1338,6 @@ IMPORTANT RULES:
             </div>
           </div>
 
-          {/* Card 3 - Football */}
           <div className="card" style={{ cursor: 'default' }}>
             <canvas className="c3d" data-color="#6ab04c" ref={el => { 
               if (!cardCanvasRefs.current.football) cardCanvasRefs.current.football = el; 
@@ -1369,7 +1355,6 @@ IMPORTANT RULES:
             </div>
           </div>
 
-          {/* Card 4 - Overall Victory */}
           <div className="card" style={{ cursor: 'default' }}>
             <canvas className="c3d" data-color="#f1c40f" ref={el => { 
               if (!cardCanvasRefs.current.overall) cardCanvasRefs.current.overall = el; 
@@ -1392,7 +1377,6 @@ IMPORTANT RULES:
           </div>
         </div>
 
-        {/* Sports Photos Gallery */}
         <div style={{ marginTop: '30px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
             <h4 style={{ color: 'var(--muted)', fontSize: '0.95rem' }}>📸 Sports Day Memories</h4>
@@ -1448,9 +1432,7 @@ IMPORTANT RULES:
         </div>
       </section>
 
-      {/* ============================================================
-         ===== MAHABALESHWAR TRIP =====
-         ============================================================ */}
+      {/* ===== MAHABALESHWAR TRIP ===== */}
       <section id="trip" style={{ padding: '60px 6vw' }}>
         <div className="sec-head">
           <div className="tag">🎥 Beyond Code</div>
@@ -1467,7 +1449,6 @@ IMPORTANT RULES:
           gap: '20px',
           marginTop: '24px'
         }}>
-          {/* Card 1 - Trip Management */}
           <div className="card" style={{ cursor: 'default' }}>
             <canvas className="c3d" data-color="#ff6b6b" ref={el => { 
               if (!cardCanvasRefs.current.tripManage) cardCanvasRefs.current.tripManage = el; 
@@ -1491,7 +1472,6 @@ IMPORTANT RULES:
             </div>
           </div>
 
-          {/* Card 2 - Vlog 1: Aak Yaadgar College Trip */}
           <div className="card" style={{ cursor: 'pointer' }} onClick={() => window.open('https://youtu.be/wR26GelGJ1g?si=zjy-X5mTpuC89lPt', '_blank')}>
             <canvas className="c3d" data-color="#ff4757" ref={el => { 
               if (!cardCanvasRefs.current.vlog1) cardCanvasRefs.current.vlog1 = el; 
@@ -1510,7 +1490,6 @@ IMPORTANT RULES:
             <a className="link" style={{ marginTop: '10px' }}>▶ Watch Vlog →</a>
           </div>
 
-          {/* Card 3 - Vlog 2: Maybe Last Trip */}
           <div className="card" style={{ cursor: 'pointer' }} onClick={() => window.open('https://youtu.be/258WVyaN5YQ?si=jm_NzhNmDBJXgTjN', '_blank')}>
             <canvas className="c3d" data-color="#2ed573" ref={el => { 
               if (!cardCanvasRefs.current.vlog2) cardCanvasRefs.current.vlog2 = el; 
@@ -1530,7 +1509,6 @@ IMPORTANT RULES:
             <a className="link" style={{ marginTop: '10px' }}>▶ Watch Vlog →</a>
           </div>
 
-          {/* Card 4 - Trip Highlights */}
           <div className="card" style={{ cursor: 'default' }}>
             <canvas className="c3d" data-color="#4a69bd" ref={el => { 
               if (!cardCanvasRefs.current.tripHighlights) cardCanvasRefs.current.tripHighlights = el; 
@@ -1554,7 +1532,6 @@ IMPORTANT RULES:
           </div>
         </div>
 
-        {/* Trip Photos Gallery */}
         <div style={{ marginTop: '30px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
             <h4 style={{ color: 'var(--muted)', fontSize: '0.95rem' }}>📸 Trip Memories</h4>
@@ -1597,21 +1574,160 @@ IMPORTANT RULES:
         </div>
       </section>
 
+      {/* ===== GOOGLE STUDENT AMBASSADOR ===== */}
+      <section id="ambassador" style={{ padding: '60px 6vw', background: 'var(--bg)' }}>
+        <div className="sec-head">
+          <div className="tag">🌟 Beyond Code</div>
+          <h2>Google Student Ambassador</h2>
+          <p className="journey-subtitle" style={{ marginTop: '8px' }}>
+            Selected for the <strong>Google Gemini Student Ambassador Program</strong> — 
+            representing Google Gemini on campus and leading AI workshops for peers.
+          </p>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '20px',
+          marginTop: '24px'
+        }}>
+          <div className="card" style={{ cursor: 'default' }}>
+            <canvas className="c3d" data-color="#4285F4" ref={el => { 
+              if (!cardCanvasRefs.current.gsaAbout) cardCanvasRefs.current.gsaAbout = el; 
+            }}></canvas>
+            <div className="icon-badge" style={{ background: 'linear-gradient(135deg,#4285F4,#34A853)' }}>🎓</div>
+            <h3>Google Gemini Ambassador</h3>
+            <p style={{ fontSize: '0.85rem', lineHeight: '1.6' }}>
+              Onboarded as an <strong>Ambassador</strong> for the Google Gemini Student 
+              Ambassador Program — representing Google Gemini at campus, leading AI workshops, 
+              and sparking curiosity about AI among peers.
+            </p>
+            <div className="stack" style={{ marginTop: '10px' }}>
+              <span>🤖 AI Advocacy</span>
+              <span>🎤 Workshops</span>
+              <span>🌐 Campus Lead</span>
+            </div>
+          </div>
+
+          <div className="card" style={{ cursor: 'default' }}>
+            <canvas className="c3d" data-color="#EA4335" ref={el => { 
+              if (!cardCanvasRefs.current.gsaSkills) cardCanvasRefs.current.gsaSkills = el; 
+            }}></canvas>
+            <div className="icon-badge" style={{ background: 'linear-gradient(135deg,#EA4335,#FBBC05)' }}>🚀</div>
+            <h3>Real-World Skills</h3>
+            <p style={{ fontSize: '0.85rem', lineHeight: '1.6' }}>
+              Building hands-on experience through <strong>real initiatives</strong> — 
+              working toward official certifications, exclusive Google events, and 
+              rewards along the way.
+            </p>
+            <div className="stack" style={{ marginTop: '10px' }}>
+              <span>📜 Certifications</span>
+              <span>🎉 Google Events</span>
+              <span>🏅 Rewards</span>
+            </div>
+          </div>
+
+          <div className="card" style={{ cursor: 'default' }}>
+            <canvas className="c3d" data-color="#FBBC05" ref={el => { 
+              if (!cardCanvasRefs.current.gsaKit) cardCanvasRefs.current.gsaKit = el; 
+            }}></canvas>
+            <div className="icon-badge" style={{ background: 'linear-gradient(135deg,#FBBC05,#EA4335)' }}>🎁</div>
+            <h3>Official Welcome Kit</h3>
+            <p style={{ fontSize: '0.85rem', lineHeight: '1.6' }}>
+              Received the official <strong>Google Gemini Ambassador kit</strong> — branded 
+              stickers, pens, a t-shirt, and a cap — along with a personal welcome letter 
+              from Team Google Gemini.
+            </p>
+            <div className="stack" style={{ marginTop: '10px' }}>
+              <span>👕 T-Shirt</span>
+              <span>🧢 Cap</span>
+              <span>🖊️ Pens & Sticker</span>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ marginTop: '30px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+            <h4 style={{ color: 'var(--muted)', fontSize: '0.95rem' }}>📸 Ambassador Kit & Letter</h4>
+            <button 
+              className="view-all-btn"
+              onClick={() => {
+                setGalleryImages(AMBASSADOR_IMAGES);
+                setGalleryTitle('🎓 Google Student Ambassador');
+                setShowGallery(true);
+              }}
+            >
+              View All Photos →
+            </button>
+          </div>
+          <div className="ask-images-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))' }}>
+            {AMBASSADOR_IMAGES.map((img, idx) => (
+              <img 
+                key={idx} 
+                src={img} 
+                alt={`Google Student Ambassador ${idx + 1}`}
+                style={{ aspectRatio: '16/9', objectFit: 'cover', borderRadius: '12px', cursor: 'pointer' }}
+                onClick={() => openLightbox(img, `Google Student Ambassador ${idx + 1}`)}
+                onError={(e) => {
+                  e.target.src = '/images/placeholder.png';
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== FOOTER WITH SOCIAL ICONS ===== */}
       <footer id="contact">
-        <p>
-          <a href="https://linkedin.com/in/malikahmad17" target="_blank" className="footer-link">linkedin.com/in/malikahmad17</a>
-          ·
-          <a href="mailto:malik03ahmad@gmail.com" className="footer-link">malik03ahmad@gmail.com</a>
-          ·
-          <a href="https://github.com/MalikAhmad-17" target="_blank" className="footer-link">github.com/MalikAhmad-17</a>
-          ·
-          Pune, Maharashtra
-        </p>
+        <div className="footer-socials">
+          <a 
+            href="https://linkedin.com/in/malikahmad17" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="footer-icon-link linkedin"
+            aria-label="LinkedIn"
+          >
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span className="icon-label">LinkedIn</span>
+          </a>
+          
+          <a 
+            href="mailto:malik03ahmad@gmail.com" 
+            className="footer-icon-link email"
+            aria-label="Email"
+          >
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+              <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/>
+              <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/>
+            </svg>
+            <span className="icon-label">Email</span>
+          </a>
+          
+          <a 
+            href="https://github.com/MalikAhmad-17" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="footer-icon-link github"
+            aria-label="GitHub"
+          >
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.468-2.38 1.235-3.22-.123-.3-.535-1.52.117-3.16 0 0 1.008-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.29-1.552 3.297-1.23 3.297-1.23.653 1.64.24 2.86.118 3.16.768.84 1.233 1.91 1.233 3.22 0 4.61-2.804 5.62-5.476 5.92.43.37.824 1.102.824 2.22 0 1.602-.015 2.894-.015 3.287 0 .322.216.694.825.577C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+            <span className="icon-label">GitHub</span>
+          </a>
+        </div>
+        <p className="footer-location">Pune, Maharashtra</p>
       </footer>
 
-      <button className="ask-fab" onClick={() => setAskOpen(true)}>
-        <span className="dot"></span> Ask about Malik
-      </button>
+      {/* ===== ASK ABOUT MALIK — LEFT SIDE, INLINE (NOT FIXED) ===== */}
+      <div className="ask-wrapper">
+        <button className="ask-fab" onClick={() => setAskOpen(true)}>
+          <span className="fab-icon">🤖</span>
+          <span className="dot"></span> Ask about Malik
+        </button>
+      </div>
 
       {/* ===== ASK PANEL ===== */}
       <div className={`overlay ${askOpen ? 'open' : ''}`} onClick={(e) => { if (e.target === e.currentTarget) { closeAskPanel(); } }}>
@@ -1645,6 +1761,7 @@ IMPORTANT RULES:
               <button className="ask-project-btn" onClick={() => setSearchQuery('What is SmartQueue?')}>⏱️ SmartQueue</button>
               <button className="ask-project-btn" onClick={() => setSearchQuery('What is Real-time Chat App?')}>💬 Chat App</button>
               <button className="ask-project-btn" onClick={() => setSearchQuery('What is AI Image Studio?')}>✨ AI Image Studio</button>
+              <button className="ask-project-btn" onClick={() => setSearchQuery('Tell me about the Google Student Ambassador program')}>🎓 Google Ambassador</button>
             </div>
             
             <div className="ask-chips">
@@ -1920,10 +2037,10 @@ IMPORTANT RULES:
 
             <div className="modal-links">
               {selectedProject.links.demo && (
-                <a href={selectedProject.links.demo} target="_blank" className="btn-primary">🔗 Live Demo</a>
+                <a href={selectedProject.links.demo} target="_blank" rel="noopener noreferrer" className="btn-primary">🔗 Live Demo</a>
               )}
               {selectedProject.links.github && (
-                <a href={selectedProject.links.github} target="_blank" className="btn-ghost">📂 GitHub</a>
+                <a href={selectedProject.links.github} target="_blank" rel="noopener noreferrer" className="btn-ghost">📂 GitHub</a>
               )}
             </div>
           </div>

@@ -1,7 +1,5 @@
 /* ============================================================
    3D WIREFRAME CANVASES — DESKTOP ONLY
-   Purely decorative. JS skips creating any WebGL context below
-   768px (see App.jsx), so we hide the empty canvas elements here.
    ============================================================ */
 @media (max-width: 767px) {
   #heroCanvas,
@@ -11,14 +9,7 @@
 }
 
 /* ============================================================
-   DECORATIVE GLOW ORBS — ALL SCREEN SIZES
-   Real markup (.hero-orbs / .hero-orb, JSX) rather than
-   pseudo-elements so we can layer three independently-animated
-   orbs. On mobile these are the whole visual (3D is hidden there).
-   On desktop they sit BEHIND the 3D wireframe canvas (z-index 0
-   vs canvas's z-index 1) as an extra depth layer under it. Pure
-   transform/opacity/filter animation — no canvas, no WebGL, so it
-   can never break on scroll the way the old 3D-only version did.
+   DECORATIVE GLOW ORBS
    ============================================================ */
 .hero {
   position: relative;
@@ -71,11 +62,6 @@
   opacity: 0.26;
 }
 
-/* Mobile: desktop's offsets (-60px/-50px) push most of orb-1/orb-2 off
-   a narrow phone screen, leaving only a faint sliver visible — that's
-   why they looked underwhelming. Pull them further into frame and
-   raise opacity a touch, since on mobile these ARE the whole visual
-   (no 3D wireframe sharing the spotlight). */
 @media (max-width: 767px) {
   .hero-orb-1 {
     width: 260px;
@@ -131,9 +117,6 @@
   }
 }
 
-/* --- Cards: soft corner glow, sits behind each card's 3D canvas
-   on desktop (canvas.c3d z-index 0, this ::after z-index -1 via
-   stacking order below) and is the only accent there on mobile --- */
 .card {
   position: relative;
 }
@@ -334,7 +317,6 @@ nav {
   transition: background 0.3s ease;
 }
 
-/* Hero Common */
 #heroCanvas {
   position: absolute !important;
   inset: 0 !important;
@@ -1090,43 +1072,112 @@ section {
 }
 
 /* ============================================================
-   FOOTER
+   FOOTER SOCIAL ICONS
    ============================================================ */
 footer {
-  padding: 44px 6vw;
+  padding: 44px 6vw 20px;
   text-align: center;
   color: var(--muted);
   font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
 @media (max-width: 600px) {
   footer {
-    /* clears space above the fixed "Ask about Malik" pill so it never
-       sits on top of the contact links below it */
-    padding-bottom: 120px;
+    padding-bottom: 20px;
   }
 }
 
-.footer-link {
-  color: var(--muted);
-  text-decoration: none;
-  transition: 0.2s;
+.footer-socials {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.footer-link:hover {
-  color: var(--blue);
-  text-decoration: underline;
+.footer-icon-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(118, 118, 128, 0.06);
+  border: 1px solid transparent;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.footer-icon-link svg {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.3s ease;
+}
+
+.footer-icon-link .icon-label {
+  font-size: 0.8rem;
+}
+
+.footer-icon-link.linkedin:hover {
+  color: #0a66c2;
+  background: rgba(10, 102, 194, 0.1);
+  border-color: #0a66c2;
+  box-shadow: 0 0 20px rgba(10, 102, 194, 0.2);
+}
+
+.footer-icon-link.linkedin:hover svg {
+  transform: scale(1.15);
+}
+
+.footer-icon-link.email:hover {
+  color: #ea4335;
+  background: rgba(234, 67, 53, 0.1);
+  border-color: #ea4335;
+  box-shadow: 0 0 20px rgba(234, 67, 53, 0.2);
+}
+
+.footer-icon-link.email:hover svg {
+  transform: scale(1.15);
+}
+
+.footer-icon-link.github:hover {
+  color: #f0f6fc;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #f0f6fc;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+}
+
+.footer-icon-link.github:hover svg {
+  transform: scale(1.15);
+}
+
+.footer-location {
+  color: var(--muted);
+  font-size: 0.8rem;
+  opacity: 0.7;
 }
 
 /* ============================================================
-   ASK FAB
+   ASK WRAPPER — LEFT SIDE, INLINE (NOT FIXED)
+   ============================================================ */
+.ask-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 6vw 30px;
+  background: var(--bg);
+  transition: background 0.3s ease;
+}
+
+/* ============================================================
+   ASK FAB — LEFT SIDE, INLINE (NOT FIXED)
    ============================================================ */
 .ask-fab {
-  position: fixed;
-  bottom: 26px;
-  right: 26px;
-  z-index: 100;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 9px;
   padding: 15px 22px;
@@ -1134,12 +1185,60 @@ footer {
   cursor: pointer;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
-  box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.2);
+  box-shadow: 
+    0 12px 30px -8px rgba(0, 0, 0, 0.2),
+    0 0 0 0 rgba(0, 122, 255, 0);
   font-size: 0.88rem;
   font-weight: 600;
   color: var(--text);
   border: none;
-  transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  margin-top: 20px;
+}
+
+/* Glowing ring around the button */
+.ask-fab::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--blue), var(--purple), #00d4ff, var(--blue));
+  background-size: 300% 300%;
+  z-index: -1;
+  padding: 3px;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: glowRotate 4s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.ask-fab:hover::before {
+  opacity: 1;
+}
+
+.ask-fab:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 
+    0 20px 50px -12px rgba(0, 122, 255, 0.4),
+    0 0 40px rgba(0, 122, 255, 0.15);
+}
+
+@keyframes glowRotate {
+  0% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: hue-rotate(20deg);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg);
+  }
 }
 
 .ask-fab .dot {
@@ -1148,6 +1247,33 @@ footer {
   border-radius: 50%;
   background: linear-gradient(100deg, var(--blue), var(--purple));
   box-shadow: 0 0 8px var(--blue);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.7;
+  }
+}
+
+.ask-fab .fab-icon {
+  font-size: 1.2rem;
+  display: inline-block;
+  animation: fabFloat 3s ease-in-out infinite;
+}
+
+@keyframes fabFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(5deg);
+  }
 }
 
 /* ============================================================
@@ -2228,7 +2354,7 @@ footer {
   }
 
   section {
-    padding: 40px 5vw 100px;
+    padding: 40px 5vw 60px;
   }
 
   .sec-head h2 {
@@ -2419,13 +2545,6 @@ footer {
     font-size: 1rem;
   }
 
-  .ask-fab {
-    padding: 10px 14px;
-    font-size: 0.75rem;
-    bottom: 24px !important;
-    right: 16px;
-  }
-
   .view-all-btn {
     padding: 5px 12px !important;
     font-size: 0.65rem !important;
@@ -2446,6 +2565,35 @@ footer {
 
   #heroCanvas {
     opacity: 0.9 !important;
+  }
+
+  .footer-socials {
+    gap: 14px;
+  }
+
+  .footer-icon-link {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+  }
+
+  .footer-icon-link svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .footer-icon-link .icon-label {
+    font-size: 0.65rem;
+  }
+
+  .ask-wrapper {
+    padding: 0 5vw 20px;
+    justify-content: flex-start;
+  }
+
+  .ask-fab {
+    padding: 12px 18px;
+    font-size: 0.8rem;
+    margin-top: 10px;
   }
 }
 
@@ -2581,12 +2729,39 @@ footer {
     padding: 4px 10px !important;
     font-size: 0.6rem !important;
   }
+
+  .footer-socials {
+    gap: 8px;
+  }
+
+  .footer-icon-link {
+    padding: 3px 8px;
+    font-size: 0.6rem;
+  }
+
+  .footer-icon-link svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .footer-icon-link .icon-label {
+    font-size: 0.55rem;
+  }
+
+  .ask-wrapper {
+    padding: 0 4vw 16px;
+    justify-content: flex-start;
+  }
+
+  .ask-fab {
+    padding: 10px 14px;
+    font-size: 0.7rem;
+    margin-top: 8px;
+  }
 }
 
 /* ============================================================
-   DARK THEME - COMPLETE (single source of truth — do NOT
-   duplicate these blocks elsewhere, that's what caused the
-   light/dark mismatch bug)
+   DARK THEME - COMPLETE
    ============================================================ */
 [data-theme="dark"] {
   --bg: #0d0d0f;
@@ -2598,13 +2773,11 @@ footer {
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Dark Theme - Body */
 [data-theme="dark"] html,
 [data-theme="dark"] body {
   background: var(--bg);
 }
 
-/* Dark Theme - Nav */
 [data-theme="dark"] nav {
   background: rgba(13, 13, 15, 0.85) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
@@ -2636,8 +2809,6 @@ footer {
   background: rgba(255, 255, 255, 0.15) !important;
 }
 
-/* Dark Theme - Hero (uses var(--bg) already, this just keeps
-   canvas + gradient text readable) */
 [data-theme="dark"] .hero h1 .grad {
   background: linear-gradient(100deg, #4da3ff, #8b8bf7) !important;
   -webkit-background-clip: text !important;
@@ -2659,7 +2830,6 @@ footer {
   background: rgba(255, 255, 255, 0.12) !important;
 }
 
-/* Dark Theme - Cards */
 [data-theme="dark"] .card,
 [data-theme="dark"] .journey-card {
   background: var(--card) !important;
@@ -2685,7 +2855,6 @@ footer {
   color: #98989e !important;
 }
 
-/* Dark Theme - Sections */
 [data-theme="dark"] .sec-head h2 {
   color: #f2f2f7 !important;
 }
@@ -2694,7 +2863,6 @@ footer {
   color: #4da3ff !important;
 }
 
-/* Dark Theme - Journey */
 [data-theme="dark"] .journey-info h3 {
   color: #f2f2f7 !important;
 }
@@ -2716,26 +2884,38 @@ footer {
   background: rgba(0, 122, 255, 0.2) !important;
 }
 
-/* Dark Theme - Skills */
 [data-theme="dark"] .skill-cloud span {
   background: var(--card-solid) !important;
   color: var(--text) !important;
 }
 
-/* Dark Theme - Footer */
 [data-theme="dark"] footer {
   color: #98989e !important;
 }
 
-[data-theme="dark"] .footer-link {
+[data-theme="dark"] .footer-icon-link {
   color: #98989e !important;
+  background: rgba(255, 255, 255, 0.04) !important;
 }
 
-[data-theme="dark"] .footer-link:hover {
-  color: #4da3ff !important;
+[data-theme="dark"] .footer-icon-link.linkedin:hover {
+  color: #0a66c2 !important;
+  background: rgba(10, 102, 194, 0.2) !important;
+  border-color: #0a66c2 !important;
 }
 
-/* Dark Theme - Ask Panel */
+[data-theme="dark"] .footer-icon-link.email:hover {
+  color: #ea4335 !important;
+  background: rgba(234, 67, 53, 0.2) !important;
+  border-color: #ea4335 !important;
+}
+
+[data-theme="dark"] .footer-icon-link.github:hover {
+  color: #f0f6fc !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: #f0f6fc !important;
+}
+
 [data-theme="dark"] .ask-panel {
   background: rgba(28, 28, 30, 0.92) !important;
   backdrop-filter: blur(24px) saturate(180%) !important;
@@ -2783,7 +2963,6 @@ footer {
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
-/* Dark Theme - Project Modal */
 [data-theme="dark"] .project-modal {
   background: #1c1c1e !important;
 }
@@ -2840,7 +3019,6 @@ footer {
   background: rgba(0, 122, 255, 0.2) !important;
 }
 
-/* Dark Theme - Gallery */
 [data-theme="dark"] .gallery-overlay {
   background: rgba(0, 0, 0, 0.95) !important;
 }
@@ -2857,7 +3035,6 @@ footer {
   color: #f2f2f7 !important;
 }
 
-/* Dark Theme - Lightbox */
 [data-theme="dark"] .lightbox-overlay {
   background: rgba(0, 0, 0, 0.95) !important;
 }
@@ -2866,7 +3043,6 @@ footer {
   color: #f2f2f7 !important;
 }
 
-/* Dark Theme - Documents */
 [data-theme="dark"] .doc-grid-item {
   background: rgba(255, 255, 255, 0.03) !important;
 }
@@ -2875,7 +3051,6 @@ footer {
   color: #f2f2f7 !important;
 }
 
-/* Dark Theme - Certifications */
 [data-theme="dark"] .cert-tag {
   background: rgba(0, 122, 255, 0.2) !important;
   color: #4da3ff !important;
@@ -2884,4 +3059,8 @@ footer {
 [data-theme="dark"] .journey-tags span {
   background: rgba(0, 122, 255, 0.2) !important;
   color: #4da3ff !important;
+}
+
+[data-theme="dark"] .ask-wrapper {
+  background: var(--bg);
 }
