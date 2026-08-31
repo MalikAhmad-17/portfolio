@@ -1721,7 +1721,7 @@ IMPORTANT RULES:
         <p className="footer-location">Pune, Maharashtra</p>
       </footer>
 
-      {/* ===== ASK ABOUT MALIK — LEFT SIDE, INLINE (NOT FIXED) ===== */}
+      {/* ===== ASK ABOUT MALIK — LEFT SIDE, NORMAL FLOW (NOT FIXED) ===== */}
       <div className="ask-wrapper">
         <button className="ask-fab" onClick={() => setAskOpen(true)}>
           <span className="fab-icon">🤖</span>
