@@ -1436,7 +1436,7 @@ IMPORTANT RULES:
       <section id="trip" style={{ padding: '60px 6vw' }}>
         <div className="sec-head">
           <div className="tag">🎥 Beyond Code</div>
-          <h2>Mahabaleshwar Trip 2025</h2>
+          <h2>Mahabaleshwar Trip 2026</h2>
           <p className="journey-subtitle" style={{ marginTop: '8px' }}>
             Planned & managed the entire college trip for <strong>40+ classmates</strong> — 
             from bus booking to resort stay, and captured every moment in <strong>2 vlogs</strong>!
