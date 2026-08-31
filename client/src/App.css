@@ -1,107 +1,170 @@
 /* ============================================================
    3D WIREFRAME CANVASES — DESKTOP ONLY
-   These are purely decorative. JS skips creating any WebGL context
-   below 768px (see App.jsx), so we hide the empty canvas elements
-   here too. In their place, mobile gets a pure-CSS decorative
-   replacement below — soft glowing orbs on the hero, a corner glow
-   on each card. Just transform/opacity animation on ::before/::after
-   pseudo-elements, no canvas, no WebGL, so it can never break on
-   scroll the way the 3D version did.
+   Purely decorative. JS skips creating any WebGL context below
+   768px (see App.jsx), so we hide the empty canvas elements here.
    ============================================================ */
 @media (max-width: 767px) {
   #heroCanvas,
   canvas.c3d {
     display: none !important;
   }
+}
 
-  /* --- Hero: floating blurred gradient orbs --- */
-  .hero {
-    position: relative;
-    overflow: hidden;
+/* ============================================================
+   DECORATIVE GLOW ORBS — ALL SCREEN SIZES
+   Real markup (.hero-orbs / .hero-orb, JSX) rather than
+   pseudo-elements so we can layer three independently-animated
+   orbs. On mobile these are the whole visual (3D is hidden there).
+   On desktop they sit BEHIND the 3D wireframe canvas (z-index 0
+   vs canvas's z-index 1) as an extra depth layer under it. Pure
+   transform/opacity/filter animation — no canvas, no WebGL, so it
+   can never break on scroll the way the old 3D-only version did.
+   ============================================================ */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-orbs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px) hue-rotate(0deg);
+  opacity: 0.4;
+  animation: heroOrbFloat 9s ease-in-out infinite, heroOrbColorCycle 14s linear infinite;
+}
+
+.hero-orb-1 {
+  width: 220px;
+  height: 220px;
+  top: 8%;
+  right: -60px;
+  background: var(--blue);
+}
+
+.hero-orb-2 {
+  width: 170px;
+  height: 170px;
+  bottom: 15%;
+  left: -50px;
+  background: var(--purple);
+  animation-delay: -3s, -5s;
+}
+
+.hero-orb-3 {
+  width: 130px;
+  height: 130px;
+  top: 48%;
+  right: 22%;
+  background: var(--teal);
+  animation-delay: -6s, -9s;
+}
+
+[data-theme="dark"] .hero-orb {
+  opacity: 0.26;
+}
+
+/* Mobile: desktop's offsets (-60px/-50px) push most of orb-1/orb-2 off
+   a narrow phone screen, leaving only a faint sliver visible — that's
+   why they looked underwhelming. Pull them further into frame and
+   raise opacity a touch, since on mobile these ARE the whole visual
+   (no 3D wireframe sharing the spotlight). */
+@media (max-width: 767px) {
+  .hero-orb-1 {
+    width: 260px;
+    height: 260px;
+    top: 4%;
+    right: -30px;
   }
 
-  .hero::before,
-  .hero::after {
-    content: '';
-    position: absolute;
-    z-index: 0;
-    border-radius: 50%;
-    pointer-events: none;
-    filter: blur(38px);
-    opacity: 0.4;
-    animation: heroOrbFloat 9s ease-in-out infinite;
+  .hero-orb-2 {
+    width: 210px;
+    height: 210px;
+    bottom: 8%;
+    left: -20px;
   }
 
-  .hero::before {
-    width: 200px;
-    height: 200px;
-    background: var(--blue);
-    top: 8%;
-    right: -50px;
+  .hero-orb-3 {
+    width: 170px;
+    height: 170px;
+    top: 42%;
+    right: 8%;
   }
 
-  .hero::after {
-    width: 160px;
-    height: 160px;
-    background: var(--purple);
-    bottom: 12%;
-    left: -40px;
-    animation-delay: -4.5s;
+  .hero-orb {
+    opacity: 0.5;
   }
 
-  [data-theme="dark"] .hero::before,
-  [data-theme="dark"] .hero::after {
-    opacity: 0.28;
+  [data-theme="dark"] .hero-orb {
+    opacity: 0.36;
   }
+}
 
-  @keyframes heroOrbFloat {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
-    }
-    50% {
-      transform: translate(-18px, 22px) scale(1.12);
-    }
+@keyframes heroOrbFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
   }
+  50% {
+    transform: translate(-18px, 22px) scale(1.12);
+  }
+}
 
-  @media (prefers-reduced-motion: reduce) {
-    .hero::before,
-    .hero::after {
-      animation: none;
-    }
+@keyframes heroOrbColorCycle {
+  0% {
+    filter: blur(40px) hue-rotate(0deg);
   }
+  100% {
+    filter: blur(40px) hue-rotate(45deg);
+  }
+}
 
-  /* --- Cards: soft corner glow where the 3D canvas used to sit --- */
-  .card {
-    position: relative;
+@media (prefers-reduced-motion: reduce) {
+  .hero-orb {
+    animation: none;
   }
+}
 
-  .card::after {
-    content: '';
-    position: absolute;
-    top: -24px;
-    right: -24px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--blue) 0%, transparent 72%);
-    opacity: 0.22;
-    filter: blur(4px);
-    pointer-events: none;
-    z-index: 0;
-    transition: opacity 0.3s ease;
-  }
+/* --- Cards: soft corner glow, sits behind each card's 3D canvas
+   on desktop (canvas.c3d z-index 0, this ::after z-index -1 via
+   stacking order below) and is the only accent there on mobile --- */
+.card {
+  position: relative;
+}
 
-  .card:nth-of-type(2n)::after {
-    background: radial-gradient(circle, var(--purple) 0%, transparent 72%);
-  }
+.card::after {
+  content: '';
+  position: absolute;
+  top: -24px;
+  right: -24px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--blue) 0%, transparent 72%);
+  opacity: 0.22;
+  filter: blur(4px);
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
 
-  .card:nth-of-type(3n)::after {
-    background: radial-gradient(circle, var(--teal) 0%, transparent 72%);
-  }
+.card:nth-of-type(2n)::after {
+  background: radial-gradient(circle, var(--purple) 0%, transparent 72%);
+}
 
-  .card:active::after {
-    opacity: 0.35;
-  }
+.card:nth-of-type(3n)::after {
+  background: radial-gradient(circle, var(--teal) 0%, transparent 72%);
+}
+
+.card:hover::after,
+.card:active::after {
+  opacity: 0.38;
 }
 
 /* ============================================================
@@ -1034,6 +1097,14 @@ footer {
   text-align: center;
   color: var(--muted);
   font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  footer {
+    /* clears space above the fixed "Ask about Malik" pill so it never
+       sits on top of the contact links below it */
+    padding-bottom: 120px;
+  }
 }
 
 .footer-link {

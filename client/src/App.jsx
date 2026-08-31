@@ -725,19 +725,135 @@ IMPORTANT RULES:
     setIsLoading(false);
   }
 
-  // ===== Unified 3D canvas manager (hero + all cards) — DESKTOP ONLY =====
-  // These wireframe animations are purely decorative. On mobile they've
-  // proven unreliable across different phones/Chrome builds even with a
-  // context cap + LRU eviction + auto-recovery (all three of which are
-  // still in place below, for desktop). Rather than keep chasing
-  // device-specific GPU quirks, we simply never touch WebGL on small
-  // viewports — no context is ever created there, so there's nothing left
-  // to break on scroll. Desktop keeps the full animation.
+  // ===== Hero 3D background — DESKTOP ONLY, PERMANENT =====
+  // Purely decorative. Skipped entirely on mobile (no WebGL touched
+  // there at all — see the CSS-only glow orbs instead). On desktop it
+  // initializes ONCE on mount and stays alive for the page's lifetime.
+  //
+  // Earlier this was lazy (IntersectionObserver-driven, dispose on
+  // scroll-away, reinit on scroll-back) alongside the card canvases,
+  // to dodge mobile's ~8 WebGL-context ceiling. But re-initializing
+  // measured `section.clientWidth/clientHeight` freshly each time,
+  // and depending on exactly when that measurement landed relative to
+  // layout/font settling, the sphere could come back very slightly
+  // differently sized — visible as "it gets bigger after I scroll down
+  // and back up". Since mobile no longer touches WebGL at all, hero is
+  // just ONE context on desktop — nothing worth making lazy. Keeping
+  // it permanent removes the reinit seam entirely, so there's nothing
+  // left that can drift in size.
   useEffect(() => {
-    if (window.innerWidth < 768) return; // mobile: skip entirely, nothing to init or clean up
+    if (window.innerWidth < 768) return; // mobile: skip entirely
 
-    const MAX_LIVE = 6; // stay well under mobile's ~8 context ceiling
-    const active = new Map(); // canvas -> { dispose(), type }
+    const canvas = heroCanvasRef.current;
+    if (!canvas) return;
+    const section = canvas.closest('.hero');
+    if (!section) return;
+
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    } catch (e) {
+      console.warn('⚠️ Hero WebGL context failed to init:', e);
+      return;
+    }
+    const scene = new THREE.Scene();
+
+    const isMobile = false; // this effect never runs below 768px
+    const camera = new THREE.PerspectiveCamera(50, section.clientWidth / section.clientHeight, 0.1, 100);
+    camera.position.set(0, 0, 6.6);
+    camera.lookAt(0, 0, 0);
+
+    function resize() {
+      renderer.setSize(section.clientWidth, section.clientHeight);
+      camera.aspect = section.clientWidth / section.clientHeight;
+      camera.updateProjectionMatrix();
+    }
+    resize();
+
+    const geo = new THREE.IcosahedronGeometry(2.0, 2);
+    const mat = new THREE.MeshBasicMaterial({
+      color: 0x007aff,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.38
+    });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.set(3.2, 0.4, -0.6);
+    scene.add(mesh);
+
+    // Small sphere: pulled back in closer to camera / more toward
+    // center-right so it's actually inside the visible frustum. It
+    // was drifting off-canvas at x=5.3 (invisible on real viewports),
+    // so this keeps it on the right side, just behind/near the
+    // widget-stack card, with a little bit of overlap allowed.
+    const geo2 = new THREE.IcosahedronGeometry(0.95, 1);
+    const mat2 = new THREE.MeshBasicMaterial({
+      color: 0x5e5ce6,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.34
+    });
+    const mesh2 = new THREE.Mesh(geo2, mat2);
+    mesh2.position.set(1.8, -1.7, -0.3);
+    scene.add(mesh2);
+
+    function handleResize() {
+      // Desktop only (effect returns early below 768px on mount, and we
+      // don't re-check on resize since a resize crossing that boundary
+      // would need a full remount anyway — resize just keeps proportions
+      // correct at the current width).
+      camera.position.set(0, 0, 6.6);
+      camera.lookAt(0, 0, 0);
+      mesh.position.set(3.2, 0.4, -0.6);
+      mesh.scale.set(1, 1, 1);
+      mesh2.position.set(1.8, -1.7, -0.3);
+      resize();
+    }
+    window.addEventListener('resize', handleResize);
+
+    let frameId;
+    function animate() {
+      frameId = requestAnimationFrame(animate);
+      mesh.rotation.y += 0.0022;
+      mesh.rotation.x += 0.001;
+      mesh2.rotation.y -= 0.0026;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Recover automatically if the browser ever reclaims this context
+    // (rare on desktop, but cheap insurance).
+    function onContextLost(e) {
+      e.preventDefault();
+      cancelAnimationFrame(frameId);
+    }
+    function onContextRestored() {
+      animate();
+    }
+    canvas.addEventListener('webglcontextlost', onContextLost, false);
+    canvas.addEventListener('webglcontextrestored', onContextRestored, false);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener('resize', handleResize);
+      canvas.removeEventListener('webglcontextlost', onContextLost, false);
+      canvas.removeEventListener('webglcontextrestored', onContextRestored, false);
+      renderer.dispose();
+    };
+  }, []);
+
+  // ===== Card 3D wireframes — DESKTOP ONLY, LAZY (LRU-capped) =====
+  // Unlike the hero, these have no isMobile-dependent camera math and
+  // no possible scale drift on reinit — they're always the same fixed
+  // 100x100 render with a static camera. So it's still worth keeping
+  // them lazy: with up to 12 of them (4 project + 4 sports + 4 trip
+  // cards), staying under a context cap and only running the ones
+  // actually on/near screen is lighter on the GPU with zero downside.
+  useEffect(() => {
+    if (window.innerWidth < 768) return; // mobile: skip entirely
+
+    const MAX_LIVE = 6;
+    const active = new Map(); // canvas -> { dispose() }
 
     function disposeEntry(canvas) {
       const entry = active.get(canvas);
@@ -753,126 +869,11 @@ IMPORTANT RULES:
     }
 
     function touch(canvas) {
-      // Re-insert at the end of the Map so it counts as "most recently used"
-      // for LRU eviction purposes.
       const entry = active.get(canvas);
       if (entry) {
         active.delete(canvas);
         active.set(canvas, entry);
       }
-    }
-
-    function initHero(canvas) {
-      const section = canvas.closest('.hero');
-      if (!section) return null;
-
-      let renderer;
-      try {
-        renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-      } catch (e) {
-        console.warn('⚠️ Hero WebGL context failed to init:', e);
-        return null;
-      }
-      const scene = new THREE.Scene();
-
-      const isMobile = window.innerWidth < 600;
-      const camera = new THREE.PerspectiveCamera(50, section.clientWidth / section.clientHeight, 0.1, 100);
-      camera.position.set(isMobile ? 0.5 : 0, isMobile ? 0.2 : 0, isMobile ? 5.5 : 7);
-      camera.lookAt(0, 0, 0);
-
-      function resize() {
-        renderer.setSize(section.clientWidth, section.clientHeight);
-        camera.aspect = section.clientWidth / section.clientHeight;
-        camera.updateProjectionMatrix();
-      }
-      resize();
-
-      const geo = new THREE.IcosahedronGeometry(1.6, 1);
-      const mat = new THREE.MeshBasicMaterial({
-        color: 0x007aff,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.2
-      });
-      const mesh = new THREE.Mesh(geo, mat);
-      if (isMobile) {
-        mesh.position.set(1.2, 0.3, -0.5);
-        mesh.scale.set(1.0, 1.0, 1.0);
-      } else {
-        mesh.position.set(3.2, 0.4, -1);
-      }
-      scene.add(mesh);
-
-      const geo2 = new THREE.IcosahedronGeometry(0.8, 0);
-      const mat2 = new THREE.MeshBasicMaterial({
-        color: 0x5e5ce6,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.2
-      });
-      const mesh2 = new THREE.Mesh(geo2, mat2);
-      if (isMobile) {
-        mesh2.position.set(0.8, -0.8, -1.2);
-      } else {
-        mesh2.position.set(2.0, -1.6, -1.5);
-      }
-      scene.add(mesh2);
-
-      const pCount = isMobile ? 50 : 90;
-      const positions = new Float32Array(pCount * 3);
-      for (let i = 0; i < pCount; i++) {
-        const range = isMobile ? 4 : 9;
-        positions[i * 3] = (Math.random() - 0.5) * range;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * (isMobile ? 2.5 : 6);
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
-      }
-      const pGeo = new THREE.BufferGeometry();
-      pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      const pMat = new THREE.PointsMaterial({
-        color: 0x007aff,
-        size: isMobile ? 0.035 : 0.03,
-        transparent: true,
-        opacity: 0.25
-      });
-      const points = new THREE.Points(pGeo, pMat);
-      scene.add(points);
-
-      function handleResize() {
-        const mobile = window.innerWidth < 600;
-        camera.position.set(0, 0, mobile ? 5.5 : 7);
-        camera.lookAt(0, 0, 0);
-        if (mobile) {
-          mesh.position.set(1.2, 0.3, -0.5);
-          mesh.scale.set(1.0, 1.0, 1.0);
-          mesh2.position.set(0.8, -0.8, -1.2);
-        } else {
-          mesh.position.set(3.2, 0.4, -1);
-          mesh.scale.set(1, 1, 1);
-          mesh2.position.set(2.0, -1.6, -1.5);
-        }
-        resize();
-      }
-      window.addEventListener('resize', handleResize);
-
-      let frameId;
-      function animate() {
-        frameId = requestAnimationFrame(animate);
-        mesh.rotation.y += 0.0022;
-        mesh.rotation.x += 0.001;
-        mesh2.rotation.y -= 0.0026;
-        points.rotation.y += 0.0005;
-        renderer.render(scene, camera);
-      }
-      animate();
-
-      return {
-        type: 'hero',
-        dispose() {
-          cancelAnimationFrame(frameId);
-          window.removeEventListener('resize', handleResize);
-          renderer.dispose();
-        }
-      };
     }
 
     function initCard(canvas) {
@@ -905,7 +906,6 @@ IMPORTANT RULES:
         animate();
 
         return {
-          type: 'card',
           dispose() {
             cancelAnimationFrame(frameId);
             renderer.dispose();
@@ -923,7 +923,7 @@ IMPORTANT RULES:
         return;
       }
       evictOldestIfNeeded();
-      const entry = canvas.id === 'heroCanvas' ? initHero(canvas) : initCard(canvas);
+      const entry = initCard(canvas);
       if (entry) active.set(canvas, entry);
     }
 
@@ -944,10 +944,8 @@ IMPORTANT RULES:
       { rootMargin: '200px', threshold: 0.01 }
     );
 
-    const allCanvases = [heroCanvasRef.current, ...Object.values(cardCanvasRefs.current)].filter(Boolean);
+    const cardCanvases = Object.values(cardCanvasRefs.current).filter(Boolean);
 
-    // If the browser itself evicts a context (independent of our own cap),
-    // recover instead of staying blank.
     function onContextLost(e) {
       e.preventDefault();
       deactivate(e.target);
@@ -956,7 +954,7 @@ IMPORTANT RULES:
       activate(e.target);
     }
 
-    allCanvases.forEach((canvas) => {
+    cardCanvases.forEach((canvas) => {
       observer.observe(canvas);
       canvas.addEventListener('webglcontextlost', onContextLost, false);
       canvas.addEventListener('webglcontextrestored', onContextRestored, false);
@@ -964,7 +962,7 @@ IMPORTANT RULES:
 
     return () => {
       observer.disconnect();
-      allCanvases.forEach((canvas) => {
+      cardCanvases.forEach((canvas) => {
         canvas.removeEventListener('webglcontextlost', onContextLost, false);
         canvas.removeEventListener('webglcontextrestored', onContextRestored, false);
       });
@@ -1080,6 +1078,11 @@ IMPORTANT RULES:
 
       <section className="hero">
         <canvas ref={heroCanvasRef} id="heroCanvas"></canvas>
+        <div className="hero-orbs" aria-hidden="true">
+          <span className="hero-orb hero-orb-1"></span>
+          <span className="hero-orb hero-orb-2"></span>
+          <span className="hero-orb hero-orb-3"></span>
+        </div>
         <div className="hero-copy">
           <div className="eyebrow">Open to full-stack &amp; support roles · Pune</div>
           <h1>
