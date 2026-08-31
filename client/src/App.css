@@ -1087,7 +1087,7 @@ footer {
 
 @media (max-width: 600px) {
   footer {
-    padding-bottom: 20px;
+    padding-bottom: 100px;
   }
 }
 
@@ -1146,10 +1146,10 @@ footer {
 }
 
 .footer-icon-link.github:hover {
-  color: #f0f6fc;
-  background: rgba(255, 255, 255, 0.08);
-  border-color: #f0f6fc;
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+  color: #1c1c1e;
+  background: rgba(28, 28, 30, 0.08);
+  border-color: #1c1c1e;
+  box-shadow: 0 0 20px rgba(28, 28, 30, 0.15);
 }
 
 .footer-icon-link.github:hover svg {
