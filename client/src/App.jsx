@@ -1085,7 +1085,7 @@ IMPORTANT RULES:
             </span>
             {typedCount < HERO_TYPE_TOTAL && <span className="typing-cursor" aria-hidden="true">|</span>}
           </h1>
-          <p>Full-stack developer — Java, React &amp; Node.js — with an MCA fresh out of AICAIT Pune (CGPA 9.00). I ship complete systems: auth, dashboards, real-time features, deployed and documented.</p>
+          <p>Full-stack developer — Java, React &amp; Node.js — with holding MCA degree from AICAIT Pune (CGPA 9.00). I ship complete systems: auth, dashboards, real-time features, deployed and documented.</p>
           <div className="hero-cta">
             <button className="btn btn-primary" onClick={() => document.getElementById('work').scrollIntoView({ behavior: 'smooth' })}>View Projects</button>
             <button className="btn btn-ghost" onClick={() => setAskOpen(true)}>Ask about me</button>
